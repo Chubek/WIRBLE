@@ -162,3 +162,8 @@ _agents/
 
 # WIRBLE runtime
 *.wrtm
+
+# WVM
+*.wvma
+*.wvmo
+*.wvmx
