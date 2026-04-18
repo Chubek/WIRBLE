@@ -1,0 +1,39 @@
+# WIRBLE Machine Description (YAML)
+
+name: string                    # Machine name (e.g., x86_64, aarch64, wasm)
+vendor: string                  # Vendor name (optional)
+endianness: little | big        # Default: little
+pointerSize: integer            # Pointer size in bytes
+
+registers:
+  - id: integer                 # Unique register ID
+    name: string                # Register name (e.g., rax, x0)
+    class: gpr | fp | vector | special
+    bitWidth: integer           # Register width in bits
+    allocatable: boolean        # Default: true
+    aliases: [string]           # Optional aliased names
+
+instructions:
+  - id: integer                 # Unique instruction ID
+    mnemonic: string            # Instruction mnemonic
+    asmTemplate: string         # Assembly template with %0, %1, ...
+    operands:
+      - name: string
+        type: reg | imm | mem | label
+        class: gpr | fp | vector | special  # If type is reg
+        isInput: boolean
+        isOutput: boolean
+        bitWidth: integer
+    encoding: string            # Hex encoding or pattern
+    selectionCost: integer      # Default: 1
+    latency: integer            # Default: 1
+    throughput: integer         # Default: 1
+
+fpSuites:
+  - name: string                # FP suite name (e.g., SSE, NEON)
+    formats: [float32 | float64 | float16 | bfloat16]
+
+vectorSuites:
+  - name: string                # Vector suite name
+    vectorWidth: integer        # Vector width in bits
+    elementTypes: [i8 | i16 | i32 | i64 | f32 | f64]

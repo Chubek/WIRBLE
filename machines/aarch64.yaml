@@ -1,0 +1,80 @@
+name: aarch64
+vendor: ARM
+endianness: little
+pointerSize: 8
+
+registers:
+  - id: 0
+    name: x0
+    class: gpr
+    bitWidth: 64
+    allocatable: true
+    aliases: [w0]
+  - id: 1
+    name: x1
+    class: gpr
+    bitWidth: 64
+    allocatable: true
+  - id: 32
+    name: v0
+    class: vector
+    bitWidth: 128
+    allocatable: true
+  - id: 64
+    name: sp
+    class: special
+    bitWidth: 64
+    allocatable: false
+
+instructions:
+  - id: 0
+    mnemonic: add
+    asmTemplate: "add %0, %1, %2"
+    operands:
+      - name: dst
+        type: reg
+        class: gpr
+        isOutput: true
+        bitWidth: 64
+      - name: src1
+        type: reg
+        class: gpr
+        isInput: true
+        bitWidth: 64
+      - name: src2
+        type: reg
+        class: gpr
+        isInput: true
+        bitWidth: 64
+    encoding: "0x8B000000"
+    selectionCost: 1
+    latency: 1
+    throughput: 2
+
+  - id: 1
+    mnemonic: ldr
+    asmTemplate: "ldr %0, [%1]"
+    operands:
+      - name: dst
+        type: reg
+        class: gpr
+        isOutput: true
+        bitWidth: 64
+      - name: addr
+        type: reg
+        class: gpr
+        isInput: true
+        bitWidth: 64
+    encoding: "0xF9400000"
+    selectionCost: 2
+    latency: 3
+    throughput: 1
+
+fpSuites:
+  - name: NEON
+    formats: [float32, float64, float16]
+
+vectorSuites:
+  - name: NEON
+    vectorWidth: 128
+    elementTypes: [i8, i16, i32, i64, f32, f64]

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://wirble.org/mds"
+           xmlns:mds="http://wirble.org/mds"
+           elementFormDefault="qualified">
+
+  <!-- Root element -->
+  <xs:element name="machine" type="mds:MachineType"/>
+
+  <!-- Machine type -->
+  <xs:complexType name="MachineType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="vendor" type="xs:string" minOccurs="0"/>
+      <xs:element name="endianness" type="mds:EndiannessType" default="little"/>
+      <xs:element name="pointerSize" type="xs:positiveInteger"/>
+      <xs:element name="registers" type="mds:RegistersType"/>
+      <xs:element name="instructions" type="mds:InstructionsType"/>
+      <xs:element name="fpSuites" type="mds:FPSuitesType" minOccurs="0"/>
+      <xs:element name="vectorSuites" type="mds:VectorSuitesType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Endianness -->
+  <xs:simpleType name="EndiannessType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="little"/>
+      <xs:enumeration value="big"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Registers -->
+  <xs:complexType name="RegistersType">
+    <xs:sequence>
+      <xs:element name="register" type="mds:RegisterType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RegisterType">
+    <xs:sequence>
+      <xs:element name="id" type="xs:nonNegativeInteger"/>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="class" type="mds:RegisterClassType"/>
+      <xs:element name="bitWidth" type="xs:positiveInteger"/>
+      <xs:element name="allocatable" type="xs:boolean" default="true"/>
+      <xs:element name="aliases" type="mds:AliasesType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="RegisterClassType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="gpr"/>
+      <xs:enumeration value="fp"/>
+      <xs:enumeration value="vector"/>
+      <xs:enumeration value="special"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="AliasesType">
+    <xs:sequence>
+      <xs:element name="alias" type="xs:string" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Instructions -->
+  <xs:complexType name="InstructionsType">
+    <xs:sequence>
+      <xs:element name="instruction" type="mds:InstructionType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="InstructionType">
+    <xs:sequence>
+      <xs:element name="id" type="xs:nonNegativeInteger"/>
+      <xs:element name="mnemonic" type="xs:string"/>
+      <xs:element name="asmTemplate" type="xs:string" minOccurs="0"/>
+      <xs:element name="operands" type="mds:OperandsType"/>
+      <xs:element name="encoding" type="xs:string" minOccurs="0"/>
+      <xs:element name="selectionCost" type="xs:positiveInteger" default="1"/>
+      <xs:element name="latency" type="xs:positiveInteger" default="1"/>
+      <xs:element name="throughput" type="xs:positiveInteger" default="1"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="OperandsType">
+    <xs:sequence>
+      <xs:element name="operand" type="mds:OperandType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="OperandType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="type" type="mds:OperandTypeEnum"/>
+      <xs:element name="class" type="mds:RegisterClassType" minOccurs="0"/>
+      <xs:element name="isInput" type="xs:boolean" default="false"/>
+      <xs:element name="isOutput" type="xs:boolean" default="false"/>
+      <xs:element name="bitWidth" type="xs:positiveInteger" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="OperandTypeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="reg"/>
+      <xs:enumeration value="imm"/>
+      <xs:enumeration value="mem"/>
+      <xs:enumeration value="label"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- FP Suites -->
+  <xs:complexType name="FPSuitesType">
+    <xs:sequence>
+      <xs:element name="fpSuite" type="mds:FPSuiteType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FPSuiteType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="formats" type="mds:FPFormatsType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FPFormatsType">
+    <xs:sequence>
+      <xs:element name="format" type="mds:FPFormatEnum" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="FPFormatEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="float32"/>
+      <xs:enumeration value="float64"/>
+      <xs:enumeration value="float16"/>
+      <xs:enumeration value="bfloat16"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Vector Suites -->
+  <xs:complexType name="VectorSuitesType">
+    <xs:sequence>
+      <xs:element name="vectorSuite" type="mds:VectorSuiteType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="VectorSuiteType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="vectorWidth" type="xs:positiveInteger"/>
+      <xs:element name="elementTypes" type="mds:ElementTypesType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ElementTypesType">
+    <xs:sequence>
+      <xs:element name="elementType" type="mds:ElementTypeEnum" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="ElementTypeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="i8"/>
+      <xs:enumeration value="i16"/>
+      <xs:enumeration value="i32"/>
+      <xs:enumeration value="i64"/>
+      <xs:enumeration value="f32"/>
+      <xs:enumeration value="f64"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

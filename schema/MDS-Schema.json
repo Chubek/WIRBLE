@@ -1,0 +1,207 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WIRBLE Machine Description",
+  "description": "Schema for describing target machine architecture for MDS",
+  "type": "object",
+  "required": ["name", "registers", "instructions"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Machine name (e.g., x86_64, aarch64, wasm)"
+    },
+    "vendor": {
+      "type": "string",
+      "description": "Vendor name (e.g., Intel, ARM, W3C)"
+    },
+    "endianness": {
+      "type": "string",
+      "enum": ["little", "big"],
+      "default": "little"
+    },
+    "pointerSize": {
+      "type": "integer",
+      "description": "Pointer size in bytes",
+      "minimum": 1
+    },
+    "registers": {
+      "type": "array",
+      "description": "Register definitions",
+      "items": {
+        "$ref": "#/definitions/register"
+      }
+    },
+    "instructions": {
+      "type": "array",
+      "description": "Instruction definitions",
+      "items": {
+        "$ref": "#/definitions/instruction"
+      }
+    },
+    "fpSuites": {
+      "type": "array",
+      "description": "Floating-point extension suites",
+      "items": {
+        "$ref": "#/definitions/fpSuite"
+      }
+    },
+    "vectorSuites": {
+      "type": "array",
+      "description": "Vector extension suites",
+      "items": {
+        "$ref": "#/definitions/vectorSuite"
+      }
+    }
+  },
+  "definitions": {
+    "register": {
+      "type": "object",
+      "required": ["id", "name", "class", "bitWidth"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Unique register ID"
+        },
+        "name": {
+          "type": "string",
+          "description": "Register name (e.g., rax, x0, v0)"
+        },
+        "class": {
+          "type": "string",
+          "enum": ["gpr", "fp", "vector", "special"],
+          "description": "Register class"
+        },
+        "bitWidth": {
+          "type": "integer",
+          "description": "Register width in bits"
+        },
+        "allocatable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Can be used by register allocator"
+        },
+        "aliases": {
+          "type": "array",
+          "description": "Aliased register names (e.g., eax for rax[31:0])",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "instruction": {
+      "type": "object",
+      "required": ["id", "mnemonic", "operands"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Unique instruction ID"
+        },
+        "mnemonic": {
+          "type": "string",
+          "description": "Instruction mnemonic (e.g., add, mov)"
+        },
+        "asmTemplate": {
+          "type": "string",
+          "description": "Assembly template with %0, %1, ... placeholders"
+        },
+        "operands": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/operand"
+          }
+        },
+        "encoding": {
+          "type": "string",
+          "description": "Hex encoding (e.g., 0x4883C0) or encoding pattern"
+        },
+        "selectionCost": {
+          "type": "integer",
+          "default": 1,
+          "description": "Cost for instruction selection"
+        },
+        "latency": {
+          "type": "integer",
+          "default": 1,
+          "description": "Execution latency in cycles"
+        },
+        "throughput": {
+          "type": "integer",
+          "default": 1,
+          "description": "Throughput (instructions per cycle)"
+        }
+      }
+    },
+    "operand": {
+      "type": "object",
+      "required": ["name", "type"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Operand name"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["reg", "imm", "mem", "label"],
+          "description": "Operand type"
+        },
+        "class": {
+          "type": "string",
+          "enum": ["gpr", "fp", "vector", "special"],
+          "description": "Register class (if type is reg)"
+        },
+        "isInput": {
+          "type": "boolean",
+          "default": false
+        },
+        "isOutput": {
+          "type": "boolean",
+          "default": false
+        },
+        "bitWidth": {
+          "type": "integer",
+          "description": "Operand width in bits"
+        }
+      }
+    },
+    "fpSuite": {
+      "type": "object",
+      "required": ["name", "formats"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "FP suite name (e.g., SSE, AVX, NEON)"
+        },
+        "formats": {
+          "type": "array",
+          "description": "Supported FP formats",
+          "items": {
+            "type": "string",
+            "enum": ["float32", "float64", "float16", "bfloat16"]
+          }
+        }
+      }
+    },
+    "vectorSuite": {
+      "type": "object",
+      "required": ["name", "vectorWidth", "elementTypes"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Vector suite name (e.g., SSE, AVX2, NEON)"
+        },
+        "vectorWidth": {
+          "type": "integer",
+          "description": "Vector width in bits"
+        },
+        "elementTypes": {
+          "type": "array",
+          "description": "Supported element types",
+          "items": {
+            "type": "string",
+            "enum": ["i8", "i16", "i32", "i64", "f32", "f64"]
+          }
+        }
+      }
+    }
+  }
+}

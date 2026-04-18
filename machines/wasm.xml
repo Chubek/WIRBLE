@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<machine xmlns="http://wirble.org/mds">
+  <name>wasm</name>
+  <vendor>W3C</vendor>
+  <endianness>little</endianness>
+  <pointerSize>4</pointerSize>
+
+  <registers>
+    <register>
+      <id>0</id>
+      <name>local0</name>
+      <class>gpr</class>
+      <bitWidth>32</bitWidth>
+      <allocatable>true</allocatable>
+    </register>
+    <register>
+      <id>1</id>
+      <name>local1</name>
+      <class>gpr</class>
+      <bitWidth>32</bitWidth>
+      <allocatable>true</allocatable>
+    </register>
+  </registers>
+
+  <instructions>
+    <instruction>
+      <id>0</id>
+      <mnemonic>i32.add</mnemonic>
+      <asmTemplate>i32.add</asmTemplate>
+      <operands>
+        <operand>
+          <name>lhs</name>
+          <type>reg</type>
+          <class>gpr</class>
+          <isInput>true</isInput>
+          <bitWidth>32</bitWidth>
+        </operand>
+        <operand>
+          <name>rhs</name>
+          <type>reg</type>
+          <class>gpr</class>
+          <isInput>true</isInput>
+          <bitWidth>32</bitWidth>
+        </operand>
+      </operands>
+      <encoding>0x6A</encoding>
+      <selectionCost>1</selectionCost>
+      <latency>1</latency>
+      <throughput>1</throughput>
+    </instruction>
+
+    <instruction>
+      <id>1</id>
+      <mnemonic>i32.const</mnemonic>
+      <asmTemplate>i32.const %0</asmTemplate>
+      <operands>
+        <operand>
+          <name>value</name>
+          <type>imm</type>
+          <isInput>true</isInput>
+          <bitWidth>32</bitWidth>
+        </operand>
+      </operands>
+      <encoding>0x41</encoding>
+      <selectionCost>1</selectionCost>
+      <latency>1</latency>
+      <throughput>1</throughput>
+    </instruction>
+  </instructions>
+
+  <fpSuites>
+    <fpSuite>
+      <name>wasm_fp</name>
+      <formats>
+        <format>float32</format>
+        <format>float64</format>
+      </formats>
+    </fpSuite>
+  </fpSuites>
+
+  <vectorSuites>
+    <vectorSuite>
+      <name>wasm_simd</name>
+      <vectorWidth>128</vectorWidth>
+      <elementTypes>
+        <elementType>i8</elementType>
+        <elementType>i16</elementType>
+        <elementType>i32</elementType>
+        <elementType>i64</elementType>
+        <elementType>f32</elementType>
+        <elementType>f64</elementType>
+      </elementTypes>
+    </vectorSuite>
+  </vectorSuites>
+</machine>

@@ -1,0 +1,111 @@
+{
+  "name": "x86_64",
+  "vendor": "Intel",
+  "endianness": "little",
+  "pointerSize": 8,
+  "registers": [
+    {
+      "id": 0,
+      "name": "rax",
+      "class": "gpr",
+      "bitWidth": 64,
+      "allocatable": true,
+      "aliases": ["eax", "ax", "al"]
+    },
+    {
+      "id": 1,
+      "name": "rbx",
+      "class": "gpr",
+      "bitWidth": 64,
+      "allocatable": true
+    },
+    {
+      "id": 16,
+      "name": "xmm0",
+      "class": "vector",
+      "bitWidth": 128,
+      "allocatable": true
+    },
+    {
+      "id": 100,
+      "name": "rip",
+      "class": "special",
+      "bitWidth": 64,
+      "allocatable": false
+    }
+  ],
+  "instructions": [
+    {
+      "id": 0,
+      "mnemonic": "add",
+      "asmTemplate": "add %0, %1",
+      "operands": [
+        {
+          "name": "dst",
+          "type": "reg",
+          "class": "gpr",
+          "isInput": true,
+          "isOutput": true,
+          "bitWidth": 64
+        },
+        {
+          "name": "src",
+          "type": "reg",
+          "class": "gpr",
+          "isInput": true,
+          "bitWidth": 64
+        }
+      ],
+      "encoding": "0x4801",
+      "selectionCost": 1,
+      "latency": 1,
+      "throughput": 4
+    },
+    {
+      "id": 1,
+      "mnemonic": "mov",
+      "asmTemplate": "mov %0, %1",
+      "operands": [
+        {
+          "name": "dst",
+          "type": "reg",
+          "class": "gpr",
+          "isOutput": true,
+          "bitWidth": 64
+        },
+        {
+          "name": "src",
+          "type": "imm",
+          "isInput": true,
+          "bitWidth": 64
+        }
+      ],
+      "encoding": "0x48B8",
+      "selectionCost": 1,
+      "latency": 1,
+      "throughput": 4
+    }
+  ],
+  "fpSuites": [
+    {
+      "name": "SSE",
+      "formats": ["float32", "float64"]
+    },
+    {
+      "name": "AVX",
+      "formats": ["float32", "float64"]
+    }
+  ],
+  "vectorSuites": [
+    {
+      "name": "SSE",
+      "vectorWidth": 128,
+      "elementTypes": ["i8", "i16", "i32", "i64", "f32", "f64"]
+    },
+    {
+      "name": "AVX2",
+      "vectorWidth": 256,
+      "elementTypes": ["i8", "i16", "i32", "i64", "f32", "f64"]
+    }
+  ]
+}
