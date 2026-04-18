@@ -1,0 +1,201 @@
+\doxysection{sexp.\+h}
+\hypertarget{sexp_8h_source}{}\label{sexp_8h_source}\index{sexp.h@{sexp.h}}
+\mbox{\hyperlink{sexp_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#ifndef\ \_\_SEXP\_H\_\_}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ \_\_SEXP\_H\_\_}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <stdio.h>}\ \textcolor{comment}{/*\ for\ BUFSIZ\ only\ */}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{faststack_8h}{faststack.h}}"{}}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{cstring_8h}{cstring.h}}"{}}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{sexp__memory_8h}{sexp\_memory.h}}"{}}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{sexp__errors_8h}{sexp\_errors.h}}"{}}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{/*\ doxygen\ documentation\ groups\ defined\ here\ */}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{comment}{/*==============*/}}
+\DoxyCodeLine{00130\ \textcolor{comment}{/*\ ENUMERATIONS\ */}}
+\DoxyCodeLine{00131\ \textcolor{comment}{/*==============*/}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00139\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00144\ \ \ \mbox{\hyperlink{sexp_8h_a61b4209867717e6c58f53ff2e8ddceb6aeb8602275a30963ddc65d053bdfec85d}{SEXP\_VALUE}},}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00150\ \ \ \mbox{\hyperlink{sexp_8h_a61b4209867717e6c58f53ff2e8ddceb6a89b8f13d64c892c4937cca2b31be7262}{SEXP\_LIST}}}
+\DoxyCodeLine{00151\ \}\ \mbox{\hyperlink{sexp_8h_a61b4209867717e6c58f53ff2e8ddceb6}{elt\_t}};}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00170\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00174\ \ \ \mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8a594aa2c99ca3430571fd3ffbb2e64e7d}{SEXP\_BASIC}},}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00180\ \ \ \mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8ad2e96c3c8bd37ca720a0e6bd8b766e01}{SEXP\_SQUOTE}},}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00186\ \ \ \mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8a6e683951fa87bd0c16204b0d8a722107}{SEXP\_DQUOTE}},}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00192\ \ \ \mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8affda94b3167db07b51f9c02f7328d716}{SEXP\_BINARY}}}
+\DoxyCodeLine{00193\ \}\ \mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8}{atom\_t}};}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \textcolor{comment}{/*============*/}}
+\DoxyCodeLine{00196\ \textcolor{comment}{/*\ STRUCTURES\ */}}
+\DoxyCodeLine{00197\ \textcolor{comment}{/*============*/}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00227\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structelt}{elt}}\ \{}
+\DoxyCodeLine{00239\ \ \ \mbox{\hyperlink{sexp_8h_a61b4209867717e6c58f53ff2e8ddceb6}{elt\_t}}\ \mbox{\hyperlink{structelt_ac41a3a68e12b03e36c3382f7475bcb9c}{ty}};}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00246\ \ \ \textcolor{keywordtype}{char}\ \ *\mbox{\hyperlink{structelt_a1d80a43cb41e5b550d4563dd10d302bc}{val}};}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00251\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \mbox{\hyperlink{structelt_a91f128358878eb65263a902c890a7d0a}{val\_allocated}};}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00256\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \mbox{\hyperlink{structelt_a42bc61e3fb0a2624a299c49b9bcd3c99}{val\_used}};}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00262\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structelt}{elt}}\ *\mbox{\hyperlink{structelt_abfc7da92d8494e8324f9110972e701b6}{list}};}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00269\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structelt}{elt}}\ *\mbox{\hyperlink{structelt_a054bea2012edef97a279278839adad15}{next}};}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00280\ \ \ \mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8}{atom\_t}}\ \mbox{\hyperlink{structelt_a66d8c150b9abd99438db7f8908edda57}{aty}};}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00291\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structelt_afd909e12d7992add70cbf30c99a4280f}{bindata}};}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00296\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structelt_ac71961cdbebf7a81e8e7b609a7f4c8aa}{binlength}};}
+\DoxyCodeLine{00297\ \}\ \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}};}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00303\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00307\ \ \ \mbox{\hyperlink{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8cacd50c22c706365a6a1ef701c41201bde}{PARSER\_NORMAL}},}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00313\ \ \ \mbox{\hyperlink{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8cab59f8e8c9b71455882669119aa89e901}{PARSER\_INLINE\_BINARY}},}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00324\ \ \ \mbox{\hyperlink{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8ca90a7ea93431869d44f3dded8b57a1f5f}{PARSER\_EVENTS\_ONLY}}}
+\DoxyCodeLine{00325\ \}\ \mbox{\hyperlink{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8c}{parsermode\_t}};}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00338\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser__event__handlers}{parser\_event\_handlers}}\ \{}
+\DoxyCodeLine{00343\ \ \ void\ (*\ \mbox{\hyperlink{structparser__event__handlers_a3600759a7f4ea3024d7ee83ec36962d7}{start\_sexpr}})();}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00349\ \ \ void\ (*\ \mbox{\hyperlink{structparser__event__handlers_a62872180b545e4d37fb39fed2e0db1a7}{end\_sexpr}})();}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00357\ \ \ void\ (*\ \mbox{\hyperlink{structparser__event__handlers_ad0bfb2163406938507e9ff5ff811b2c1}{characters}})(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *data,\ \textcolor{keywordtype}{size\_t}\ len,\ \mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8}{atom\_t}}\ aty);}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00365\ \ \ void\ (*\ \mbox{\hyperlink{structparser__event__handlers_a8bb9528656e02c95d8c8d013a10baf08}{binary}})(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00366\ \}\ \mbox{\hyperlink{sexp_8h_ab2909b539d5e86a1ab20146528cdf571}{parser\_event\_handlers\_t}};}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00395\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpcont}{pcont}}\ \{}
+\DoxyCodeLine{00399\ \ \ \mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\_t}}\ *\mbox{\hyperlink{structpcont_aa61e47d0d7c903f595e9b2ebb05da74c}{stack}};}
+\DoxyCodeLine{00400\ }
+\DoxyCodeLine{00408\ \ \ \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ \ \ \ \ *\mbox{\hyperlink{structpcont_ad44995372d1108ebc6603427a465aa23}{last\_sexp}};}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00413\ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ *\mbox{\hyperlink{structpcont_a1d80a43cb41e5b550d4563dd10d302bc}{val}};}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00418\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structpcont_a91f128358878eb65263a902c890a7d0a}{val\_allocated}};}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00423\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structpcont_a42bc61e3fb0a2624a299c49b9bcd3c99}{val\_used}};}
+\DoxyCodeLine{00424\ }
+\DoxyCodeLine{00429\ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ *\mbox{\hyperlink{structpcont_a90224c28b73c7914bca246690bfa3dc2}{vcur}};}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00437\ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ *\mbox{\hyperlink{structpcont_adb5a7ca337fa4a3cab6e3629d69aa849}{lastPos}};}
+\DoxyCodeLine{00438\ }
+\DoxyCodeLine{00444\ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ *\mbox{\hyperlink{structpcont_ae21ce0f623dfc7c2c85490d1a8083be3}{sbuffer}};}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00450\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structpcont_a5081a26baa914156df8541b03d09492e}{depth}};}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00456\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structpcont_ac51230bb37c5f6d0f838262acb702dd4}{qdepth}};}
+\DoxyCodeLine{00457\ }
+\DoxyCodeLine{00463\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structpcont_a3cc20059a5b78ca1c8660e2c8134079c}{state}};}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00470\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structpcont_a1f38548ab7881211cc22d63ab9ebfb1e}{esc}};}
+\DoxyCodeLine{00471\ }
+\DoxyCodeLine{00476\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structpcont_a89ded0d5c1d0e083422f8a1d24dd1c0f}{squoted}};}
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00483\ \ \ \mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024}{sexp\_errcode\_t}}\ \mbox{\hyperlink{structpcont_a7fec6ce8a0f894431798a1990ef7a001}{error}};}
+\DoxyCodeLine{00484\ }
+\DoxyCodeLine{00498\ \ \ \mbox{\hyperlink{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8c}{parsermode\_t}}\ \mbox{\hyperlink{structpcont_ac68ef69105406672dbadf3dd3fe6aa8d}{mode}};}
+\DoxyCodeLine{00499\ }
+\DoxyCodeLine{00500\ \ \ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00501\ \textcolor{comment}{\ \ \ *\ These\ fields\ below\ are\ related\ to\ dealing\ with\ INLINE\_BINARY\ mode}}
+\DoxyCodeLine{00502\ \textcolor{comment}{\ \ \ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00509\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structpcont_a4eaaf14b09c7b5797c86897eb5aa49fe}{binexpected}};}
+\DoxyCodeLine{00510\ }
+\DoxyCodeLine{00514\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structpcont_a52c1f4a81aebe4eff406f6c71832d02d}{binread}};}
+\DoxyCodeLine{00515\ }
+\DoxyCodeLine{00519\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structpcont_afd909e12d7992add70cbf30c99a4280f}{bindata}};}
+\DoxyCodeLine{00520\ }
+\DoxyCodeLine{00528\ \ \ \mbox{\hyperlink{sexp_8h_ab2909b539d5e86a1ab20146528cdf571}{parser\_event\_handlers\_t}}\ *\mbox{\hyperlink{structpcont_a0ee75726f3349d16f6a1fa233132305a}{event\_handlers}};}
+\DoxyCodeLine{00529\ \}\ \mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\_t}};}
+\DoxyCodeLine{00530\ }
+\DoxyCodeLine{00539\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsexp__iowrap}{sexp\_iowrap}}\ \{}
+\DoxyCodeLine{00543\ \ \ \mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\_t}}\ *\mbox{\hyperlink{structsexp__iowrap_a787668539ec9bbdc3b5eb1f771623ea3}{cc}};}
+\DoxyCodeLine{00544\ }
+\DoxyCodeLine{00549\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structsexp__iowrap_a6f8059414f0228f0256115e024eeed4b}{fd}};}
+\DoxyCodeLine{00550\ }
+\DoxyCodeLine{00554\ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structsexp__iowrap_ae3b5939f0addfa6064a79fc0cf133915}{buf}}[BUFSIZ];}
+\DoxyCodeLine{00555\ }
+\DoxyCodeLine{00560\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structsexp__iowrap_adc9bb9be55d353ea973698ff2e50e213}{cnt}};}
+\DoxyCodeLine{00561\ \}\ \mbox{\hyperlink{group__IO_ga7b4c4e4366408c822da57fda8293d94e}{sexp\_iowrap\_t}};}
+\DoxyCodeLine{00562\ }
+\DoxyCodeLine{00563\ \textcolor{comment}{/*========*/}}
+\DoxyCodeLine{00564\ \textcolor{comment}{/*\ GLOBAL\ */}}
+\DoxyCodeLine{00565\ \textcolor{comment}{/*========*/}}
+\DoxyCodeLine{00566\ }
+\DoxyCodeLine{00571\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024}{sexp\_errcode\_t}}\ \mbox{\hyperlink{sexp_8h_a62933b61bc65dde6e6234969ad2a16f7}{sexp\_errno}};}
+\DoxyCodeLine{00572\ }
+\DoxyCodeLine{00573\ \textcolor{comment}{/*===========*/}}
+\DoxyCodeLine{00574\ \textcolor{comment}{/*\ FUNCTIONS\ */}}
+\DoxyCodeLine{00575\ \textcolor{comment}{/*===========*/}}
+\DoxyCodeLine{00576\ }
+\DoxyCodeLine{00577\ \textcolor{comment}{/*\ this\ is\ for\ C++\ users\ */}}
+\DoxyCodeLine{00578\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00579\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00580\ \textcolor{preprocessor}{\#endif}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00610\ \ \ \mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024}{sexp\_errcode\_t}}\ \mbox{\hyperlink{group__parser_gae1316f65fe8caba1d0b7d53fa00d86fe}{set\_parser\_buffer\_params}}(\textcolor{keywordtype}{size\_t}\ ss,\ \textcolor{keywordtype}{size\_t}\ gs);}
+\DoxyCodeLine{00611\ }
+\DoxyCodeLine{00620\ \ \ \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *\mbox{\hyperlink{sexp_8h_a294992b52f3e6e70f19fe950b46e4b79}{sexp\_t\_allocate}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00621\ }
+\DoxyCodeLine{00627\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{sexp_8h_a4f72f6ae2958756f804be4b2535e716f}{sexp\_t\_deallocate}}(\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *s);}
+\DoxyCodeLine{00628\ }
+\DoxyCodeLine{00637\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{sexp_8h_a4ac40450af156048c6703cf88f02927d}{sexp\_cleanup}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00638\ }
+\DoxyCodeLine{00649\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{sexp_8h_a64b5776c26c466976c0614cdbb885586}{print\_sexp}}(\textcolor{keywordtype}{char}\ *loc,\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *e);}
+\DoxyCodeLine{00650\ }
+\DoxyCodeLine{00660\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{sexp_8h_a20521030be16115ca2f6f26377b2cfb9}{print\_sexp\_cstr}}(\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}}\ **s,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *e,\ \textcolor{keywordtype}{size\_t}\ ss);}
+\DoxyCodeLine{00661\ }
+\DoxyCodeLine{00665\ \ \ \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *\mbox{\hyperlink{sexp_8h_a6fe646222d78499da47dfa55820992ab}{new\_sexp\_list}}(\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *l);}
+\DoxyCodeLine{00666\ }
+\DoxyCodeLine{00675\ \ \ \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *\mbox{\hyperlink{sexp_8h_a920e940c3ec8c82a30d1993b44094407}{new\_sexp\_binary\_atom}}(\textcolor{keywordtype}{char}\ *data,\ \textcolor{keywordtype}{size\_t}\ binlength);}
+\DoxyCodeLine{00676\ }
+\DoxyCodeLine{00687\ \ \ \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *\mbox{\hyperlink{sexp_8h_a24acc806b4d5f55ba10301499b4a64f4}{new\_sexp\_atom}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{size\_t}\ bs,\ \mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8}{atom\_t}}\ aty);}
+\DoxyCodeLine{00688\ }
+\DoxyCodeLine{00692\ \ \ \mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\_t}}\ *\mbox{\hyperlink{sexp_8h_a4796ac43fc8feb7232ea24ae2825d548}{init\_continuation}}(\textcolor{keywordtype}{char}\ *str);}
+\DoxyCodeLine{00693\ }
+\DoxyCodeLine{00698\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{sexp_8h_a86b8e97e95a03cbe9b3351bee95230df}{destroy\_continuation}}\ (\mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\_t}}\ *\ pc);}
+\DoxyCodeLine{00699\ }
+\DoxyCodeLine{00706\ \ \ \mbox{\hyperlink{group__IO_ga7b4c4e4366408c822da57fda8293d94e}{sexp\_iowrap\_t}}\ *\mbox{\hyperlink{group__IO_ga826b91ed5d285b6ccdf5d90301bb23f2}{init\_iowrap}}(\textcolor{keywordtype}{int}\ fd);}
+\DoxyCodeLine{00707\ }
+\DoxyCodeLine{00714\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__IO_ga3eacc12bba60c2e94609e8e46c003b20}{destroy\_iowrap}}(\mbox{\hyperlink{group__IO_ga7b4c4e4366408c822da57fda8293d94e}{sexp\_iowrap\_t}}\ *iow);}
+\DoxyCodeLine{00715\ }
+\DoxyCodeLine{00727\ \ \ \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *\mbox{\hyperlink{group__IO_ga40e1d44645d4f7d47e4e595d99908994}{read\_one\_sexp}}(\mbox{\hyperlink{group__IO_ga7b4c4e4366408c822da57fda8293d94e}{sexp\_iowrap\_t}}\ *iow);}
+\DoxyCodeLine{00728\ }
+\DoxyCodeLine{00733\ \ \ \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *\mbox{\hyperlink{group__parser_gad293031c1700e2e3082e1b769efa7a48}{parse\_sexp}}(\textcolor{keywordtype}{char}\ *s,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00734\ }
+\DoxyCodeLine{00740\ \ \ \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *\mbox{\hyperlink{group__parser_gaedc8291648be97e37870643c6cf7a0b8}{iparse\_sexp}}(\textcolor{keywordtype}{char}\ *s,\ \textcolor{keywordtype}{size\_t}\ len,\ \mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\_t}}\ *cc);}
+\DoxyCodeLine{00741\ }
+\DoxyCodeLine{00747\ \ \ \mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\_t}}\ *\mbox{\hyperlink{group__parser_gab32f97638a733c528eaa6a1a01c2e6ca}{cparse\_sexp}}(\textcolor{keywordtype}{char}\ *s,\ \textcolor{keywordtype}{size\_t}\ len,\ \mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\_t}}\ *pc);}
+\DoxyCodeLine{00748\ }
+\DoxyCodeLine{00760\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{sexp_8h_a6ed8f4177cdbe458e904fb75b2b7d914}{destroy\_sexp}}(\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *s);}
+\DoxyCodeLine{00761\ }
+\DoxyCodeLine{00765\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{sexp_8h_a65e96ea2ac898af2b5d2656b1a68bd7e}{reset\_sexp\_errno}}();}
+\DoxyCodeLine{00766\ }
+\DoxyCodeLine{00775\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{sexp_8h_a65e3e5bce39f959e85d1119aa113e850}{print\_pcont}}(\mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\_t}}\ *\ pc,\ \textcolor{keywordtype}{char}\ *\ buf,\ \textcolor{keywordtype}{size\_t}\ buflen);}
+\DoxyCodeLine{00776\ }
+\DoxyCodeLine{00777\ \ \ \textcolor{comment}{/*\ this\ is\ for\ C++\ users\ */}}
+\DoxyCodeLine{00778\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00779\ \}}
+\DoxyCodeLine{00780\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00781\ }
+\DoxyCodeLine{00782\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{sexp__ops_8h}{sexp\_ops.h}}"{}}}
+\DoxyCodeLine{00783\ }
+\DoxyCodeLine{00784\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_SEXP\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

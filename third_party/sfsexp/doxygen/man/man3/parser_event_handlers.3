@@ -1,0 +1,43 @@
+.TH "parser_event_handlers" 3 "Small, Fast S-Expression Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+parser_event_handlers
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <sexp\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "void(* \fBstart_sexpr\fP )()"
+.br
+.ti -1c
+.RI "void(* \fBend_sexpr\fP )()"
+.br
+.ti -1c
+.RI "void(* \fBcharacters\fP )(const char *data, size_t len, \fBatom_t\fP aty)"
+.br
+.ti -1c
+.RI "void(* \fBbinary\fP )(const char *data, size_t len)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Some users would prefer to, instead of parsing a full string and walking a potentially huge \fBsexp_t\fP structure, use an XML SAX-style parser where events are triggered as certain parts of the s-expression are encountered\&. This structure contains a set of function pointers that are called by the parser as it hits expression start and end, and completes reading atoms and binary data\&. NOTE: The parser_event_handler struct that is a field in the continuation data structure is NOT freed by destroy_continuation since structs for callbacks are ALWAYS malloc'd by the user, not the library\&. 
+.SH "Field Documentation"
+.PP 
+.SS "void(* binary) (const char *data, size_t len)"
+The binary function pointer is called when the parser is functioning in INLINE_BINARY mode and binary data is encountered\&. The function must take two arguments: a pointer to the beginning of the binary data and the number of bytes of data present\&. 
+.SS "void(* characters) (const char *data, size_t len, \fBatom_t\fP aty)"
+The characters function pointer is called when an atom is completely parsed\&. The function must take three arguments: a pointer to the atom data, the number of elements the atom contains, and the specific type of atom that the data represents\&. 
+.SS "void(* end_sexpr) ()"
+The end_sexpr function pointer is called when an close parenthesis is encountered ending an expression\&. 
+.SS "void(* start_sexpr) ()"
+The start_sexpr function pointer is called when an open parenthesis is encountered starting an expression\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Small, Fast S-Expression Library from the source code\&.

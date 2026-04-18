@@ -1,0 +1,42 @@
+\doxysection{sexp\+\_\+ops.\+h}
+\hypertarget{sexp__ops_8h_source}{}\label{sexp__ops_8h_source}\index{sexp\_ops.h@{sexp\_ops.h}}
+\mbox{\hyperlink{sexp__ops_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#ifndef\ \_\_SEXP\_OPS\_H\_\_}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ \_\_SEXP\_OPS\_H\_\_}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{sexp_8h}{sexp.h}}"{}}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00051\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \textcolor{comment}{/*========*/}}
+\DoxyCodeLine{00055\ \ \ \textcolor{comment}{/*\ MACROS\ */}}
+\DoxyCodeLine{00056\ \ \ \textcolor{comment}{/*========*/}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ hd\_sexp(s)\ ((s)-\/>list)}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ tl\_sexp(s)\ ((s)-\/>list-\/>next)}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ next\_sexp(s)\ ((s)-\/>next)}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ reset\_pcont(c)\ ((c)-\/>lastPos\ =\ NULL)}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00089\ \ \ \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *\mbox{\hyperlink{sexp__ops_8h_a29ed1d2ac49059377efbfc3aa5d64baf}{find\_sexp}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *start);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00104\ \ \ \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *\mbox{\hyperlink{sexp__ops_8h_aee78f8a169907a4be034c9e8a696adde}{bfs\_find\_sexp}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *start);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{sexp__ops_8h_a7c51a5bcc075a6cef85de6438085bdb4}{sexp\_list\_length}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *sx);}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00127\ \ \ \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *\mbox{\hyperlink{sexp__ops_8h_a1d8b75ea0651c3467b7f353d87e3d1ec}{copy\_sexp}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\_t}}\ *sx);}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00130\ \}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_SEXP\_OPS\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,95 @@
+.TH "faststack.h" 3 "Small, Fast S-Expression Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+faststack.h \- Implementation of a fast stack with smart memory management\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBstack_level\fP"
+.br
+.ti -1c
+.RI "struct \fBstack_wrapper\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBtop_data\fP(s)"
+.br
+.ti -1c
+.RI "#define \fBempty_stack\fP(s)"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fBstack_level\fP \fBstack_lvl_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBstack_wrapper\fP \fBfaststack_t\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBfaststack_t\fP * \fBmake_stack\fP ()"
+.br
+.ti -1c
+.RI "void \fBdestroy_stack\fP (\fBfaststack_t\fP *s)"
+.br
+.ti -1c
+.RI "\fBfaststack_t\fP * \fBpush\fP (\fBfaststack_t\fP *cur_stack, void *data)"
+.br
+.ti -1c
+.RI "\fBstack_lvl_t\fP * \fBpop\fP (\fBfaststack_t\fP *s)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Implementation of a fast stack with smart memory management\&. 
+
+
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define empty_stack( s)"
+\fBValue:\fP
+.nf
+(s\->top == NULL)
+.PP
+.fi
+Given a stack \fIs\fP, check to see if the stack is empty or not\&. Value is boolean true or false\&. 
+.SS "#define top_data( s)"
+\fBValue:\fP
+.nf
+(s\->top\->data)
+.PP
+.fi
+Given a stack \fIs\fP, examine the data pointer at the top\&. 
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fBstack_wrapper\fP \fBfaststack_t\fP"
+Wrapper around the stack levels - keeps a pointer to the current top and bottom of the stack and a count of the current height\&. This allows the top to have non-null above pointer resulting from previously allocated stack levels that may be recycled later without \fRmalloc\fP overhead\&. 
+.SS "typedef struct \fBstack_level\fP \fBstack_lvl_t\fP"
+Structure representing a single level in the stack\&. Has a pointer to the level above and below itself and a pointer to a generic blob of data associated with this level\&. 
+.SH "Function Documentation"
+.PP 
+.SS "void destroy_stack (\fBfaststack_t\fP * s)"
+Given a stack structure, destroy it and free all of the stack levels\&. \fBImportant note\fP : This function \fIdoes not\fP free the data pointed to from each level of the stack - the user is responsible for freeing this data themselves before calling this function to prevent memory leakage\&. 
+.SS "\fBfaststack_t\fP * make_stack ()"
+functions Return a pointer to an empty stack structure\&. If the return value is NULL, one should check sexp_errno to determine why\&. 
+.SS "\fBstack_lvl_t\fP * pop (\fBfaststack_t\fP * s)"
+Given a stack, pop a level off and return a pointer to that level\&. The user is responsible for extracting the data, but the \fBstack_lvl_t\fP structures pointed to from the level (above and below) should be left alone\&. If NULL is returned, either the stack contained nothing, or the incoming stack s was NULL\&. Consult sexp_errno to determine which was the case -- SEXP_ERR_BAD_STACK indicates a null stack was passed in\&. 
+.SS "\fBfaststack_t\fP * push (\fBfaststack_t\fP * cur_stack, void * data)"
+Given a stack, push a new level on referring to the data pointer\&. If a new level cannot be allocated, NULL is returned and sexp_errno is set with the appropriate error condition\&. Memory allocation errors will result in SEXP_ERR_MEMORY, while a null stack will result in SEXP_ERR_BAD_STACK\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Small, Fast S-Expression Library from the source code\&.

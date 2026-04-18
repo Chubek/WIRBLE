@@ -1,0 +1,41 @@
+.TH "__cstring" 3 "Small, Fast S-Expression Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+__cstring
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <cstring\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char * \fBbase\fP"
+.br
+.ti -1c
+.RI "size_t \fBlen\fP"
+.br
+.ti -1c
+.RI "size_t \fBcurlen\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBcstring\&.h\fP : c string library to make Ron happy\&. Wrapper around plain C strings that handles automatically growing the string as data is concattenated to the end\&. (note: this is an improved version of cstring from supermon\&. Migrate it into that library eventually\&.\&.\&. )
+
+.PP
+-matt sottile Structure wrapping the character pointer and size counters (allocated vs\&. actual used)\&. 
+.SH "Field Documentation"
+.PP 
+.SS "char* base"
+Base address of the string\&. 
+.SS "size_t curlen"
+Current size of the string stored in the buffer\&. len >= curlen always, and when len < curlen would be true after a concat operation, we realloc bigger space to keep len >= curlen\&. 
+.SS "size_t len"
+Size of the memory allocated and pointed to by the base pointer\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Small, Fast S-Expression Library from the source code\&.

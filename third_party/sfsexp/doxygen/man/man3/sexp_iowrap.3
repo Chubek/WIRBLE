@@ -1,0 +1,43 @@
+.TH "sexp_iowrap" 3 "Small, Fast S-Expression Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sexp_iowrap
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <sexp\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBpcont_t\fP * \fBcc\fP"
+.br
+.ti -1c
+.RI "int \fBfd\fP"
+.br
+.ti -1c
+.RI "char \fBbuf\fP [BUFSIZ]"
+.br
+.ti -1c
+.RI "size_t \fBcnt\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+This structure is a wrapper around a standard I/O file descriptor and the parsing infrastructure (continuation and a buffer) required to parse off of it\&. This is used so that routines can hide the loops and details required to accumulate up data read off of the file descriptor and parse expressions individually out of it\&. 
+.SH "Field Documentation"
+.PP 
+.SS "char buf[BUFSIZ]"
+Buffer to read data into before parsing\&. 
+.SS "\fBpcont_t\fP* cc"
+Continuation used to parse off of the file descriptor\&. 
+.SS "size_t cnt"
+Byte count for last read\&. If it is -1, there was an error\&. Otherwise, it will be a value from 0 to BUFSIZ\&. 
+.SS "int fd"
+The file descriptor\&. Currently CANNOT be a socket since implementation uses read(), not recv()\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Small, Fast S-Expression Library from the source code\&.

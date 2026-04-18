@@ -1,0 +1,73 @@
+.TH "sexp_errors.h" 3 "Small, Fast S-Expression Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sexp_errors.h \- Error conditions are enumerated here along with any routines for translating error codes to human readable messages\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBsexp_errcode_t\fP { \fBSEXP_ERR_OK\fP = 0, \fBSEXP_ERR_MEMORY\fP, \fBSEXP_ERR_BADFORM\fP, \fBSEXP_ERR_BADCONTENT\fP, \fBSEXP_ERR_NULLSTRING\fP, \fBSEXP_ERR_IO\fP, \fBSEXP_ERR_IO_EMPTY\fP, \fBSEXP_ERR_MEM_LIMIT\fP, \fBSEXP_ERR_BUFFER_FULL\fP, \fBSEXP_ERR_BAD_PARAM\fP, \fBSEXP_ERR_BAD_STACK\fP, \fBSEXP_ERR_UNKNOWN_STATE\fP, \fBSEXP_ERR_INCOMPLETE\fP, \fBSEXP_ERR_BAD_CONSTRUCTOR\fP }"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Error conditions are enumerated here along with any routines for translating error codes to human readable messages\&. 
+
+
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBsexp_errcode_t\fP"
+Error codes used by the library are defined in this enumeration\&. They are either used as values for the error field within the continuation structures, or as return values for functions with a return type of \fBsexp_errcode_t\fP\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BISEXP_ERR_OK \fP
+no error\&. 
+.TP
+\f(BISEXP_ERR_MEMORY \fP
+memory error\&. malloc/realloc/calloc failures may result in this error code\&. this can either result from the system calls failing, or in the limited memory mode of the library, the memory limit being exceeded\&. In limited memory mode, if this error condition is present, one should check the memory limits that were in place during the erroneous call\&. 
+.TP
+\f(BISEXP_ERR_BADFORM \fP
+badly formed expression\&. Missing, misplaced, or mismatched parenthesis will result in this error\&. 
+.TP
+\f(BISEXP_ERR_BADCONTENT \fP
+a \fBsexp_t\fP that is inconsistent will result in this error code\&. An example is a SEXP_BASIC \fBsexp_t\fP with a null val field but a non-zero val_used value\&. Similar cases exist for SEXP_DQUOTE, SQUOTE, and BINARY types\&. This value is also used in the parser to flag a case where an inlined binary block is given a negative length\&. 
+.TP
+\f(BISEXP_ERR_NULLSTRING \fP
+if a null string is passed into the parser, this error occurs\&. 
+.TP
+\f(BISEXP_ERR_IO \fP
+general IO related errors, such as failure of fopen()\&. these are basically non-starters with respect to getting the IO routines going\&. 
+.TP
+\f(BISEXP_ERR_IO_EMPTY \fP
+I/O routines that return NULL may simply have nothing to read\&. This is sometimes an error condition if the io wrapper continuation contains a partially complete s-expression, but nothing more is present (yet) on the file descriptor\&. 
+.TP
+\f(BISEXP_ERR_MEM_LIMIT \fP
+when running the library under limited memory (ie, \fISEXP_LIMIT_MEMORY\fP defined at build time), this error will be produced when the memory limit is exceeded\&. 
+.TP
+\f(BISEXP_ERR_BUFFER_FULL \fP
+buffer for unparsing is full\&. 
+.TP
+\f(BISEXP_ERR_BAD_PARAM \fP
+routines that take parameters such as memory limits, growth sizes, or default sizes, can produce this error if a bad value has been passed in\&. this error usually will indicate that the parameters were bad and the default values were used instead (ie, it is non-fatal\&.)\&. 
+.TP
+\f(BISEXP_ERR_BAD_STACK \fP
+bad stack state encountered\&. 
+.TP
+\f(BISEXP_ERR_UNKNOWN_STATE \fP
+unknown parser state 
+.TP
+\f(BISEXP_ERR_INCOMPLETE \fP
+parsing is incomplete and need more data to complete it\&. 
+.TP
+\f(BISEXP_ERR_BAD_CONSTRUCTOR \fP
+this error code indicates that an atom was created with the incorrect constructor\&. For example, attempting to create a binary mode atom with the new_sexp_atom constructor intended for text atoms will cause this to be set\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Small, Fast S-Expression Library from the source code\&.

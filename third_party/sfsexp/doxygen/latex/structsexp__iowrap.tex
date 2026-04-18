@@ -1,0 +1,50 @@
+\doxysection{sexp\+\_\+iowrap Struct Reference}
+\hypertarget{structsexp__iowrap}{}\label{structsexp__iowrap}\index{sexp\_iowrap@{sexp\_iowrap}}
+
+
+{\ttfamily \#include $<$sexp.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structsexp__iowrap_a787668539ec9bbdc3b5eb1f771623ea3}{cc}}
+\item 
+int \mbox{\hyperlink{structsexp__iowrap_a6f8059414f0228f0256115e024eeed4b}{fd}}
+\item 
+char \mbox{\hyperlink{structsexp__iowrap_ae3b5939f0addfa6064a79fc0cf133915}{buf}} \mbox{[}BUFSIZ\mbox{]}
+\item 
+size\+\_\+t \mbox{\hyperlink{structsexp__iowrap_adc9bb9be55d353ea973698ff2e50e213}{cnt}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This structure is a wrapper around a standard I/O file descriptor and the parsing infrastructure (continuation and a buffer) required to parse off of it. This is used so that routines can hide the loops and details required to accumulate up data read off of the file descriptor and parse expressions individually out of it. 
+
+\label{doc-variable-members}
+\Hypertarget{structsexp__iowrap_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structsexp__iowrap_ae3b5939f0addfa6064a79fc0cf133915}\index{sexp\_iowrap@{sexp\_iowrap}!buf@{buf}}
+\index{buf@{buf}!sexp\_iowrap@{sexp\_iowrap}}
+\doxysubsubsection{\texorpdfstring{buf}{buf}}
+{\footnotesize\ttfamily \label{structsexp__iowrap_ae3b5939f0addfa6064a79fc0cf133915} 
+char buf\mbox{[}BUFSIZ\mbox{]}}
+
+Buffer to read data into before parsing. \Hypertarget{structsexp__iowrap_a787668539ec9bbdc3b5eb1f771623ea3}\index{sexp\_iowrap@{sexp\_iowrap}!cc@{cc}}
+\index{cc@{cc}!sexp\_iowrap@{sexp\_iowrap}}
+\doxysubsubsection{\texorpdfstring{cc}{cc}}
+{\footnotesize\ttfamily \label{structsexp__iowrap_a787668539ec9bbdc3b5eb1f771623ea3} 
+\mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}}\texorpdfstring{$\ast$}{*} cc}
+
+Continuation used to parse off of the file descriptor. \Hypertarget{structsexp__iowrap_adc9bb9be55d353ea973698ff2e50e213}\index{sexp\_iowrap@{sexp\_iowrap}!cnt@{cnt}}
+\index{cnt@{cnt}!sexp\_iowrap@{sexp\_iowrap}}
+\doxysubsubsection{\texorpdfstring{cnt}{cnt}}
+{\footnotesize\ttfamily \label{structsexp__iowrap_adc9bb9be55d353ea973698ff2e50e213} 
+size\+\_\+t cnt}
+
+Byte count for last read. If it is -\/1, there was an error. Otherwise, it will be a value from 0 to BUFSIZ. \Hypertarget{structsexp__iowrap_a6f8059414f0228f0256115e024eeed4b}\index{sexp\_iowrap@{sexp\_iowrap}!fd@{fd}}
+\index{fd@{fd}!sexp\_iowrap@{sexp\_iowrap}}
+\doxysubsubsection{\texorpdfstring{fd}{fd}}
+{\footnotesize\ttfamily \label{structsexp__iowrap_a6f8059414f0228f0256115e024eeed4b} 
+int fd}
+
+The file descriptor. Currently CANNOT be a socket since implementation uses read(), not recv(). 

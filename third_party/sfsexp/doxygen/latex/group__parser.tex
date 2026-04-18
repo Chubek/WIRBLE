@@ -1,0 +1,57 @@
+\doxysection{Parser routines }
+\hypertarget{group__parser}{}\label{group__parser}\index{Parser routines@{Parser routines}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024}{sexp\+\_\+errcode\+\_\+t}} \mbox{\hyperlink{group__parser_gae1316f65fe8caba1d0b7d53fa00d86fe}{set\+\_\+parser\+\_\+buffer\+\_\+params}} (size\+\_\+t ss, size\+\_\+t gs)
+\item 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__parser_gad293031c1700e2e3082e1b769efa7a48}{parse\+\_\+sexp}} (char \texorpdfstring{$\ast$}{*}s, size\+\_\+t len)
+\item 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__parser_gaedc8291648be97e37870643c6cf7a0b8}{iparse\+\_\+sexp}} (char \texorpdfstring{$\ast$}{*}s, size\+\_\+t len, \mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}} \texorpdfstring{$\ast$}{*}cc)
+\item 
+\mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__parser_gab32f97638a733c528eaa6a1a01c2e6ca}{cparse\+\_\+sexp}} (char \texorpdfstring{$\ast$}{*}s, size\+\_\+t len, \mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}} \texorpdfstring{$\ast$}{*}pc)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\label{doc-func-members}
+\Hypertarget{group__parser_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{group__parser_gab32f97638a733c528eaa6a1a01c2e6ca}\index{Parser routines@{Parser routines}!cparse\_sexp@{cparse\_sexp}}
+\index{cparse\_sexp@{cparse\_sexp}!Parser routines@{Parser routines}}
+\doxysubsubsection{\texorpdfstring{cparse\_sexp()}{cparse\_sexp()}}
+{\footnotesize\ttfamily \label{group__parser_gab32f97638a733c528eaa6a1a01c2e6ca} 
+\mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}} \texorpdfstring{$\ast$}{*} cparse\+\_\+sexp (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{s}{, }\item[{size\+\_\+t}]{len}{, }\item[{\mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{pc}{}\end{DoxyParamCaption})}
+
+given a LISP style s-\/expression string, parse it into a set of connected \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t} structures. \Hypertarget{group__parser_gaedc8291648be97e37870643c6cf7a0b8}\index{Parser routines@{Parser routines}!iparse\_sexp@{iparse\_sexp}}
+\index{iparse\_sexp@{iparse\_sexp}!Parser routines@{Parser routines}}
+\doxysubsubsection{\texorpdfstring{iparse\_sexp()}{iparse\_sexp()}}
+{\footnotesize\ttfamily \label{group__parser_gaedc8291648be97e37870643c6cf7a0b8} 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} iparse\+\_\+sexp (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{s}{, }\item[{size\+\_\+t}]{len}{, }\item[{\mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{cc}{}\end{DoxyParamCaption})}
+
+wrapper around parser for friendlier continuation use pre-\/condition \+: continuation (cc) is NON-\/\+NULL! \Hypertarget{group__parser_gad293031c1700e2e3082e1b769efa7a48}\index{Parser routines@{Parser routines}!parse\_sexp@{parse\_sexp}}
+\index{parse\_sexp@{parse\_sexp}!Parser routines@{Parser routines}}
+\doxysubsubsection{\texorpdfstring{parse\_sexp()}{parse\_sexp()}}
+{\footnotesize\ttfamily \label{group__parser_gad293031c1700e2e3082e1b769efa7a48} 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} parse\+\_\+sexp (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{s}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})}
+
+wrapper around parser for compatibility. \Hypertarget{group__parser_gae1316f65fe8caba1d0b7d53fa00d86fe}\index{Parser routines@{Parser routines}!set\_parser\_buffer\_params@{set\_parser\_buffer\_params}}
+\index{set\_parser\_buffer\_params@{set\_parser\_buffer\_params}!Parser routines@{Parser routines}}
+\doxysubsubsection{\texorpdfstring{set\_parser\_buffer\_params()}{set\_parser\_buffer\_params()}}
+{\footnotesize\ttfamily \label{group__parser_gae1316f65fe8caba1d0b7d53fa00d86fe} 
+\mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024}{sexp\+\_\+errcode\+\_\+t}} set\+\_\+parser\+\_\+buffer\+\_\+params (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{ss}{, }\item[{size\+\_\+t}]{gs}{}\end{DoxyParamCaption})}
+
+Set the parameters on atom value buffer allocation and growth sizes. This is an important point for performance tuning, as many factors in the expected expression structure must be taken into account such as\+:
+
+
+\begin{DoxyItemize}
+\item Average size of atom values
+\item Variance in sizes of atom values
+\item Amount of memory that is tolerably \textquotesingle{}\textquotesingle{}wasted\textquotesingle{}\textquotesingle{} (allocated but not used)
+\end{DoxyItemize}
+
+The {\itshape ss} parameter specifies the initial size of all atom buffers. Ideally, this should be sufficiently large to capture MOST atom values, or at least close enough such that one growth is required. The {\itshape gs} parameter specifies the number of bytes to increase the buffer size by when space is exhausted. A safe choice for parameter sizes would be on the order of the average size for {\itshape ss}, and one standard deviation for {\itshape gs}. This ensures that 50\% of all expressions are guaranteed to fit in the initial buffer, and roughly 80-\/90\% will fit in one growth. If memory is not an issue, choosing ss to be the mean plus one standard deviation will capture 80-\/90\% of expressions in the initial buffer, and a gs of one standard deviation will capture nearly all expressions.
+
+Note\+: These parameters can be tuned at runtime as needs change, and they will be applied to all expressions and expression elements parsed after they are modified. They will not be applied retroactively to expressions that have already been parsed. 

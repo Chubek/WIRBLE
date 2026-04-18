@@ -1,0 +1,44 @@
+\doxysection{\+\_\+\+\_\+cstring Struct Reference}
+\hypertarget{struct____cstring}{}\label{struct____cstring}\index{\_\_cstring@{\_\_cstring}}
+
+
+{\ttfamily \#include $<$cstring.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct____cstring_aaa2fae125feca2b4de4f3f7640c76ce4}{base}}
+\item 
+size\+\_\+t \mbox{\hyperlink{struct____cstring_a7360b55975153b822efc5217b7734e6a}{len}}
+\item 
+size\+\_\+t \mbox{\hyperlink{struct____cstring_add2fb4603eb5006f62cbf14ae24af846}{curlen}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{cstring_8h}{cstring.\+h} \+: c string library to make Ron happy. Wrapper around plain C strings that handles automatically growing the string as data is concattenated to the end. (note\+: this is an improved version of cstring from supermon. Migrate it into that library eventually... )
+
+-\/matt sottile Structure wrapping the character pointer and size counters (allocated vs. actual used). 
+
+\label{doc-variable-members}
+\Hypertarget{struct____cstring_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{struct____cstring_aaa2fae125feca2b4de4f3f7640c76ce4}\index{\_\_cstring@{\_\_cstring}!base@{base}}
+\index{base@{base}!\_\_cstring@{\_\_cstring}}
+\doxysubsubsection{\texorpdfstring{base}{base}}
+{\footnotesize\ttfamily \label{struct____cstring_aaa2fae125feca2b4de4f3f7640c76ce4} 
+char\texorpdfstring{$\ast$}{*} base}
+
+Base address of the string. \Hypertarget{struct____cstring_add2fb4603eb5006f62cbf14ae24af846}\index{\_\_cstring@{\_\_cstring}!curlen@{curlen}}
+\index{curlen@{curlen}!\_\_cstring@{\_\_cstring}}
+\doxysubsubsection{\texorpdfstring{curlen}{curlen}}
+{\footnotesize\ttfamily \label{struct____cstring_add2fb4603eb5006f62cbf14ae24af846} 
+size\+\_\+t curlen}
+
+Current size of the string stored in the buffer. len \texorpdfstring{$>$}{>}= curlen always, and when len \texorpdfstring{$<$}{<} curlen would be true after a concat operation, we realloc bigger space to keep len \texorpdfstring{$>$}{>}= curlen. \Hypertarget{struct____cstring_a7360b55975153b822efc5217b7734e6a}\index{\_\_cstring@{\_\_cstring}!len@{len}}
+\index{len@{len}!\_\_cstring@{\_\_cstring}}
+\doxysubsubsection{\texorpdfstring{len}{len}}
+{\footnotesize\ttfamily \label{struct____cstring_a7360b55975153b822efc5217b7734e6a} 
+size\+\_\+t len}
+
+Size of the memory allocated and pointed to by the base pointer. 

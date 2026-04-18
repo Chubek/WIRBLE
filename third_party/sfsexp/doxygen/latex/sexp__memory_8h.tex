@@ -1,0 +1,73 @@
+\doxysection{sexp\+\_\+memory.\+h File Reference}
+\hypertarget{sexp__memory_8h}{}\label{sexp__memory_8h}\index{sexp\_memory.h@{sexp\_memory.h}}
+
+
+Wrappers around basic memory allocation/deallocation routines to allow memory usage limiting. Only enabled if {\itshape SEXP\+\_\+\+LIMIT\+\_\+\+MEMORY} is defined when building the library, otherwise the routines are defined to be the standard malloc/calloc/realloc/free functions.  
+
+
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{sexp__memory_8h_a7bcad4aaee1f4a1e1efbcd6aa016a047}{sexp\+\_\+calloc}}(count,  size)
+\item 
+\#define \mbox{\hyperlink{sexp__memory_8h_ae5ce195066a12a22bcb5c70aaec31b78}{sexp\+\_\+malloc}}(size)
+\item 
+\#define \mbox{\hyperlink{sexp__memory_8h_a34da54ff65fa0cc92534be52422e9b35}{sexp\+\_\+free}}(ptr,  size)
+\item 
+\#define \mbox{\hyperlink{sexp__memory_8h_ab43d6647d17a8f40f037183c676b32f8}{sexp\+\_\+realloc}}(ptr,  size,  oldsize)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Wrappers around basic memory allocation/deallocation routines to allow memory usage limiting. Only enabled if {\itshape SEXP\+\_\+\+LIMIT\+\_\+\+MEMORY} is defined when building the library, otherwise the routines are defined to be the standard malloc/calloc/realloc/free functions. 
+
+
+
+\label{doc-define-members}
+\Hypertarget{sexp__memory_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{sexp__memory_8h_a7bcad4aaee1f4a1e1efbcd6aa016a047}\index{sexp\_memory.h@{sexp\_memory.h}!sexp\_calloc@{sexp\_calloc}}
+\index{sexp\_calloc@{sexp\_calloc}!sexp\_memory.h@{sexp\_memory.h}}
+\doxysubsubsection{\texorpdfstring{sexp\_calloc}{sexp\_calloc}}
+{\footnotesize\ttfamily \label{sexp__memory_8h_a7bcad4aaee1f4a1e1efbcd6aa016a047} 
+\#define sexp\+\_\+calloc(\begin{DoxyParamCaption}\item[{}]{count}{, }\item[{}]{size}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{calloc(count,size)}
+
+\end{DoxyCode}
+{\itshape SEXP\+\_\+\+LIMIT\+\_\+\+MEMORY} not defined. This is a macro that maps to calloc(). \Hypertarget{sexp__memory_8h_a34da54ff65fa0cc92534be52422e9b35}\index{sexp\_memory.h@{sexp\_memory.h}!sexp\_free@{sexp\_free}}
+\index{sexp\_free@{sexp\_free}!sexp\_memory.h@{sexp\_memory.h}}
+\doxysubsubsection{\texorpdfstring{sexp\_free}{sexp\_free}}
+{\footnotesize\ttfamily \label{sexp__memory_8h_a34da54ff65fa0cc92534be52422e9b35} 
+\#define sexp\+\_\+free(\begin{DoxyParamCaption}\item[{}]{ptr}{, }\item[{}]{size}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{free(ptr)}
+
+\end{DoxyCode}
+{\itshape SEXP\+\_\+\+LIMIT\+\_\+\+MEMORY} not defined. This is a macro that maps to free(). \Hypertarget{sexp__memory_8h_ae5ce195066a12a22bcb5c70aaec31b78}\index{sexp\_memory.h@{sexp\_memory.h}!sexp\_malloc@{sexp\_malloc}}
+\index{sexp\_malloc@{sexp\_malloc}!sexp\_memory.h@{sexp\_memory.h}}
+\doxysubsubsection{\texorpdfstring{sexp\_malloc}{sexp\_malloc}}
+{\footnotesize\ttfamily \label{sexp__memory_8h_ae5ce195066a12a22bcb5c70aaec31b78} 
+\#define sexp\+\_\+malloc(\begin{DoxyParamCaption}\item[{}]{size}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{malloc(size)}
+
+\end{DoxyCode}
+{\itshape SEXP\+\_\+\+LIMIT\+\_\+\+MEMORY} not defined. This is a macro that maps to malloc(). \Hypertarget{sexp__memory_8h_ab43d6647d17a8f40f037183c676b32f8}\index{sexp\_memory.h@{sexp\_memory.h}!sexp\_realloc@{sexp\_realloc}}
+\index{sexp\_realloc@{sexp\_realloc}!sexp\_memory.h@{sexp\_memory.h}}
+\doxysubsubsection{\texorpdfstring{sexp\_realloc}{sexp\_realloc}}
+{\footnotesize\ttfamily \label{sexp__memory_8h_ab43d6647d17a8f40f037183c676b32f8} 
+\#define sexp\+\_\+realloc(\begin{DoxyParamCaption}\item[{}]{ptr}{, }\item[{}]{size}{, }\item[{}]{oldsize}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{realloc((ptr),(size))}
+
+\end{DoxyCode}
+{\itshape SEXP\+\_\+\+LIMIT\+\_\+\+MEMORY} not defined. This is a macro that maps to realloc(). 

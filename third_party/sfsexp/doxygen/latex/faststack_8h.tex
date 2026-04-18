@@ -1,0 +1,118 @@
+\doxysection{faststack.\+h File Reference}
+\hypertarget{faststack_8h}{}\label{faststack_8h}\index{faststack.h@{faststack.h}}
+
+
+Implementation of a fast stack with smart memory management.  
+
+
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structstack__level}{stack\+\_\+level}}
+\item 
+struct \mbox{\hyperlink{structstack__wrapper}{stack\+\_\+wrapper}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{faststack_8h_aed5a168782b12c516eb07e4550a2f286}{top\+\_\+data}}(s)
+\item 
+\#define \mbox{\hyperlink{faststack_8h_afc23e363b8a06664117fa97dae4fe3d1}{empty\+\_\+stack}}(s)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structstack__level}{stack\+\_\+level}} \mbox{\hyperlink{faststack_8h_a346be4603390333bda226c34d18cd91c}{stack\+\_\+lvl\+\_\+t}}
+\item 
+typedef struct \mbox{\hyperlink{structstack__wrapper}{stack\+\_\+wrapper}} \mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{faststack_8h_adfb3f5f1616394930f1f3829a1d3cbeb}{make\+\_\+stack}} ()
+\item 
+void \mbox{\hyperlink{faststack_8h_a73817a83e883b9e86df14ea53175494e}{destroy\+\_\+stack}} (\mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\+\_\+t}} \texorpdfstring{$\ast$}{*}s)
+\item 
+\mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{faststack_8h_a17354499e392f622d5d25b714658c0ba}{push}} (\mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\+\_\+t}} \texorpdfstring{$\ast$}{*}cur\+\_\+stack, void \texorpdfstring{$\ast$}{*}data)
+\item 
+\mbox{\hyperlink{faststack_8h_a346be4603390333bda226c34d18cd91c}{stack\+\_\+lvl\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{faststack_8h_a4348cde770a74f12ebe2370458886207}{pop}} (\mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\+\_\+t}} \texorpdfstring{$\ast$}{*}s)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of a fast stack with smart memory management. 
+
+
+
+\label{doc-define-members}
+\Hypertarget{faststack_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{faststack_8h_afc23e363b8a06664117fa97dae4fe3d1}\index{faststack.h@{faststack.h}!empty\_stack@{empty\_stack}}
+\index{empty\_stack@{empty\_stack}!faststack.h@{faststack.h}}
+\doxysubsubsection{\texorpdfstring{empty\_stack}{empty\_stack}}
+{\footnotesize\ttfamily \label{faststack_8h_afc23e363b8a06664117fa97dae4fe3d1} 
+\#define empty\+\_\+stack(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(s-\/>top\ ==\ NULL)}
+
+\end{DoxyCode}
+Given a stack {\itshape s}, check to see if the stack is empty or not. Value is boolean true or false. \Hypertarget{faststack_8h_aed5a168782b12c516eb07e4550a2f286}\index{faststack.h@{faststack.h}!top\_data@{top\_data}}
+\index{top\_data@{top\_data}!faststack.h@{faststack.h}}
+\doxysubsubsection{\texorpdfstring{top\_data}{top\_data}}
+{\footnotesize\ttfamily \label{faststack_8h_aed5a168782b12c516eb07e4550a2f286} 
+\#define top\+\_\+data(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(s-\/>top-\/>data)}
+
+\end{DoxyCode}
+Given a stack {\itshape s}, examine the data pointer at the top. 
+
+\label{doc-typedef-members}
+\Hypertarget{faststack_8h_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}\index{faststack.h@{faststack.h}!faststack\_t@{faststack\_t}}
+\index{faststack\_t@{faststack\_t}!faststack.h@{faststack.h}}
+\doxysubsubsection{\texorpdfstring{faststack\_t}{faststack\_t}}
+{\footnotesize\ttfamily \label{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6} 
+typedef struct \mbox{\hyperlink{structstack__wrapper}{stack\+\_\+wrapper}} \mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\+\_\+t}}}
+
+Wrapper around the stack levels -\/ keeps a pointer to the current top and bottom of the stack and a count of the current height. This allows the top to have non-\/null above pointer resulting from previously allocated stack levels that may be recycled later without {\ttfamily malloc} overhead. \Hypertarget{faststack_8h_a346be4603390333bda226c34d18cd91c}\index{faststack.h@{faststack.h}!stack\_lvl\_t@{stack\_lvl\_t}}
+\index{stack\_lvl\_t@{stack\_lvl\_t}!faststack.h@{faststack.h}}
+\doxysubsubsection{\texorpdfstring{stack\_lvl\_t}{stack\_lvl\_t}}
+{\footnotesize\ttfamily \label{faststack_8h_a346be4603390333bda226c34d18cd91c} 
+typedef struct \mbox{\hyperlink{structstack__level}{stack\+\_\+level}} \mbox{\hyperlink{faststack_8h_a346be4603390333bda226c34d18cd91c}{stack\+\_\+lvl\+\_\+t}}}
+
+Structure representing a single level in the stack. Has a pointer to the level above and below itself and a pointer to a generic blob of data associated with this level. 
+
+\label{doc-func-members}
+\Hypertarget{faststack_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{faststack_8h_a73817a83e883b9e86df14ea53175494e}\index{faststack.h@{faststack.h}!destroy\_stack@{destroy\_stack}}
+\index{destroy\_stack@{destroy\_stack}!faststack.h@{faststack.h}}
+\doxysubsubsection{\texorpdfstring{destroy\_stack()}{destroy\_stack()}}
+{\footnotesize\ttfamily \label{faststack_8h_a73817a83e883b9e86df14ea53175494e} 
+void destroy\+\_\+stack (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{s}{}\end{DoxyParamCaption})}
+
+Given a stack structure, destroy it and free all of the stack levels. {\bfseries{Important note}} \+: This function {\itshape does not} free the data pointed to from each level of the stack -\/ the user is responsible for freeing this data themselves before calling this function to prevent memory leakage. \Hypertarget{faststack_8h_adfb3f5f1616394930f1f3829a1d3cbeb}\index{faststack.h@{faststack.h}!make\_stack@{make\_stack}}
+\index{make\_stack@{make\_stack}!faststack.h@{faststack.h}}
+\doxysubsubsection{\texorpdfstring{make\_stack()}{make\_stack()}}
+{\footnotesize\ttfamily \label{faststack_8h_adfb3f5f1616394930f1f3829a1d3cbeb} 
+\mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\+\_\+t}} \texorpdfstring{$\ast$}{*} make\+\_\+stack (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+functions Return a pointer to an empty stack structure. If the return value is NULL, one should check sexp\+\_\+errno to determine why. \Hypertarget{faststack_8h_a4348cde770a74f12ebe2370458886207}\index{faststack.h@{faststack.h}!pop@{pop}}
+\index{pop@{pop}!faststack.h@{faststack.h}}
+\doxysubsubsection{\texorpdfstring{pop()}{pop()}}
+{\footnotesize\ttfamily \label{faststack_8h_a4348cde770a74f12ebe2370458886207} 
+\mbox{\hyperlink{faststack_8h_a346be4603390333bda226c34d18cd91c}{stack\+\_\+lvl\+\_\+t}} \texorpdfstring{$\ast$}{*} pop (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{s}{}\end{DoxyParamCaption})}
+
+Given a stack, pop a level off and return a pointer to that level. The user is responsible for extracting the data, but the \doxylink{faststack_8h_a346be4603390333bda226c34d18cd91c}{stack\+\_\+lvl\+\_\+t} structures pointed to from the level (above and below) should be left alone. If NULL is returned, either the stack contained nothing, or the incoming stack s was NULL. Consult sexp\+\_\+errno to determine which was the case -- SEXP\+\_\+\+ERR\+\_\+\+BAD\+\_\+\+STACK indicates a null stack was passed in. \Hypertarget{faststack_8h_a17354499e392f622d5d25b714658c0ba}\index{faststack.h@{faststack.h}!push@{push}}
+\index{push@{push}!faststack.h@{faststack.h}}
+\doxysubsubsection{\texorpdfstring{push()}{push()}}
+{\footnotesize\ttfamily \label{faststack_8h_a17354499e392f622d5d25b714658c0ba} 
+\mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\+\_\+t}} \texorpdfstring{$\ast$}{*} push (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{cur\+\_\+stack}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+Given a stack, push a new level on referring to the data pointer. If a new level cannot be allocated, NULL is returned and sexp\+\_\+errno is set with the appropriate error condition. Memory allocation errors will result in SEXP\+\_\+\+ERR\+\_\+\+MEMORY, while a null stack will result in SEXP\+\_\+\+ERR\+\_\+\+BAD\+\_\+\+STACK. 

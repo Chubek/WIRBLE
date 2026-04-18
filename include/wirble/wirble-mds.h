@@ -4,6 +4,8 @@
 #include "api-boilerplate.h"
 #include "wirble-mal.h"
 
+WIRBLE_BEGIN_DECLS
+
 /* ------------------------------------------------------------
    Basic Types
    ------------------------------------------------------------ */
@@ -12,7 +14,6 @@ typedef unsigned long MDSRegId;
 typedef unsigned long MDSInstrId;
 typedef unsigned long MDSIndex;
 
-WIRBLE_BEGIN_DECLS
 
 /* ------------------------------------------------------------
    MDS Register Class

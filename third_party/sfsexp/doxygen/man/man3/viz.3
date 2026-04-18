@@ -1,0 +1,35 @@
+.TH "viz" 3 "Small, Fast S-Expression Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+viz \- Visualization and debugging routines
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBsexp_errcode_t\fP \fBsexp_to_dotfile\fP (const \fBsexp_t\fP *sx, const char *fname)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBsexp_errcode_t\fP sexp_to_dotfile (const \fBsexp_t\fP * sx, const char * fname)"
+Given a s-expression and a filename, this routine creates a DOT-file that can be used to generate a visualization of the s-expression data structure\&. This is useful for debugging to ensure that the structure is correct and follows what was expected by the programmer\&. Non-trivial s-expressions can yield very large visualizations though\&. Sometimes it is more practical to visualize a portion of the structure if one knows where a bug is likely to occur\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIsx\fP S-expression data structure to create a DOT file based on\&. 
+.br
+\fIfname\fP Filename of the DOT file to emit\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Small, Fast S-Expression Library from the source code\&.

@@ -1,0 +1,157 @@
+\doxysection{sexp\+\_\+ops.\+h File Reference}
+\hypertarget{sexp__ops_8h}{}\label{sexp__ops_8h}\index{sexp\_ops.h@{sexp\_ops.h}}
+
+
+A collection of useful operations to perform on s-\/expressions.  
+
+
+{\ttfamily \#include "{}sexp.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{sexp__ops_8h_a8011db22d2a97131d56c922c910b2d7e}{hd\+\_\+sexp}}(s)
+\item 
+\#define \mbox{\hyperlink{sexp__ops_8h_a168fa4644b4e1dafda618c894b1b81c4}{tl\+\_\+sexp}}(s)
+\item 
+\#define \mbox{\hyperlink{sexp__ops_8h_a897a4095017c49f92fc7940d6fa06557}{next\+\_\+sexp}}(s)
+\item 
+\#define \mbox{\hyperlink{sexp__ops_8h_ae1fa51539836207fd9fa822543996c24}{reset\+\_\+pcont}}(c)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{sexp__ops_8h_a29ed1d2ac49059377efbfc3aa5d64baf}{find\+\_\+sexp}} (const char \texorpdfstring{$\ast$}{*}name, \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}start)
+\item 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{sexp__ops_8h_aee78f8a169907a4be034c9e8a696adde}{bfs\+\_\+find\+\_\+sexp}} (const char \texorpdfstring{$\ast$}{*}name, \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}start)
+\item 
+int \mbox{\hyperlink{sexp__ops_8h_a7c51a5bcc075a6cef85de6438085bdb4}{sexp\+\_\+list\+\_\+length}} (const \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}sx)
+\item 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{sexp__ops_8h_a1d8b75ea0651c3467b7f353d87e3d1ec}{copy\+\_\+sexp}} (const \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}sx)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A collection of useful operations to perform on s-\/expressions. 
+
+A set of routines for operating on s-\/expressions. 
+
+\label{doc-define-members}
+\Hypertarget{sexp__ops_8h_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{sexp__ops_8h_a8011db22d2a97131d56c922c910b2d7e}\index{sexp\_ops.h@{sexp\_ops.h}!hd\_sexp@{hd\_sexp}}
+\index{hd\_sexp@{hd\_sexp}!sexp\_ops.h@{sexp\_ops.h}}
+\doxysubsubsection{\texorpdfstring{hd\_sexp}{hd\_sexp}}
+{\footnotesize\ttfamily \label{sexp__ops_8h_a8011db22d2a97131d56c922c910b2d7e} 
+\#define hd\+\_\+sexp(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((s)-\/>list)}
+
+\end{DoxyCode}
+Return the head of a list {\itshape s} by reference, not copy. \Hypertarget{sexp__ops_8h_a897a4095017c49f92fc7940d6fa06557}\index{sexp\_ops.h@{sexp\_ops.h}!next\_sexp@{next\_sexp}}
+\index{next\_sexp@{next\_sexp}!sexp\_ops.h@{sexp\_ops.h}}
+\doxysubsubsection{\texorpdfstring{next\_sexp}{next\_sexp}}
+{\footnotesize\ttfamily \label{sexp__ops_8h_a897a4095017c49f92fc7940d6fa06557} 
+\#define next\+\_\+sexp(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((s)-\/>next)}
+
+\end{DoxyCode}
+Return the element following the argument {\itshape s}. \Hypertarget{sexp__ops_8h_ae1fa51539836207fd9fa822543996c24}\index{sexp\_ops.h@{sexp\_ops.h}!reset\_pcont@{reset\_pcont}}
+\index{reset\_pcont@{reset\_pcont}!sexp\_ops.h@{sexp\_ops.h}}
+\doxysubsubsection{\texorpdfstring{reset\_pcont}{reset\_pcont}}
+{\footnotesize\ttfamily \label{sexp__ops_8h_ae1fa51539836207fd9fa822543996c24} 
+\#define reset\+\_\+pcont(\begin{DoxyParamCaption}\item[{}]{c}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((c)-\/>lastPos\ =\ NULL)}
+
+\end{DoxyCode}
+Reset the continuation {\itshape c} by setting the {\ttfamily last\+Pos} pointer to {\ttfamily NULL}. \Hypertarget{sexp__ops_8h_a168fa4644b4e1dafda618c894b1b81c4}\index{sexp\_ops.h@{sexp\_ops.h}!tl\_sexp@{tl\_sexp}}
+\index{tl\_sexp@{tl\_sexp}!sexp\_ops.h@{sexp\_ops.h}}
+\doxysubsubsection{\texorpdfstring{tl\_sexp}{tl\_sexp}}
+{\footnotesize\ttfamily \label{sexp__ops_8h_a168fa4644b4e1dafda618c894b1b81c4} 
+\#define tl\+\_\+sexp(\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((s)-\/>list-\/>next)}
+
+\end{DoxyCode}
+Return the tail of a list {\itshape s} by reference, not copy. 
+
+\label{doc-func-members}
+\Hypertarget{sexp__ops_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{sexp__ops_8h_aee78f8a169907a4be034c9e8a696adde}\index{sexp\_ops.h@{sexp\_ops.h}!bfs\_find\_sexp@{bfs\_find\_sexp}}
+\index{bfs\_find\_sexp@{bfs\_find\_sexp}!sexp\_ops.h@{sexp\_ops.h}}
+\doxysubsubsection{\texorpdfstring{bfs\_find\_sexp()}{bfs\_find\_sexp()}}
+{\footnotesize\ttfamily \label{sexp__ops_8h_aee78f8a169907a4be034c9e8a696adde} 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} bfs\+\_\+find\+\_\+sexp (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{start}{}\end{DoxyParamCaption})}
+
+Breadth first search for s-\/expressions. Depth first search will find the first occurrence of a string in an s-\/expression by basically finding the earliest occurrence in the string representation of the expression itself. Breadth first search will find the first occurrence of a string in relation to the structure of the expression itself (IE\+: the instance with the lowest depth will be found).
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Value to search for. \\
+\hline
+{\em start} & Root element of the s-\/expression to search from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If the value is found, return a pointer to the first occurrence in a breadth-\/first traversal. NULL if not found. 
+\end{DoxyReturn}
+\Hypertarget{sexp__ops_8h_a1d8b75ea0651c3467b7f353d87e3d1ec}\index{sexp\_ops.h@{sexp\_ops.h}!copy\_sexp@{copy\_sexp}}
+\index{copy\_sexp@{copy\_sexp}!sexp\_ops.h@{sexp\_ops.h}}
+\doxysubsubsection{\texorpdfstring{copy\_sexp()}{copy\_sexp()}}
+{\footnotesize\ttfamily \label{sexp__ops_8h_a1d8b75ea0651c3467b7f353d87e3d1ec} 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} copy\+\_\+sexp (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{sx}{}\end{DoxyParamCaption})}
+
+Copy an s-\/expression. This is a deep copy -\/ so the resulting s-\/expression shares no pointers with the original. The new one can be changed without damaging the contents of the original.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sx} & S-\/expression to copy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to a copy of sx. This is a deep copy, so no memory is shared between the original and the returned copy. 
+\end{DoxyReturn}
+\Hypertarget{sexp__ops_8h_a29ed1d2ac49059377efbfc3aa5d64baf}\index{sexp\_ops.h@{sexp\_ops.h}!find\_sexp@{find\_sexp}}
+\index{find\_sexp@{find\_sexp}!sexp\_ops.h@{sexp\_ops.h}}
+\doxysubsubsection{\texorpdfstring{find\_sexp()}{find\_sexp()}}
+{\footnotesize\ttfamily \label{sexp__ops_8h_a29ed1d2ac49059377efbfc3aa5d64baf} 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} find\+\_\+sexp (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{start}{}\end{DoxyParamCaption})}
+
+Find an atom in a sexpression data structure and return a pointer to it. Return NULL if the string doesn\textquotesingle{}t occur anywhere as an atom. This is a depth-\/first search algorithm.
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Value to search for. \\
+\hline
+{\em start} & Root element of the s-\/expression to search from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If the value is found, return a pointer to the first occurrence in a depth-\/first traversal. NULL if not found. 
+\end{DoxyReturn}
+\Hypertarget{sexp__ops_8h_a7c51a5bcc075a6cef85de6438085bdb4}\index{sexp\_ops.h@{sexp\_ops.h}!sexp\_list\_length@{sexp\_list\_length}}
+\index{sexp\_list\_length@{sexp\_list\_length}!sexp\_ops.h@{sexp\_ops.h}}
+\doxysubsubsection{\texorpdfstring{sexp\_list\_length()}{sexp\_list\_length()}}
+{\footnotesize\ttfamily \label{sexp__ops_8h_a7c51a5bcc075a6cef85de6438085bdb4} 
+int sexp\+\_\+list\+\_\+length (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{sx}{}\end{DoxyParamCaption})}
+
+Given an s-\/expression, determine the length of the list that it encodes. A null expression has length 0. An atom has length 1. A list has length equal to the number of \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t} elements from the list head to the end of the -\/\texorpdfstring{$>$}{>}next linked list from that point.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sx} & S-\/expression input. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t} elements at the same level as sx, 0 for NULL, 1 for an atom. 
+\end{DoxyReturn}

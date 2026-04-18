@@ -1,0 +1,30 @@
+\doxysection{Visualization and debugging routines }
+\hypertarget{group__viz}{}\label{group__viz}\index{Visualization and debugging routines@{Visualization and debugging routines}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024}{sexp\+\_\+errcode\+\_\+t}} \mbox{\hyperlink{group__viz_ga576a1695ed8bebc6c08cf0b68aaac6e9}{sexp\+\_\+to\+\_\+dotfile}} (const \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}sx, const char \texorpdfstring{$\ast$}{*}fname)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\label{doc-func-members}
+\Hypertarget{group__viz_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{group__viz_ga576a1695ed8bebc6c08cf0b68aaac6e9}\index{Visualization and debugging routines@{Visualization and debugging routines}!sexp\_to\_dotfile@{sexp\_to\_dotfile}}
+\index{sexp\_to\_dotfile@{sexp\_to\_dotfile}!Visualization and debugging routines@{Visualization and debugging routines}}
+\doxysubsubsection{\texorpdfstring{sexp\_to\_dotfile()}{sexp\_to\_dotfile()}}
+{\footnotesize\ttfamily \label{group__viz_ga576a1695ed8bebc6c08cf0b68aaac6e9} 
+\mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024}{sexp\+\_\+errcode\+\_\+t}} sexp\+\_\+to\+\_\+dotfile (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{sx}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{fname}{}\end{DoxyParamCaption})}
+
+Given a s-\/expression and a filename, this routine creates a DOT-\/file that can be used to generate a visualization of the s-\/expression data structure. This is useful for debugging to ensure that the structure is correct and follows what was expected by the programmer. Non-\/trivial s-\/expressions can yield very large visualizations though. Sometimes it is more practical to visualize a portion of the structure if one knows where a bug is likely to occur.
+
+
+\begin{DoxyParams}{Parameters}
+{\em sx} & S-\/expression data structure to create a DOT file based on. \\
+\hline
+{\em fname} & Filename of the DOT file to emit. \\
+\hline
+\end{DoxyParams}

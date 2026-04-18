@@ -1,0 +1,39 @@
+.TH "src Directory Reference" 3 "Small, Fast S-Expression Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src Directory Reference
+.SH SYNOPSIS
+.br
+.PP
+.SS "Files"
+
+.in +1c
+.ti -1c
+.RI "file \fBcstring\&.h\fP"
+.br
+.ti -1c
+.RI "file \fBfaststack\&.h\fP"
+.br
+.RI "Implementation of a fast stack with smart memory management\&. "
+.ti -1c
+.RI "file \fBsexp\&.h\fP"
+.br
+.RI "API for a small, fast and portable s-expression parser library\&. "
+.ti -1c
+.RI "file \fBsexp_errors\&.h\fP"
+.br
+.RI "Error conditions are enumerated here along with any routines for translating error codes to human readable messages\&. "
+.ti -1c
+.RI "file \fBsexp_memory\&.h\fP"
+.br
+.RI "Wrappers around basic memory allocation/deallocation routines to allow memory usage limiting\&. Only enabled if \fISEXP_LIMIT_MEMORY\fP is defined when building the library, otherwise the routines are defined to be the standard malloc/calloc/realloc/free functions\&. "
+.ti -1c
+.RI "file \fBsexp_ops\&.h\fP"
+.br
+.RI "A collection of useful operations to perform on s-expressions\&. "
+.ti -1c
+.RI "file \fBsexp_vis\&.h\fP"
+.br
+.RI "API for emitting graphviz data structure visualizations\&. "
+.in -1c

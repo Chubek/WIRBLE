@@ -1,0 +1,176 @@
+\doxysection{pcont Struct Reference}
+\hypertarget{structpcont}{}\label{structpcont}\index{pcont@{pcont}}
+
+
+{\ttfamily \#include $<$sexp.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structpcont_aa61e47d0d7c903f595e9b2ebb05da74c}{stack}}
+\item 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structpcont_ad44995372d1108ebc6603427a465aa23}{last\+\_\+sexp}}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structpcont_a1d80a43cb41e5b550d4563dd10d302bc}{val}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structpcont_a91f128358878eb65263a902c890a7d0a}{val\+\_\+allocated}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structpcont_a42bc61e3fb0a2624a299c49b9bcd3c99}{val\+\_\+used}}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structpcont_a90224c28b73c7914bca246690bfa3dc2}{vcur}}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structpcont_adb5a7ca337fa4a3cab6e3629d69aa849}{last\+Pos}}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structpcont_ae21ce0f623dfc7c2c85490d1a8083be3}{sbuffer}}
+\item 
+unsigned int \mbox{\hyperlink{structpcont_a5081a26baa914156df8541b03d09492e}{depth}}
+\item 
+unsigned int \mbox{\hyperlink{structpcont_ac51230bb37c5f6d0f838262acb702dd4}{qdepth}}
+\item 
+unsigned int \mbox{\hyperlink{structpcont_a3cc20059a5b78ca1c8660e2c8134079c}{state}}
+\item 
+unsigned int \mbox{\hyperlink{structpcont_a1f38548ab7881211cc22d63ab9ebfb1e}{esc}}
+\item 
+unsigned int \mbox{\hyperlink{structpcont_a89ded0d5c1d0e083422f8a1d24dd1c0f}{squoted}}
+\item 
+\mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024}{sexp\+\_\+errcode\+\_\+t}} \mbox{\hyperlink{structpcont_a7fec6ce8a0f894431798a1990ef7a001}{error}}
+\item 
+\mbox{\hyperlink{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8c}{parsermode\+\_\+t}} \mbox{\hyperlink{structpcont_ac68ef69105406672dbadf3dd3fe6aa8d}{mode}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structpcont_a4eaaf14b09c7b5797c86897eb5aa49fe}{binexpected}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structpcont_a52c1f4a81aebe4eff406f6c71832d02d}{binread}}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structpcont_afd909e12d7992add70cbf30c99a4280f}{bindata}}
+\item 
+\mbox{\hyperlink{sexp_8h_ab2909b539d5e86a1ab20146528cdf571}{parser\+\_\+event\+\_\+handlers\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structpcont_a0ee75726f3349d16f6a1fa233132305a}{event\+\_\+handlers}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A continuation is used by the parser to save and restore state between invocations to support partial parsing of strings. For example, if we pass the string "{}(foo bar)(goo car)"{} to the parser, we want to be able to retrieve each s-\/expression one at a time -\/ it would be difficult to return all s-\/expressions at once without knowing how many there are in advance (this would require more memory management than we want...). So, by using a continuation-\/based parser, we can call it with this string and have it return a continuation when it has parsed the first s-\/expression. Once we have processed the s-\/expression (accessible through the {\itshape last\+\_\+sexpr} field of the continuation), we can call the parser again with the same string and continuation, and it will be able to pick up where it left off.
+
+We use continuations instead of a state-\/ful parser to allow multiple concurrent strings to be parsed by simply maintaining a set of continuations. Manipulating continuations by hand is required if the continuation-\/based parser is called directly. This is {\bfseries{not recommended}} unless you are willing to deal with potential errors and are willing to learn exactly how the continuation relates to the internals of the parser. A simpler approach is to use either the {\itshape parse\+\_\+sexp} function that simply returns an s-\/expression without exposing the continuations, or the {\itshape iparse\+\_\+sexp} function that allows iteratively popping one s-\/expression at a time from a string containing one or more s-\/expressions. Refer to the documentation for each parsing function for further details on behavior and usage. 
+
+\label{doc-variable-members}
+\Hypertarget{structpcont_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structpcont_afd909e12d7992add70cbf30c99a4280f}\index{pcont@{pcont}!bindata@{bindata}}
+\index{bindata@{bindata}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{bindata}{bindata}}
+{\footnotesize\ttfamily \label{structpcont_afd909e12d7992add70cbf30c99a4280f} 
+char\texorpdfstring{$\ast$}{*} bindata}
+
+Pointer to the memory containing the binary data being read in. \Hypertarget{structpcont_a4eaaf14b09c7b5797c86897eb5aa49fe}\index{pcont@{pcont}!binexpected@{binexpected}}
+\index{binexpected@{binexpected}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{binexpected}{binexpected}}
+{\footnotesize\ttfamily \label{structpcont_a4eaaf14b09c7b5797c86897eb5aa49fe} 
+size\+\_\+t binexpected}
+
+Length to expect of the current binary data being read in. this also corresponds to the size of the memory allocated for reading this binary data into. \Hypertarget{structpcont_a52c1f4a81aebe4eff406f6c71832d02d}\index{pcont@{pcont}!binread@{binread}}
+\index{binread@{binread}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{binread}{binread}}
+{\footnotesize\ttfamily \label{structpcont_a52c1f4a81aebe4eff406f6c71832d02d} 
+size\+\_\+t binread}
+
+Number of bytes of the binary blob that have already been read in. \Hypertarget{structpcont_a5081a26baa914156df8541b03d09492e}\index{pcont@{pcont}!depth@{depth}}
+\index{depth@{depth}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{depth}{depth}}
+{\footnotesize\ttfamily \label{structpcont_a5081a26baa914156df8541b03d09492e} 
+unsigned int depth}
+
+This is the depth of parenthesis (the number of left parens encountered) that the parser is currently working with. \Hypertarget{structpcont_a7fec6ce8a0f894431798a1990ef7a001}\index{pcont@{pcont}!error@{error}}
+\index{error@{error}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{error}{error}}
+{\footnotesize\ttfamily \label{structpcont_a7fec6ce8a0f894431798a1990ef7a001} 
+\mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024}{sexp\+\_\+errcode\+\_\+t}} error}
+
+Error code. Used to indicate that the continuation being returned does not represent a successful parsing and thus the contents aren\textquotesingle{}t of much value. \Hypertarget{structpcont_a1f38548ab7881211cc22d63ab9ebfb1e}\index{pcont@{pcont}!esc@{esc}}
+\index{esc@{esc}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{esc}{esc}}
+{\footnotesize\ttfamily \label{structpcont_a1f38548ab7881211cc22d63ab9ebfb1e} 
+unsigned int esc}
+
+This is a flag indicating whether the next character to be processed should be assumed to have been prefaced with a \textquotesingle{}\textbackslash{}\textquotesingle{} character to escape it. \Hypertarget{structpcont_a0ee75726f3349d16f6a1fa233132305a}\index{pcont@{pcont}!event\_handlers@{event\_handlers}}
+\index{event\_handlers@{event\_handlers}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{event\_handlers}{event\_handlers}}
+{\footnotesize\ttfamily \label{structpcont_a0ee75726f3349d16f6a1fa233132305a} 
+\mbox{\hyperlink{sexp_8h_ab2909b539d5e86a1ab20146528cdf571}{parser\+\_\+event\+\_\+handlers\+\_\+t}}\texorpdfstring{$\ast$}{*} event\+\_\+handlers}
+
+Pointer to a structure holding handlers for sexpr events. NULL for normal parser operation. This field is NOT freed by destroy\+\_\+continuation and must be free\textquotesingle{}d by the user. This is because these are malloc\textquotesingle{}d outside the library ALWAYS, so they are the user\textquotesingle{}s responsibility. \Hypertarget{structpcont_ad44995372d1108ebc6603427a465aa23}\index{pcont@{pcont}!last\_sexp@{last\_sexp}}
+\index{last\_sexp@{last\_sexp}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{last\_sexp}{last\_sexp}}
+{\footnotesize\ttfamily \label{structpcont_ad44995372d1108ebc6603427a465aa23} 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}}\texorpdfstring{$\ast$}{*} last\+\_\+sexp}
+
+The last full s-\/expression encountered by the parser. If this is NULL, the parser has not encountered a full s-\/expression and more data is required for the current s-\/expression being parsed. If this is non-\/\+NULL, then the parser has encountered one s-\/expression and may be partially through parsing the next s-\/expression. \Hypertarget{structpcont_adb5a7ca337fa4a3cab6e3629d69aa849}\index{pcont@{pcont}!lastPos@{lastPos}}
+\index{lastPos@{lastPos}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{lastPos}{lastPos}}
+{\footnotesize\ttfamily \label{structpcont_adb5a7ca337fa4a3cab6e3629d69aa849} 
+char\texorpdfstring{$\ast$}{*} last\+Pos}
+
+Pointer to the last character to examine in the string being parsed. When the parser is called with the continuation, this is the first character that will be processed. If this is NULL, the parser will start parsing at the beginning of the string passed into the parser. \Hypertarget{structpcont_ac68ef69105406672dbadf3dd3fe6aa8d}\index{pcont@{pcont}!mode@{mode}}
+\index{mode@{mode}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{mode}{mode}}
+{\footnotesize\ttfamily \label{structpcont_ac68ef69105406672dbadf3dd3fe6aa8d} 
+\mbox{\hyperlink{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8c}{parsermode\+\_\+t}} mode}
+
+Mode. The parsers\textquotesingle{} specialized behaviours can be activated by tweaking the mode setting. There are currently two available\+: normal and inline\+\_\+binary. Inline\+\_\+binary treats atoms that start with \#b\# specially, assuming that they have the structure\+:
+
+\#b\#s\#data
+
+Where s is a positive (greater than 0) integer representing the length of the data, and data is s bytes of binary data following the \# sign. After the s bytes, it is assumed normal s-\/expression data continues. \Hypertarget{structpcont_ac51230bb37c5f6d0f838262acb702dd4}\index{pcont@{pcont}!qdepth@{qdepth}}
+\index{qdepth@{qdepth}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{qdepth}{qdepth}}
+{\footnotesize\ttfamily \label{structpcont_ac51230bb37c5f6d0f838262acb702dd4} 
+unsigned int qdepth}
+
+This is the depth of parenthesis encountered after a single quote (tick) if the character immediately following the tick was a left paren. \Hypertarget{structpcont_ae21ce0f623dfc7c2c85490d1a8083be3}\index{pcont@{pcont}!sbuffer@{sbuffer}}
+\index{sbuffer@{sbuffer}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{sbuffer}{sbuffer}}
+{\footnotesize\ttfamily \label{structpcont_ae21ce0f623dfc7c2c85490d1a8083be3} 
+char\texorpdfstring{$\ast$}{*} sbuffer}
+
+This is a pointer to the beginning of the current string being processed. last\+Pos is a pointer to some value inside the string that this points to. \Hypertarget{structpcont_a89ded0d5c1d0e083422f8a1d24dd1c0f}\index{pcont@{pcont}!squoted@{squoted}}
+\index{squoted@{squoted}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{squoted}{squoted}}
+{\footnotesize\ttfamily \label{structpcont_a89ded0d5c1d0e083422f8a1d24dd1c0f} 
+unsigned int squoted}
+
+Flag whether or not we are processing an atom that was preceded by a single quote. \Hypertarget{structpcont_aa61e47d0d7c903f595e9b2ebb05da74c}\index{pcont@{pcont}!stack@{stack}}
+\index{stack@{stack}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{stack}{stack}}
+{\footnotesize\ttfamily \label{structpcont_aa61e47d0d7c903f595e9b2ebb05da74c} 
+\mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\+\_\+t}}\texorpdfstring{$\ast$}{*} stack}
+
+The parser stack used for iterative parsing. \Hypertarget{structpcont_a3cc20059a5b78ca1c8660e2c8134079c}\index{pcont@{pcont}!state@{state}}
+\index{state@{state}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{state}{state}}
+{\footnotesize\ttfamily \label{structpcont_a3cc20059a5b78ca1c8660e2c8134079c} 
+unsigned int state}
+
+This is the state ID of the current state of the parser in the DFA representing the parser. The current parser is a DFA based parser to simplify restoring the proper state from a continuation. \Hypertarget{structpcont_a1d80a43cb41e5b550d4563dd10d302bc}\index{pcont@{pcont}!val@{val}}
+\index{val@{val}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{val}{val}}
+{\footnotesize\ttfamily \label{structpcont_a1d80a43cb41e5b550d4563dd10d302bc} 
+char\texorpdfstring{$\ast$}{*} val}
+
+Pointer to a temporary buffer used to store atom values during parsing. \Hypertarget{structpcont_a91f128358878eb65263a902c890a7d0a}\index{pcont@{pcont}!val\_allocated@{val\_allocated}}
+\index{val\_allocated@{val\_allocated}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{val\_allocated}{val\_allocated}}
+{\footnotesize\ttfamily \label{structpcont_a91f128358878eb65263a902c890a7d0a} 
+size\+\_\+t val\+\_\+allocated}
+
+Current number of bytes allocated for val. \Hypertarget{structpcont_a42bc61e3fb0a2624a299c49b9bcd3c99}\index{pcont@{pcont}!val\_used@{val\_used}}
+\index{val\_used@{val\_used}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{val\_used}{val\_used}}
+{\footnotesize\ttfamily \label{structpcont_a42bc61e3fb0a2624a299c49b9bcd3c99} 
+size\+\_\+t val\+\_\+used}
+
+Current number of used bytes in val. \Hypertarget{structpcont_a90224c28b73c7914bca246690bfa3dc2}\index{pcont@{pcont}!vcur@{vcur}}
+\index{vcur@{vcur}!pcont@{pcont}}
+\doxysubsubsection{\texorpdfstring{vcur}{vcur}}
+{\footnotesize\ttfamily \label{structpcont_a90224c28b73c7914bca246690bfa3dc2} 
+char\texorpdfstring{$\ast$}{*} vcur}
+
+Pointer to the character following the last character in the current atom value being parsed. 

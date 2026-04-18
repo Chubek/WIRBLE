@@ -1,0 +1,63 @@
+.TH "sexp_memory.h" 3 "Small, Fast S-Expression Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sexp_memory.h \- Wrappers around basic memory allocation/deallocation routines to allow memory usage limiting\&. Only enabled if \fISEXP_LIMIT_MEMORY\fP is defined when building the library, otherwise the routines are defined to be the standard malloc/calloc/realloc/free functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBsexp_calloc\fP(count,  size)"
+.br
+.ti -1c
+.RI "#define \fBsexp_malloc\fP(size)"
+.br
+.ti -1c
+.RI "#define \fBsexp_free\fP(ptr,  size)"
+.br
+.ti -1c
+.RI "#define \fBsexp_realloc\fP(ptr,  size,  oldsize)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Wrappers around basic memory allocation/deallocation routines to allow memory usage limiting\&. Only enabled if \fISEXP_LIMIT_MEMORY\fP is defined when building the library, otherwise the routines are defined to be the standard malloc/calloc/realloc/free functions\&. 
+
+
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define sexp_calloc( count,  size)"
+\fBValue:\fP
+.nf
+calloc(count,size)
+.PP
+.fi
+\fISEXP_LIMIT_MEMORY\fP not defined\&. This is a macro that maps to calloc()\&. 
+.SS "#define sexp_free( ptr,  size)"
+\fBValue:\fP
+.nf
+free(ptr)
+.PP
+.fi
+\fISEXP_LIMIT_MEMORY\fP not defined\&. This is a macro that maps to free()\&. 
+.SS "#define sexp_malloc( size)"
+\fBValue:\fP
+.nf
+malloc(size)
+.PP
+.fi
+\fISEXP_LIMIT_MEMORY\fP not defined\&. This is a macro that maps to malloc()\&. 
+.SS "#define sexp_realloc( ptr,  size,  oldsize)"
+\fBValue:\fP
+.nf
+realloc((ptr),(size))
+.PP
+.fi
+\fISEXP_LIMIT_MEMORY\fP not defined\&. This is a macro that maps to realloc()\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Small, Fast S-Expression Library from the source code\&.

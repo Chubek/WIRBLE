@@ -1,0 +1,11 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: sfsexp
+Description: small and fast s-expressions library
+URL: https://github.com/mjsottile/sfsexp
+Version: 1.4.1
+Libs: -L${exec_prefix}/lib -lsexp
+Cflags: -I${prefix}/include/sfsexp

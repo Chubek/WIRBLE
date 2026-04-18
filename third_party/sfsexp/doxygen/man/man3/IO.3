@@ -1,0 +1,53 @@
+.TH "IO" 3 "Small, Fast S-Expression Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+IO \- I/O routines
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBsexp_iowrap\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fBsexp_iowrap\fP \fBsexp_iowrap_t\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBsexp_iowrap_t\fP * \fBinit_iowrap\fP (int fd)"
+.br
+.ti -1c
+.RI "void \fBdestroy_iowrap\fP (\fBsexp_iowrap_t\fP *iow)"
+.br
+.ti -1c
+.RI "\fBsexp_t\fP * \fBread_one_sexp\fP (\fBsexp_iowrap_t\fP *iow)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fBsexp_iowrap\fP \fBsexp_iowrap_t\fP"
+This structure is a wrapper around a standard I/O file descriptor and the parsing infrastructure (continuation and a buffer) required to parse off of it\&. This is used so that routines can hide the loops and details required to accumulate up data read off of the file descriptor and parse expressions individually out of it\&. 
+.SH "Function Documentation"
+.PP 
+.SS "void destroy_iowrap (\fBsexp_iowrap_t\fP * iow)"
+destroy an IO wrapper structure\&. The file descriptor wrapped in the wrapper will \fBnot\fP be closed, so the caller is responsible for manually calling close on the file descriptor\&. 
+.SS "\fBsexp_iowrap_t\fP * init_iowrap (int fd)"
+create an IO wrapper structure around a file descriptor\&. A NULL return value indicates some problem occurred allocating the wrapper, so the user should check the value of sexp_errno for further information\&. 
+.SS "\fBsexp_t\fP * read_one_sexp (\fBsexp_iowrap_t\fP * iow)"
+given and IO wrapper handle, read one s-expression off of it\&. this expression may be contained in a continuation, so there is no guarantee that under the covers an IO read actually is occurring\&. A return value of NULL can either indicate a parser error or no more data on the input IO handle\&. In the event that NULL is returned, the user should check to see if sexp_errno contains SEXP_ERR_IO_EMPTY (no more data) or a more problematic error\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Small, Fast S-Expression Library from the source code\&.

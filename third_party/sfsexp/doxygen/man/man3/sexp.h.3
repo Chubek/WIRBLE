@@ -1,0 +1,252 @@
+.TH "sexp.h" 3 "Small, Fast S-Expression Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sexp.h \- API for a small, fast and portable s-expression parser library\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <stddef\&.h>\fP
+.br
+\fR#include <stdio\&.h>\fP
+.br
+\fR#include 'faststack\&.h'\fP
+.br
+\fR#include 'cstring\&.h'\fP
+.br
+\fR#include 'sexp_memory\&.h'\fP
+.br
+\fR#include 'sexp_errors\&.h'\fP
+.br
+\fR#include 'sexp_ops\&.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBelt\fP"
+.br
+.ti -1c
+.RI "struct \fBparser_event_handlers\fP"
+.br
+.ti -1c
+.RI "struct \fBpcont\fP"
+.br
+.ti -1c
+.RI "struct \fBsexp_iowrap\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fBelt\fP \fBsexp_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBparser_event_handlers\fP \fBparser_event_handlers_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBpcont\fP \fBpcont_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBsexp_iowrap\fP \fBsexp_iowrap_t\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBelt_t\fP { \fBSEXP_VALUE\fP, \fBSEXP_LIST\fP }"
+.br
+.ti -1c
+.RI "enum \fBatom_t\fP { \fBSEXP_BASIC\fP, \fBSEXP_SQUOTE\fP, \fBSEXP_DQUOTE\fP, \fBSEXP_BINARY\fP }"
+.br
+.ti -1c
+.RI "enum \fBparsermode_t\fP { \fBPARSER_NORMAL\fP, \fBPARSER_INLINE_BINARY\fP, \fBPARSER_EVENTS_ONLY\fP }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBsexp_errcode_t\fP \fBset_parser_buffer_params\fP (size_t ss, size_t gs)"
+.br
+.ti -1c
+.RI "\fBsexp_t\fP * \fBsexp_t_allocate\fP (void)"
+.br
+.ti -1c
+.RI "void \fBsexp_t_deallocate\fP (\fBsexp_t\fP *s)"
+.br
+.ti -1c
+.RI "void \fBsexp_cleanup\fP (void)"
+.br
+.ti -1c
+.RI "int \fBprint_sexp\fP (char *loc, size_t size, const \fBsexp_t\fP *e)"
+.br
+.ti -1c
+.RI "int \fBprint_sexp_cstr\fP (\fBCSTRING\fP **s, const \fBsexp_t\fP *e, size_t ss)"
+.br
+.ti -1c
+.RI "\fBsexp_t\fP * \fBnew_sexp_list\fP (\fBsexp_t\fP *l)"
+.br
+.ti -1c
+.RI "\fBsexp_t\fP * \fBnew_sexp_binary_atom\fP (char *data, size_t binlength)"
+.br
+.ti -1c
+.RI "\fBsexp_t\fP * \fBnew_sexp_atom\fP (const char *buf, size_t bs, \fBatom_t\fP aty)"
+.br
+.ti -1c
+.RI "\fBpcont_t\fP * \fBinit_continuation\fP (char *str)"
+.br
+.ti -1c
+.RI "void \fBdestroy_continuation\fP (\fBpcont_t\fP *pc)"
+.br
+.ti -1c
+.RI "\fBsexp_iowrap_t\fP * \fBinit_iowrap\fP (int fd)"
+.br
+.ti -1c
+.RI "void \fBdestroy_iowrap\fP (\fBsexp_iowrap_t\fP *iow)"
+.br
+.ti -1c
+.RI "\fBsexp_t\fP * \fBread_one_sexp\fP (\fBsexp_iowrap_t\fP *iow)"
+.br
+.ti -1c
+.RI "\fBsexp_t\fP * \fBparse_sexp\fP (char *s, size_t len)"
+.br
+.ti -1c
+.RI "\fBsexp_t\fP * \fBiparse_sexp\fP (char *s, size_t len, \fBpcont_t\fP *cc)"
+.br
+.ti -1c
+.RI "\fBpcont_t\fP * \fBcparse_sexp\fP (char *s, size_t len, \fBpcont_t\fP *pc)"
+.br
+.ti -1c
+.RI "void \fBdestroy_sexp\fP (\fBsexp_t\fP *s)"
+.br
+.ti -1c
+.RI "void \fBreset_sexp_errno\fP ()"
+.br
+.ti -1c
+.RI "void \fBprint_pcont\fP (\fBpcont_t\fP *pc, char *buf, size_t buflen)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBsexp_errcode_t\fP \fBsexp_errno\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+API for a small, fast and portable s-expression parser library\&. 
+
+
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fBparser_event_handlers\fP \fBparser_event_handlers_t\fP"
+Some users would prefer to, instead of parsing a full string and walking a potentially huge \fBsexp_t\fP structure, use an XML SAX-style parser where events are triggered as certain parts of the s-expression are encountered\&. This structure contains a set of function pointers that are called by the parser as it hits expression start and end, and completes reading atoms and binary data\&. NOTE: The parser_event_handler struct that is a field in the continuation data structure is NOT freed by destroy_continuation since structs for callbacks are ALWAYS malloc'd by the user, not the library\&. 
+.SS "typedef struct \fBpcont\fP \fBpcont_t\fP"
+A continuation is used by the parser to save and restore state between invocations to support partial parsing of strings\&. For example, if we pass the string "(foo bar)(goo car)" to the parser, we want to be able to retrieve each s-expression one at a time - it would be difficult to return all s-expressions at once without knowing how many there are in advance (this would require more memory management than we want\&.\&.\&.)\&. So, by using a continuation-based parser, we can call it with this string and have it return a continuation when it has parsed the first s-expression\&. Once we have processed the s-expression (accessible through the \fIlast_sexpr\fP field of the continuation), we can call the parser again with the same string and continuation, and it will be able to pick up where it left off\&.
+
+.PP
+We use continuations instead of a state-ful parser to allow multiple concurrent strings to be parsed by simply maintaining a set of continuations\&. Manipulating continuations by hand is required if the continuation-based parser is called directly\&. This is \fBnot recommended\fP unless you are willing to deal with potential errors and are willing to learn exactly how the continuation relates to the internals of the parser\&. A simpler approach is to use either the \fIparse_sexp\fP function that simply returns an s-expression without exposing the continuations, or the \fIiparse_sexp\fP function that allows iteratively popping one s-expression at a time from a string containing one or more s-expressions\&. Refer to the documentation for each parsing function for further details on behavior and usage\&. 
+.SS "typedef struct \fBelt\fP \fBsexp_t\fP"
+An s-expression is represented as a linked structure of elements, where each element is either an \fIatom\fP or \fIlist\fP\&. An atom corresponds to a string, while a list corresponds to an s-expression\&. The following grammar represents our definition of an s-expression:
+
+.PP
+.PP
+.nf
+
+sexpr  ::= ( sx )
+sx     ::= atom sxtail | sexpr sxtail | 'sexpr sxtail | 'atom sxtail | NULL
+sxtail ::= sx | NULL
+atom   ::= quoted | value
+quoted ::= "ws_string"
+value  ::= nws_string
+.fi
+.PP
+ 
+
+.PP
+An atom can either be a quoted string, which is a string containing whitespace (possibly) surrounded by double quotes, or a non-whitespace string that does not require surrounding quotes\&. An element representing an atom will have a type of \fIvalue\fP and data stored in the \fIval\fP field\&. An element of type \fIlist\fP represents an s-expression corresponding to \fIsexpr\fP in the grammar, and will have a pointer to the head of the appropriate s-expression\&. Details regarding these fields and their values given with the fields themselves\&. Notice that a single quote can appear directly before an s-expression or atom, similar to the use in LISP\&. 
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBatom_t\fP"
+For an element that represents a value, the value can be interpreted as a more specific type\&. A \fIbasic\fP value is a simple string with no whitespace (and therefore no quotes required)\&. A \fIdouble quote\fP value, or \fIdquote\fP, is one that contains characters (such as whitespace) that requires quotation marks to contain the string\&. A \fIsingle quote\fP value, or \fIsquote\fP, represents an element that is prefaced with a single tick-mark\&. This can be either an atom or s-expression, and the result is that the parser does not attempt to parse the element following the tick mark\&. It is simply stored as text\&. This is similar to the meaning of a tick mark in the Scheme or LISP family of programming languages\&. Finally, \fIbinary\fP allows raw binary to be stored within an atom\&. Note that if the binary type is used, the data is stored in bindata with the length in binlength\&. Otherwise, the data us stored in the val field with val_used and val_allocated tracking the size of the value string and the total memory allocated for it\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BISEXP_BASIC \fP
+Basic, unquoted value\&. 
+.TP
+\f(BISEXP_SQUOTE \fP
+Single quote (tick-mark) value - contains a string representing a non-parsed portion of the s-expression\&. 
+.TP
+\f(BISEXP_DQUOTE \fP
+Double-quoted string\&. Similar to a basic value, but potentially containing white-space\&. 
+.TP
+\f(BISEXP_BINARY \fP
+Binary data\&. This is used when the specialized parser is active and supports inlining of binary blobs of data inside an expression\&. 
+.SS "enum \fBelt_t\fP"
+An element in an s-expression can be one of three types: a \fIvalue\fP represents an atom with an associated text value\&. A \fIlist\fP represents an s-expression, and the element contains a pointer to the head element of the associated s-expression\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BISEXP_VALUE \fP
+An atom of some type\&. See atom type (aty) field of element structure for details as to which atom type this is\&. 
+.TP
+\f(BISEXP_LIST \fP
+A list\&. This means the element points to an element representing the head of a list\&. 
+.SS "enum \fBparsermode_t\fP"
+parser mode flag used by continuation to toggle special parser behaviour\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIPARSER_NORMAL \fP
+normal (LISP-style) s-expression parser behaviour\&. 
+.TP
+\f(BIPARSER_INLINE_BINARY \fP
+treat atoms beginning with #b# as inlined binary data\&. everything else is treated the same as in PARSER_NORMAL mode\&. 
+.TP
+\f(BIPARSER_EVENTS_ONLY \fP
+if the event_handlers field in the continuation contains a non-null value, the handlers specified in the \fBparser_event_handlers_t\fP struct will be called as appropriate, but the parser will not allocate a structure composed of \fBsexp_t\fP structs\&. Note that if the event_handlers is set to null and this mode is selected, the user would be better off not calling anything in the first place, as they are telling the parser to walk the string, but do nothing productive in the process\&. 
+.SH "Function Documentation"
+.PP 
+.SS "void destroy_continuation (\fBpcont_t\fP * pc)"
+destroy a continuation\&. This involves cleaning up what it contains, and cleaning up the continuation itself\&. 
+.SS "void destroy_sexp (\fBsexp_t\fP * s)"
+given a \fBsexp_t\fP structure, free the memory it uses (and recursively free the memory used by all \fBsexp_t\fP structures that it references)\&. Note that this will call the deallocation routine for \fBsexp_t\fP elements\&. This means that memory isn't freed, but stored away in a cache of pre-allocated elements\&. This is an optimization to speed up the parser to eliminate wasteful free and re-malloc calls\&. Note: If using inlined binary mode, this will free the data pointed to by the bindata field\&. So, if you care about the data after the lifetime of the s-expression, make sure to make a copy before cleaning up the sexpr\&. 
+.SS "\fBpcont_t\fP * init_continuation (char * str)"
+create an initial continuation for parsing the given string 
+.SS "\fBsexp_t\fP * new_sexp_atom (const char * buf, size_t bs, \fBatom_t\fP aty)"
+Allocate a new \fBsexp_t\fP element representing a value\&. The user must specify the precise type of the atom\&. This used to default to SEXP_BASIC, but this can lead to errors if the user did not expect this assumption\&. By explicitly passing in the atom type, the caller should ensure that the data in the buffer is valid given the requested atom type\&. For performance reasons, such checks are left to the caller if they are desired, and not performed in the library if they are not wanted\&. 
+.SS "\fBsexp_t\fP * new_sexp_binary_atom (char * data, size_t binlength)"
+Allocate a new \fBsexp_t\fP element representing a raw binary atom\&. This element will contain a pointer to the raw binary data provided, as well as the binary data length\&. The character atom fields will be NULL and the corresponding val length and allocation size will be set to zero since this element is carrying a binary pointer only\&. 
+.SS "\fBsexp_t\fP * new_sexp_list (\fBsexp_t\fP * l)"
+Allocate a new \fBsexp_t\fP element representing a list\&. 
+.SS "void print_pcont (\fBpcont_t\fP * pc, char * buf, size_t buflen)"
+print the contents of the parser continuation stack to a buffer\&. this is useful if an expression is partially parsed and the caller realizes that something is wrong with it\&. with this routine, the caller can reconstruct the expression parsed so far and use it for error reporting\&. this works with fixed size buffers allocated by the caller\&. there is not a CSTRING-based version currently\&. 
+.SS "int print_sexp (char * loc, size_t size, const \fBsexp_t\fP * e)"
+print a \fBsexp_t\fP struct as a string in the LISP style\&. If the buffer is large enough and the conversion is successful, the return value represents the length of the string contained in the buffer\&. If the buffer was too small, or some other error occurred, the return value is -1 and the contents of the buffer should not be assumed to contain any useful information\&. When the return value is -1, the caller should check the contents of sexp_errno for details on what error may have occurred\&. 
+.SS "int print_sexp_cstr (\fBCSTRING\fP ** s, const \fBsexp_t\fP * e, size_t ss)"
+print a \fBsexp_t\fP structure to a buffer, growing it as necessary instead of relying on fixed size buffers like print_sexp\&. Important argument to tune for performance reasons is \fRss\fP - the buffer start size\&. The growsize used by the \fBCSTRING\fP routines also should be considered for tuning via the \fBsgrowsize()\fP function\&. This routine no longer requires the user to specify the growsize, and uses the current setting without changing it\&. 
+.SS "void reset_sexp_errno ()"
+reset the value of sexp_errno to SEXP_ERR_OK\&. 
+.SS "void sexp_cleanup (void )"
+In the event that someone wants us to release ALL of the memory used between calls by the library, they can free it\&. If you don't call this, the caches will be persistent for the lifetime of the library user\&. Note that in the event of an error condition resulting in sexp_errno being set, the user might consider calling this to clean up any memory that may be lingering around that should be cleaned up\&. 
+.SS "\fBsexp_t\fP * sexp_t_allocate (void )"
+return an allocated \fBsexp_t\fP\&. This structure may be an already allocated one from the stack or a new one if none are available\&. Use this instead of manually mallocing if you want to avoid excessive mallocs\&. \fINote: Mallocing your own expressions is fine - you can even use sexp_t_deallocate to deallocate them and put them in the pool\&.\fP Also, if the stack has not been initialized yet, this does so\&. 
+.SS "void sexp_t_deallocate (\fBsexp_t\fP * s)"
+given a malloc'd \fBsexp_t\fP element, put it back into the already-allocated element stack\&. This method will allocate a stack if one has not been allocated already\&. 
+.SH "Variable Documentation"
+.PP 
+.SS "\fBsexp_errcode_t\fP sexp_errno\fR [extern]\fP"
+Global value indicating the most recent error condition encountered\&. This value can be reset to SEXP_ERR_OK by calling sexp_errno_reset()\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Small, Fast S-Expression Library from the source code\&.

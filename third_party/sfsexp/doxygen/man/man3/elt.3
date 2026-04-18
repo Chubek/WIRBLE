@@ -1,0 +1,85 @@
+.TH "elt" 3 "Small, Fast S-Expression Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+elt
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <sexp\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBelt_t\fP \fBty\fP"
+.br
+.ti -1c
+.RI "char * \fBval\fP"
+.br
+.ti -1c
+.RI "size_t \fBval_allocated\fP"
+.br
+.ti -1c
+.RI "size_t \fBval_used\fP"
+.br
+.ti -1c
+.RI "struct \fBelt\fP * \fBlist\fP"
+.br
+.ti -1c
+.RI "struct \fBelt\fP * \fBnext\fP"
+.br
+.ti -1c
+.RI "\fBatom_t\fP \fBaty\fP"
+.br
+.ti -1c
+.RI "char * \fBbindata\fP"
+.br
+.ti -1c
+.RI "size_t \fBbinlength\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+An s-expression is represented as a linked structure of elements, where each element is either an \fIatom\fP or \fIlist\fP\&. An atom corresponds to a string, while a list corresponds to an s-expression\&. The following grammar represents our definition of an s-expression:
+
+.PP
+.PP
+.nf
+
+sexpr  ::= ( sx )
+sx     ::= atom sxtail | sexpr sxtail | 'sexpr sxtail | 'atom sxtail | NULL
+sxtail ::= sx | NULL
+atom   ::= quoted | value
+quoted ::= "ws_string"
+value  ::= nws_string
+.fi
+.PP
+ 
+
+.PP
+An atom can either be a quoted string, which is a string containing whitespace (possibly) surrounded by double quotes, or a non-whitespace string that does not require surrounding quotes\&. An element representing an atom will have a type of \fIvalue\fP and data stored in the \fIval\fP field\&. An element of type \fIlist\fP represents an s-expression corresponding to \fIsexpr\fP in the grammar, and will have a pointer to the head of the appropriate s-expression\&. Details regarding these fields and their values given with the fields themselves\&. Notice that a single quote can appear directly before an s-expression or atom, similar to the use in LISP\&. 
+.SH "Field Documentation"
+.PP 
+.SS "\fBatom_t\fP aty"
+For elements that represent \fIvalues\fP, this field will specify the specific type of value that it represents\&. This can be used by functions to determine how this value should be printed (ie: how it should be quoted) or interpreted (ie: interpreting s-expressions that are prefixed with a tick-mark\&.)\&. This value also indicates whether or not the programmer should look in the val field or bindata field for the atom data\&. 
+.SS "char* bindata"
+For elements that represent \fIbinary\fP blobs, this field will point to a memory location where the data resides\&. The length of this memory blob is the next field\&. char* implies byte sized elements\&. This is only used in INLINE_BINARY parser mode\&. \fBIMPORTANT NOTE\fP: The data in this field is freed on a \fBdestroy_sexp()\fP call, so users should copy it to memory they allocate if they wish it to persist after the \fBsexp_t\fP has been freed\&. 
+.SS "size_t binlength"
+The length of the data pointed at by bindata in bytes\&. 
+.SS "struct \fBelt\fP* list"
+If the type of the element is \fBSEXP_LIST\fP, this field will contain a pointer to the head element of the list\&. 
+.SS "struct \fBelt\fP* next"
+The \fInext\fP field is a pointer to the next element in the current expression\&. If this element is the last element in the s-expression, this field will be \fINULL\fP\&. 
+.SS "\fBelt_t\fP ty"
+The element has a type that determines how the structure is used\&. If the type is \fBSEXP_VALUE\fP, then a programmer knows that either the val field or bindata field is meaningful depending on the value of the aty field, and contains the data associated with this element of the s-expression\&. If the type is \fBSEXP_LIST\fP, then the list field contains a pointer to the s-expression element representing the head of the list\&. For each case, the field for the opposite case contains no meaningful data and using them in any way is likely to cause an error\&. 
+.SS "char* val"
+If the type of the element is \fBSEXP_VALUE\fP and the aty field is not \fBSEXP_BINARY\fP, this field will contain the actual data represented by this element\&. 
+.SS "size_t val_allocated"
+Number of bytes allocated for val\&. 
+.SS "size_t val_used"
+Number of bytes used in val (<= val_allocated)\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Small, Fast S-Expression Library from the source code\&.

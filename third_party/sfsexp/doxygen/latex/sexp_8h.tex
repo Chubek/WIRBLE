@@ -1,0 +1,305 @@
+\doxysection{sexp.\+h File Reference}
+\hypertarget{sexp_8h}{}\label{sexp_8h}\index{sexp.h@{sexp.h}}
+
+
+API for a small, fast and portable s-\/expression parser library.  
+
+
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include "{}faststack.\+h"{}}\newline
+{\ttfamily \#include "{}cstring.\+h"{}}\newline
+{\ttfamily \#include "{}sexp\+\_\+memory.\+h"{}}\newline
+{\ttfamily \#include "{}sexp\+\_\+errors.\+h"{}}\newline
+{\ttfamily \#include "{}sexp\+\_\+ops.\+h"{}}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structelt}{elt}}
+\item 
+struct \mbox{\hyperlink{structparser__event__handlers}{parser\+\_\+event\+\_\+handlers}}
+\item 
+struct \mbox{\hyperlink{structpcont}{pcont}}
+\item 
+struct \mbox{\hyperlink{structsexp__iowrap}{sexp\+\_\+iowrap}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structelt}{elt}} \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}}
+\item 
+typedef struct \mbox{\hyperlink{structparser__event__handlers}{parser\+\_\+event\+\_\+handlers}} \mbox{\hyperlink{sexp_8h_ab2909b539d5e86a1ab20146528cdf571}{parser\+\_\+event\+\_\+handlers\+\_\+t}}
+\item 
+typedef struct \mbox{\hyperlink{structpcont}{pcont}} \mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}}
+\item 
+typedef struct \mbox{\hyperlink{structsexp__iowrap}{sexp\+\_\+iowrap}} \mbox{\hyperlink{group__IO_ga7b4c4e4366408c822da57fda8293d94e}{sexp\+\_\+iowrap\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{sexp_8h_a61b4209867717e6c58f53ff2e8ddceb6}{elt\+\_\+t}} \{ \mbox{\hyperlink{sexp_8h_a61b4209867717e6c58f53ff2e8ddceb6aeb8602275a30963ddc65d053bdfec85d}{SEXP\+\_\+\+VALUE}}
+, \mbox{\hyperlink{sexp_8h_a61b4209867717e6c58f53ff2e8ddceb6a89b8f13d64c892c4937cca2b31be7262}{SEXP\+\_\+\+LIST}}
+ \}
+\item 
+enum \mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8}{atom\+\_\+t}} \{ \mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8a594aa2c99ca3430571fd3ffbb2e64e7d}{SEXP\+\_\+\+BASIC}}
+, \mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8ad2e96c3c8bd37ca720a0e6bd8b766e01}{SEXP\+\_\+\+SQUOTE}}
+, \mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8a6e683951fa87bd0c16204b0d8a722107}{SEXP\+\_\+\+DQUOTE}}
+, \mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8affda94b3167db07b51f9c02f7328d716}{SEXP\+\_\+\+BINARY}}
+ \}
+\item 
+enum \mbox{\hyperlink{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8c}{parsermode\+\_\+t}} \{ \mbox{\hyperlink{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8cacd50c22c706365a6a1ef701c41201bde}{PARSER\+\_\+\+NORMAL}}
+, \mbox{\hyperlink{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8cab59f8e8c9b71455882669119aa89e901}{PARSER\+\_\+\+INLINE\+\_\+\+BINARY}}
+, \mbox{\hyperlink{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8ca90a7ea93431869d44f3dded8b57a1f5f}{PARSER\+\_\+\+EVENTS\+\_\+\+ONLY}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024}{sexp\+\_\+errcode\+\_\+t}} \mbox{\hyperlink{group__parser_gae1316f65fe8caba1d0b7d53fa00d86fe}{set\+\_\+parser\+\_\+buffer\+\_\+params}} (size\+\_\+t ss, size\+\_\+t gs)
+\item 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{sexp_8h_a294992b52f3e6e70f19fe950b46e4b79}{sexp\+\_\+t\+\_\+allocate}} (void)
+\item 
+void \mbox{\hyperlink{sexp_8h_a4f72f6ae2958756f804be4b2535e716f}{sexp\+\_\+t\+\_\+deallocate}} (\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}s)
+\item 
+void \mbox{\hyperlink{sexp_8h_a4ac40450af156048c6703cf88f02927d}{sexp\+\_\+cleanup}} (void)
+\item 
+int \mbox{\hyperlink{sexp_8h_a64b5776c26c466976c0614cdbb885586}{print\+\_\+sexp}} (char \texorpdfstring{$\ast$}{*}loc, size\+\_\+t size, const \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}e)
+\item 
+int \mbox{\hyperlink{sexp_8h_a20521030be16115ca2f6f26377b2cfb9}{print\+\_\+sexp\+\_\+cstr}} (\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}s, const \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}e, size\+\_\+t ss)
+\item 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{sexp_8h_a6fe646222d78499da47dfa55820992ab}{new\+\_\+sexp\+\_\+list}} (\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}l)
+\item 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{sexp_8h_a920e940c3ec8c82a30d1993b44094407}{new\+\_\+sexp\+\_\+binary\+\_\+atom}} (char \texorpdfstring{$\ast$}{*}data, size\+\_\+t binlength)
+\item 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{sexp_8h_a24acc806b4d5f55ba10301499b4a64f4}{new\+\_\+sexp\+\_\+atom}} (const char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t bs, \mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8}{atom\+\_\+t}} aty)
+\item 
+\mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{sexp_8h_a4796ac43fc8feb7232ea24ae2825d548}{init\+\_\+continuation}} (char \texorpdfstring{$\ast$}{*}str)
+\item 
+void \mbox{\hyperlink{sexp_8h_a86b8e97e95a03cbe9b3351bee95230df}{destroy\+\_\+continuation}} (\mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}} \texorpdfstring{$\ast$}{*}pc)
+\item 
+\mbox{\hyperlink{group__IO_ga7b4c4e4366408c822da57fda8293d94e}{sexp\+\_\+iowrap\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__IO_ga826b91ed5d285b6ccdf5d90301bb23f2}{init\+\_\+iowrap}} (int fd)
+\item 
+void \mbox{\hyperlink{group__IO_ga3eacc12bba60c2e94609e8e46c003b20}{destroy\+\_\+iowrap}} (\mbox{\hyperlink{group__IO_ga7b4c4e4366408c822da57fda8293d94e}{sexp\+\_\+iowrap\+\_\+t}} \texorpdfstring{$\ast$}{*}iow)
+\item 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__IO_ga40e1d44645d4f7d47e4e595d99908994}{read\+\_\+one\+\_\+sexp}} (\mbox{\hyperlink{group__IO_ga7b4c4e4366408c822da57fda8293d94e}{sexp\+\_\+iowrap\+\_\+t}} \texorpdfstring{$\ast$}{*}iow)
+\item 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__parser_gad293031c1700e2e3082e1b769efa7a48}{parse\+\_\+sexp}} (char \texorpdfstring{$\ast$}{*}s, size\+\_\+t len)
+\item 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__parser_gaedc8291648be97e37870643c6cf7a0b8}{iparse\+\_\+sexp}} (char \texorpdfstring{$\ast$}{*}s, size\+\_\+t len, \mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}} \texorpdfstring{$\ast$}{*}cc)
+\item 
+\mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__parser_gab32f97638a733c528eaa6a1a01c2e6ca}{cparse\+\_\+sexp}} (char \texorpdfstring{$\ast$}{*}s, size\+\_\+t len, \mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}} \texorpdfstring{$\ast$}{*}pc)
+\item 
+void \mbox{\hyperlink{sexp_8h_a6ed8f4177cdbe458e904fb75b2b7d914}{destroy\+\_\+sexp}} (\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}s)
+\item 
+void \mbox{\hyperlink{sexp_8h_a65e96ea2ac898af2b5d2656b1a68bd7e}{reset\+\_\+sexp\+\_\+errno}} ()
+\item 
+void \mbox{\hyperlink{sexp_8h_a65e3e5bce39f959e85d1119aa113e850}{print\+\_\+pcont}} (\mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}} \texorpdfstring{$\ast$}{*}pc, char \texorpdfstring{$\ast$}{*}buf, size\+\_\+t buflen)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024}{sexp\+\_\+errcode\+\_\+t}} \mbox{\hyperlink{sexp_8h_a62933b61bc65dde6e6234969ad2a16f7}{sexp\+\_\+errno}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+API for a small, fast and portable s-\/expression parser library. 
+
+
+
+\label{doc-typedef-members}
+\Hypertarget{sexp_8h_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{sexp_8h_ab2909b539d5e86a1ab20146528cdf571}\index{sexp.h@{sexp.h}!parser\_event\_handlers\_t@{parser\_event\_handlers\_t}}
+\index{parser\_event\_handlers\_t@{parser\_event\_handlers\_t}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{parser\_event\_handlers\_t}{parser\_event\_handlers\_t}}
+{\footnotesize\ttfamily \label{sexp_8h_ab2909b539d5e86a1ab20146528cdf571} 
+typedef struct \mbox{\hyperlink{structparser__event__handlers}{parser\+\_\+event\+\_\+handlers}} \mbox{\hyperlink{sexp_8h_ab2909b539d5e86a1ab20146528cdf571}{parser\+\_\+event\+\_\+handlers\+\_\+t}}}
+
+Some users would prefer to, instead of parsing a full string and walking a potentially huge \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t} structure, use an XML SAX-\/style parser where events are triggered as certain parts of the s-\/expression are encountered. This structure contains a set of function pointers that are called by the parser as it hits expression start and end, and completes reading atoms and binary data. NOTE\+: The parser\+\_\+event\+\_\+handler struct that is a field in the continuation data structure is NOT freed by destroy\+\_\+continuation since structs for callbacks are ALWAYS malloc\textquotesingle{}d by the user, not the library. \Hypertarget{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}\index{sexp.h@{sexp.h}!pcont\_t@{pcont\_t}}
+\index{pcont\_t@{pcont\_t}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{pcont\_t}{pcont\_t}}
+{\footnotesize\ttfamily \label{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1} 
+typedef struct \mbox{\hyperlink{structpcont}{pcont}} \mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}}}
+
+A continuation is used by the parser to save and restore state between invocations to support partial parsing of strings. For example, if we pass the string "{}(foo bar)(goo car)"{} to the parser, we want to be able to retrieve each s-\/expression one at a time -\/ it would be difficult to return all s-\/expressions at once without knowing how many there are in advance (this would require more memory management than we want...). So, by using a continuation-\/based parser, we can call it with this string and have it return a continuation when it has parsed the first s-\/expression. Once we have processed the s-\/expression (accessible through the {\itshape last\+\_\+sexpr} field of the continuation), we can call the parser again with the same string and continuation, and it will be able to pick up where it left off.
+
+We use continuations instead of a state-\/ful parser to allow multiple concurrent strings to be parsed by simply maintaining a set of continuations. Manipulating continuations by hand is required if the continuation-\/based parser is called directly. This is {\bfseries{not recommended}} unless you are willing to deal with potential errors and are willing to learn exactly how the continuation relates to the internals of the parser. A simpler approach is to use either the {\itshape parse\+\_\+sexp} function that simply returns an s-\/expression without exposing the continuations, or the {\itshape iparse\+\_\+sexp} function that allows iteratively popping one s-\/expression at a time from a string containing one or more s-\/expressions. Refer to the documentation for each parsing function for further details on behavior and usage. \Hypertarget{sexp_8h_ae49130a807f3037c4b586b34006adcf2}\index{sexp.h@{sexp.h}!sexp\_t@{sexp\_t}}
+\index{sexp\_t@{sexp\_t}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{sexp\_t}{sexp\_t}}
+{\footnotesize\ttfamily \label{sexp_8h_ae49130a807f3037c4b586b34006adcf2} 
+typedef struct \mbox{\hyperlink{structelt}{elt}} \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}}}
+
+An s-\/expression is represented as a linked structure of elements, where each element is either an {\itshape atom} or {\itshape list}. An atom corresponds to a string, while a list corresponds to an s-\/expression. The following grammar represents our definition of an s-\/expression\+:
+
+
+\begin{DoxyPre}
+sexpr  ::= ( sx )
+sx     ::= atom sxtail | sexpr sxtail | 'sexpr sxtail | 'atom sxtail | NULL
+sxtail ::= sx | NULL
+atom   ::= quoted | value
+quoted ::= "{}ws\_string"{}
+value  ::= nws\_string
+\end{DoxyPre}
+ 
+
+An atom can either be a quoted string, which is a string containing whitespace (possibly) surrounded by double quotes, or a non-\/whitespace string that does not require surrounding quotes. An element representing an atom will have a type of {\itshape value} and data stored in the {\itshape val} field. An element of type {\itshape list} represents an s-\/expression corresponding to {\itshape sexpr} in the grammar, and will have a pointer to the head of the appropriate s-\/expression. Details regarding these fields and their values given with the fields themselves. Notice that a single quote can appear directly before an s-\/expression or atom, similar to the use in LISP. 
+
+\label{doc-enum-members}
+\Hypertarget{sexp_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8}\index{sexp.h@{sexp.h}!atom\_t@{atom\_t}}
+\index{atom\_t@{atom\_t}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{atom\_t}{atom\_t}}
+{\footnotesize\ttfamily \label{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8} 
+enum \mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8}{atom\+\_\+t}}}
+
+For an element that represents a value, the value can be interpreted as a more specific type. A {\itshape basic} value is a simple string with no whitespace (and therefore no quotes required). A {\itshape double quote} value, or {\itshape dquote}, is one that contains characters (such as whitespace) that requires quotation marks to contain the string. A {\itshape single quote} value, or {\itshape squote}, represents an element that is prefaced with a single tick-\/mark. This can be either an atom or s-\/expression, and the result is that the parser does not attempt to parse the element following the tick mark. It is simply stored as text. This is similar to the meaning of a tick mark in the Scheme or LISP family of programming languages. Finally, {\itshape binary} allows raw binary to be stored within an atom. Note that if the binary type is used, the data is stored in bindata with the length in binlength. Otherwise, the data us stored in the val field with val\+\_\+used and val\+\_\+allocated tracking the size of the value string and the total memory allocated for it. \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_BASIC@{SEXP\_BASIC}!sexp.h@{sexp.h}}\index{sexp.h@{sexp.h}!SEXP\_BASIC@{SEXP\_BASIC}}}\Hypertarget{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8a594aa2c99ca3430571fd3ffbb2e64e7d}\label{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8a594aa2c99ca3430571fd3ffbb2e64e7d} 
+SEXP\+\_\+\+BASIC&Basic, unquoted value. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_SQUOTE@{SEXP\_SQUOTE}!sexp.h@{sexp.h}}\index{sexp.h@{sexp.h}!SEXP\_SQUOTE@{SEXP\_SQUOTE}}}\Hypertarget{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8ad2e96c3c8bd37ca720a0e6bd8b766e01}\label{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8ad2e96c3c8bd37ca720a0e6bd8b766e01} 
+SEXP\+\_\+\+SQUOTE&Single quote (tick-\/mark) value -\/ contains a string representing a non-\/parsed portion of the s-\/expression. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_DQUOTE@{SEXP\_DQUOTE}!sexp.h@{sexp.h}}\index{sexp.h@{sexp.h}!SEXP\_DQUOTE@{SEXP\_DQUOTE}}}\Hypertarget{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8a6e683951fa87bd0c16204b0d8a722107}\label{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8a6e683951fa87bd0c16204b0d8a722107} 
+SEXP\+\_\+\+DQUOTE&Double-\/quoted string. Similar to a basic value, but potentially containing white-\/space. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_BINARY@{SEXP\_BINARY}!sexp.h@{sexp.h}}\index{sexp.h@{sexp.h}!SEXP\_BINARY@{SEXP\_BINARY}}}\Hypertarget{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8affda94b3167db07b51f9c02f7328d716}\label{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8affda94b3167db07b51f9c02f7328d716} 
+SEXP\+\_\+\+BINARY&Binary data. This is used when the specialized parser is active and supports inlining of binary blobs of data inside an expression. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{sexp_8h_a61b4209867717e6c58f53ff2e8ddceb6}\index{sexp.h@{sexp.h}!elt\_t@{elt\_t}}
+\index{elt\_t@{elt\_t}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{elt\_t}{elt\_t}}
+{\footnotesize\ttfamily \label{sexp_8h_a61b4209867717e6c58f53ff2e8ddceb6} 
+enum \mbox{\hyperlink{sexp_8h_a61b4209867717e6c58f53ff2e8ddceb6}{elt\+\_\+t}}}
+
+An element in an s-\/expression can be one of three types\+: a {\itshape value} represents an atom with an associated text value. A {\itshape list} represents an s-\/expression, and the element contains a pointer to the head element of the associated s-\/expression. \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_VALUE@{SEXP\_VALUE}!sexp.h@{sexp.h}}\index{sexp.h@{sexp.h}!SEXP\_VALUE@{SEXP\_VALUE}}}\Hypertarget{sexp_8h_a61b4209867717e6c58f53ff2e8ddceb6aeb8602275a30963ddc65d053bdfec85d}\label{sexp_8h_a61b4209867717e6c58f53ff2e8ddceb6aeb8602275a30963ddc65d053bdfec85d} 
+SEXP\+\_\+\+VALUE&An atom of some type. See atom type (aty) field of element structure for details as to which atom type this is. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_LIST@{SEXP\_LIST}!sexp.h@{sexp.h}}\index{sexp.h@{sexp.h}!SEXP\_LIST@{SEXP\_LIST}}}\Hypertarget{sexp_8h_a61b4209867717e6c58f53ff2e8ddceb6a89b8f13d64c892c4937cca2b31be7262}\label{sexp_8h_a61b4209867717e6c58f53ff2e8ddceb6a89b8f13d64c892c4937cca2b31be7262} 
+SEXP\+\_\+\+LIST&A list. This means the element points to an element representing the head of a list. \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8c}\index{sexp.h@{sexp.h}!parsermode\_t@{parsermode\_t}}
+\index{parsermode\_t@{parsermode\_t}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{parsermode\_t}{parsermode\_t}}
+{\footnotesize\ttfamily \label{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8c} 
+enum \mbox{\hyperlink{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8c}{parsermode\+\_\+t}}}
+
+parser mode flag used by continuation to toggle special parser behaviour. \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PARSER\_NORMAL@{PARSER\_NORMAL}!sexp.h@{sexp.h}}\index{sexp.h@{sexp.h}!PARSER\_NORMAL@{PARSER\_NORMAL}}}\Hypertarget{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8cacd50c22c706365a6a1ef701c41201bde}\label{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8cacd50c22c706365a6a1ef701c41201bde} 
+PARSER\+\_\+\+NORMAL&normal (LISP-\/style) s-\/expression parser behaviour. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PARSER\_INLINE\_BINARY@{PARSER\_INLINE\_BINARY}!sexp.h@{sexp.h}}\index{sexp.h@{sexp.h}!PARSER\_INLINE\_BINARY@{PARSER\_INLINE\_BINARY}}}\Hypertarget{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8cab59f8e8c9b71455882669119aa89e901}\label{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8cab59f8e8c9b71455882669119aa89e901} 
+PARSER\+\_\+\+INLINE\+\_\+\+BINARY&treat atoms beginning with \#b\# as inlined binary data. everything else is treated the same as in PARSER\+\_\+\+NORMAL mode. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PARSER\_EVENTS\_ONLY@{PARSER\_EVENTS\_ONLY}!sexp.h@{sexp.h}}\index{sexp.h@{sexp.h}!PARSER\_EVENTS\_ONLY@{PARSER\_EVENTS\_ONLY}}}\Hypertarget{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8ca90a7ea93431869d44f3dded8b57a1f5f}\label{sexp_8h_aaa89fed3c3b2d1b9a1920599776eee8ca90a7ea93431869d44f3dded8b57a1f5f} 
+PARSER\+\_\+\+EVENTS\+\_\+\+ONLY&if the event\+\_\+handlers field in the continuation contains a non-\/null value, the handlers specified in the \doxylink{sexp_8h_ab2909b539d5e86a1ab20146528cdf571}{parser\+\_\+event\+\_\+handlers\+\_\+t} struct will be called as appropriate, but the parser will not allocate a structure composed of \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t} structs. Note that if the event\+\_\+handlers is set to null and this mode is selected, the user would be better off not calling anything in the first place, as they are telling the parser to walk the string, but do nothing productive in the process. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{sexp_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{sexp_8h_a86b8e97e95a03cbe9b3351bee95230df}\index{sexp.h@{sexp.h}!destroy\_continuation@{destroy\_continuation}}
+\index{destroy\_continuation@{destroy\_continuation}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{destroy\_continuation()}{destroy\_continuation()}}
+{\footnotesize\ttfamily \label{sexp_8h_a86b8e97e95a03cbe9b3351bee95230df} 
+void destroy\+\_\+continuation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{pc}{}\end{DoxyParamCaption})}
+
+destroy a continuation. This involves cleaning up what it contains, and cleaning up the continuation itself. \Hypertarget{sexp_8h_a6ed8f4177cdbe458e904fb75b2b7d914}\index{sexp.h@{sexp.h}!destroy\_sexp@{destroy\_sexp}}
+\index{destroy\_sexp@{destroy\_sexp}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{destroy\_sexp()}{destroy\_sexp()}}
+{\footnotesize\ttfamily \label{sexp_8h_a6ed8f4177cdbe458e904fb75b2b7d914} 
+void destroy\+\_\+sexp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{s}{}\end{DoxyParamCaption})}
+
+given a \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t} structure, free the memory it uses (and recursively free the memory used by all \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t} structures that it references). Note that this will call the deallocation routine for \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t} elements. This means that memory isn\textquotesingle{}t freed, but stored away in a cache of pre-\/allocated elements. This is an optimization to speed up the parser to eliminate wasteful free and re-\/malloc calls. Note\+: If using inlined binary mode, this will free the data pointed to by the bindata field. So, if you care about the data after the lifetime of the s-\/expression, make sure to make a copy before cleaning up the sexpr. \Hypertarget{sexp_8h_a4796ac43fc8feb7232ea24ae2825d548}\index{sexp.h@{sexp.h}!init\_continuation@{init\_continuation}}
+\index{init\_continuation@{init\_continuation}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{init\_continuation()}{init\_continuation()}}
+{\footnotesize\ttfamily \label{sexp_8h_a4796ac43fc8feb7232ea24ae2825d548} 
+\mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}} \texorpdfstring{$\ast$}{*} init\+\_\+continuation (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{str}{}\end{DoxyParamCaption})}
+
+create an initial continuation for parsing the given string \Hypertarget{sexp_8h_a24acc806b4d5f55ba10301499b4a64f4}\index{sexp.h@{sexp.h}!new\_sexp\_atom@{new\_sexp\_atom}}
+\index{new\_sexp\_atom@{new\_sexp\_atom}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{new\_sexp\_atom()}{new\_sexp\_atom()}}
+{\footnotesize\ttfamily \label{sexp_8h_a24acc806b4d5f55ba10301499b4a64f4} 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} new\+\_\+sexp\+\_\+atom (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{size\+\_\+t}]{bs}{, }\item[{\mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8}{atom\+\_\+t}}}]{aty}{}\end{DoxyParamCaption})}
+
+Allocate a new \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t} element representing a value. The user must specify the precise type of the atom. This used to default to SEXP\+\_\+\+BASIC, but this can lead to errors if the user did not expect this assumption. By explicitly passing in the atom type, the caller should ensure that the data in the buffer is valid given the requested atom type. For performance reasons, such checks are left to the caller if they are desired, and not performed in the library if they are not wanted. \Hypertarget{sexp_8h_a920e940c3ec8c82a30d1993b44094407}\index{sexp.h@{sexp.h}!new\_sexp\_binary\_atom@{new\_sexp\_binary\_atom}}
+\index{new\_sexp\_binary\_atom@{new\_sexp\_binary\_atom}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{new\_sexp\_binary\_atom()}{new\_sexp\_binary\_atom()}}
+{\footnotesize\ttfamily \label{sexp_8h_a920e940c3ec8c82a30d1993b44094407} 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} new\+\_\+sexp\+\_\+binary\+\_\+atom (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{binlength}{}\end{DoxyParamCaption})}
+
+Allocate a new \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t} element representing a raw binary atom. This element will contain a pointer to the raw binary data provided, as well as the binary data length. The character atom fields will be NULL and the corresponding val length and allocation size will be set to zero since this element is carrying a binary pointer only. \Hypertarget{sexp_8h_a6fe646222d78499da47dfa55820992ab}\index{sexp.h@{sexp.h}!new\_sexp\_list@{new\_sexp\_list}}
+\index{new\_sexp\_list@{new\_sexp\_list}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{new\_sexp\_list()}{new\_sexp\_list()}}
+{\footnotesize\ttfamily \label{sexp_8h_a6fe646222d78499da47dfa55820992ab} 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} new\+\_\+sexp\+\_\+list (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{l}{}\end{DoxyParamCaption})}
+
+Allocate a new \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t} element representing a list. \Hypertarget{sexp_8h_a65e3e5bce39f959e85d1119aa113e850}\index{sexp.h@{sexp.h}!print\_pcont@{print\_pcont}}
+\index{print\_pcont@{print\_pcont}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{print\_pcont()}{print\_pcont()}}
+{\footnotesize\ttfamily \label{sexp_8h_a65e3e5bce39f959e85d1119aa113e850} 
+void print\+\_\+pcont (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{sexp_8h_a27ec8a5d46ed96d1c073d7db761f1eb1}{pcont\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{pc}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{size\+\_\+t}]{buflen}{}\end{DoxyParamCaption})}
+
+print the contents of the parser continuation stack to a buffer. this is useful if an expression is partially parsed and the caller realizes that something is wrong with it. with this routine, the caller can reconstruct the expression parsed so far and use it for error reporting. this works with fixed size buffers allocated by the caller. there is not a CSTRING-\/based version currently. \Hypertarget{sexp_8h_a64b5776c26c466976c0614cdbb885586}\index{sexp.h@{sexp.h}!print\_sexp@{print\_sexp}}
+\index{print\_sexp@{print\_sexp}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{print\_sexp()}{print\_sexp()}}
+{\footnotesize\ttfamily \label{sexp_8h_a64b5776c26c466976c0614cdbb885586} 
+int print\+\_\+sexp (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{loc}{, }\item[{size\+\_\+t}]{size}{, }\item[{const \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{e}{}\end{DoxyParamCaption})}
+
+print a \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t} struct as a string in the LISP style. If the buffer is large enough and the conversion is successful, the return value represents the length of the string contained in the buffer. If the buffer was too small, or some other error occurred, the return value is -\/1 and the contents of the buffer should not be assumed to contain any useful information. When the return value is -\/1, the caller should check the contents of sexp\+\_\+errno for details on what error may have occurred. \Hypertarget{sexp_8h_a20521030be16115ca2f6f26377b2cfb9}\index{sexp.h@{sexp.h}!print\_sexp\_cstr@{print\_sexp\_cstr}}
+\index{print\_sexp\_cstr@{print\_sexp\_cstr}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{print\_sexp\_cstr()}{print\_sexp\_cstr()}}
+{\footnotesize\ttfamily \label{sexp_8h_a20521030be16115ca2f6f26377b2cfb9} 
+int print\+\_\+sexp\+\_\+cstr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{s}{, }\item[{const \mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{e}{, }\item[{size\+\_\+t}]{ss}{}\end{DoxyParamCaption})}
+
+print a \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t} structure to a buffer, growing it as necessary instead of relying on fixed size buffers like print\+\_\+sexp. Important argument to tune for performance reasons is {\ttfamily ss} -\/ the buffer start size. The growsize used by the \doxylink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING} routines also should be considered for tuning via the \doxylink{cstring_8h_ae1ce26ad7e7ab2ff953cb0acb34f1353}{sgrowsize()} function. This routine no longer requires the user to specify the growsize, and uses the current setting without changing it. \Hypertarget{sexp_8h_a65e96ea2ac898af2b5d2656b1a68bd7e}\index{sexp.h@{sexp.h}!reset\_sexp\_errno@{reset\_sexp\_errno}}
+\index{reset\_sexp\_errno@{reset\_sexp\_errno}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{reset\_sexp\_errno()}{reset\_sexp\_errno()}}
+{\footnotesize\ttfamily \label{sexp_8h_a65e96ea2ac898af2b5d2656b1a68bd7e} 
+void reset\+\_\+sexp\+\_\+errno (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+reset the value of sexp\+\_\+errno to SEXP\+\_\+\+ERR\+\_\+\+OK. \Hypertarget{sexp_8h_a4ac40450af156048c6703cf88f02927d}\index{sexp.h@{sexp.h}!sexp\_cleanup@{sexp\_cleanup}}
+\index{sexp\_cleanup@{sexp\_cleanup}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{sexp\_cleanup()}{sexp\_cleanup()}}
+{\footnotesize\ttfamily \label{sexp_8h_a4ac40450af156048c6703cf88f02927d} 
+void sexp\+\_\+cleanup (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+In the event that someone wants us to release ALL of the memory used between calls by the library, they can free it. If you don\textquotesingle{}t call this, the caches will be persistent for the lifetime of the library user. Note that in the event of an error condition resulting in sexp\+\_\+errno being set, the user might consider calling this to clean up any memory that may be lingering around that should be cleaned up. \Hypertarget{sexp_8h_a294992b52f3e6e70f19fe950b46e4b79}\index{sexp.h@{sexp.h}!sexp\_t\_allocate@{sexp\_t\_allocate}}
+\index{sexp\_t\_allocate@{sexp\_t\_allocate}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{sexp\_t\_allocate()}{sexp\_t\_allocate()}}
+{\footnotesize\ttfamily \label{sexp_8h_a294992b52f3e6e70f19fe950b46e4b79} 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} sexp\+\_\+t\+\_\+allocate (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+return an allocated \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}. This structure may be an already allocated one from the stack or a new one if none are available. Use this instead of manually mallocing if you want to avoid excessive mallocs. {\itshape Note\+: Mallocing your own expressions is fine -\/ you can even use sexp\+\_\+t\+\_\+deallocate to deallocate them and put them in the pool.} Also, if the stack has not been initialized yet, this does so. \Hypertarget{sexp_8h_a4f72f6ae2958756f804be4b2535e716f}\index{sexp.h@{sexp.h}!sexp\_t\_deallocate@{sexp\_t\_deallocate}}
+\index{sexp\_t\_deallocate@{sexp\_t\_deallocate}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{sexp\_t\_deallocate()}{sexp\_t\_deallocate()}}
+{\footnotesize\ttfamily \label{sexp_8h_a4f72f6ae2958756f804be4b2535e716f} 
+void sexp\+\_\+t\+\_\+deallocate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{s}{}\end{DoxyParamCaption})}
+
+given a malloc\textquotesingle{}d \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t} element, put it back into the already-\/allocated element stack. This method will allocate a stack if one has not been allocated already. 
+
+\label{doc-var-members}
+\Hypertarget{sexp_8h_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{sexp_8h_a62933b61bc65dde6e6234969ad2a16f7}\index{sexp.h@{sexp.h}!sexp\_errno@{sexp\_errno}}
+\index{sexp\_errno@{sexp\_errno}!sexp.h@{sexp.h}}
+\doxysubsubsection{\texorpdfstring{sexp\_errno}{sexp\_errno}}
+{\footnotesize\ttfamily \label{sexp_8h_a62933b61bc65dde6e6234969ad2a16f7} 
+\mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024}{sexp\+\_\+errcode\+\_\+t}} sexp\+\_\+errno\hspace{0.3cm}{\ttfamily [extern]}}
+
+Global value indicating the most recent error condition encountered. This value can be reset to SEXP\+\_\+\+ERR\+\_\+\+OK by calling sexp\+\_\+errno\+\_\+reset(). 

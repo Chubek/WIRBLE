@@ -1,0 +1,38 @@
+.TH "stack_level" 3 "Small, Fast S-Expression Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+stack_level
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <faststack\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "struct \fBstack_level\fP * \fBabove\fP"
+.br
+.ti -1c
+.RI "struct \fBstack_level\fP * \fBbelow\fP"
+.br
+.ti -1c
+.RI "void * \fBdata\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Structure representing a single level in the stack\&. Has a pointer to the level above and below itself and a pointer to a generic blob of data associated with this level\&. 
+.SH "Field Documentation"
+.PP 
+.SS "struct \fBstack_level\fP* above"
+Pointer to the level above this one\&. If NULL, then this level is the top of the stack\&. If above is non-NULL, this level \fImay\fP be the top, but all that can be guaranteed is that there are other allocated but potentially unused levels above this one\&. 
+.SS "struct \fBstack_level\fP* below"
+Pointer to the level below this one\&. If NULL, then this level is the bottom\&. 
+.SS "void* data"
+Pointer to some data associated with this level\&. User is responsible for knowing what to cast the \fRvoid\fP \fR*\fP pointer into\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Small, Fast S-Expression Library from the source code\&.

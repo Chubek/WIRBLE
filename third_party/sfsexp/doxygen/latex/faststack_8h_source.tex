@@ -1,0 +1,50 @@
+\doxysection{faststack.\+h}
+\hypertarget{faststack_8h_source}{}\label{faststack_8h_source}\index{faststack.h@{faststack.h}}
+\mbox{\hyperlink{faststack_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#ifndef\ \_\_FASTSTACK\_H\_\_}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ \_\_FASTSTACK\_H\_\_}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structstack__level}{stack\_level}}\ \{}
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structstack__level}{stack\_level}}\ *\mbox{\hyperlink{structstack__level_a2939391d23b373c7e3aa910900900bed}{above}};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00063\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structstack__level}{stack\_level}}\ *\mbox{\hyperlink{structstack__level_a5945c4462b1cedde633f17fac2dcb560}{below}};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structstack__level_a735984d41155bc1032e09bece8f8d66d}{data}};}
+\DoxyCodeLine{00070\ \}\ \mbox{\hyperlink{faststack_8h_a346be4603390333bda226c34d18cd91c}{stack\_lvl\_t}};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structstack__wrapper}{stack\_wrapper}}\ \{}
+\DoxyCodeLine{00082\ \ \ \mbox{\hyperlink{faststack_8h_a346be4603390333bda226c34d18cd91c}{stack\_lvl\_t}}\ *\mbox{\hyperlink{structstack__wrapper_a0820062af6377855ab194ea9ab2fdfbc}{top}};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00087\ \ \ \mbox{\hyperlink{faststack_8h_a346be4603390333bda226c34d18cd91c}{stack\_lvl\_t}}\ *\mbox{\hyperlink{structstack__wrapper_aee1117046bd196ed5734143e3a96da7f}{bottom}};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structstack__wrapper_ad12fc34ce789bce6c8a05d8a17138534}{height}};}
+\DoxyCodeLine{00093\ \}\ \mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\_t}};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{comment}{/*\ this\ is\ for\ C++\ */}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00099\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00106\ \ \ \mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\_t}}\ *\mbox{\hyperlink{faststack_8h_adfb3f5f1616394930f1f3829a1d3cbeb}{make\_stack}}();}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{faststack_8h_a73817a83e883b9e86df14ea53175494e}{destroy\_stack}}(\mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\_t}}\ *s);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00124\ \ \ \mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\_t}}\ *\mbox{\hyperlink{faststack_8h_a17354499e392f622d5d25b714658c0ba}{push}}(\mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\_t}}\ *cur\_stack,\ \textcolor{keywordtype}{void}\ *data);}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00134\ \ \ \mbox{\hyperlink{faststack_8h_a346be4603390333bda226c34d18cd91c}{stack\_lvl\_t}}\ *\mbox{\hyperlink{faststack_8h_a4348cde770a74f12ebe2370458886207}{pop}}(\mbox{\hyperlink{faststack_8h_aa616fb6bc7f534d0f6816ff275e154a6}{faststack\_t}}\ *s);}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \textcolor{comment}{/*\ this\ is\ for\ C++\ */}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00138\ \}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#define\ top\_data(s)\ (s-\/>top-\/>data)}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ empty\_stack(s)\ (s-\/>top\ ==\ NULL)}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_FASTSTACK\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

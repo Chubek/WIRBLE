@@ -1,0 +1,42 @@
+\doxysection{stack\+\_\+wrapper Struct Reference}
+\hypertarget{structstack__wrapper}{}\label{structstack__wrapper}\index{stack\_wrapper@{stack\_wrapper}}
+
+
+{\ttfamily \#include $<$faststack.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{faststack_8h_a346be4603390333bda226c34d18cd91c}{stack\+\_\+lvl\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structstack__wrapper_a0820062af6377855ab194ea9ab2fdfbc}{top}}
+\item 
+\mbox{\hyperlink{faststack_8h_a346be4603390333bda226c34d18cd91c}{stack\+\_\+lvl\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structstack__wrapper_aee1117046bd196ed5734143e3a96da7f}{bottom}}
+\item 
+int \mbox{\hyperlink{structstack__wrapper_ad12fc34ce789bce6c8a05d8a17138534}{height}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Wrapper around the stack levels -\/ keeps a pointer to the current top and bottom of the stack and a count of the current height. This allows the top to have non-\/null above pointer resulting from previously allocated stack levels that may be recycled later without {\ttfamily malloc} overhead. 
+
+\label{doc-variable-members}
+\Hypertarget{structstack__wrapper_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structstack__wrapper_aee1117046bd196ed5734143e3a96da7f}\index{stack\_wrapper@{stack\_wrapper}!bottom@{bottom}}
+\index{bottom@{bottom}!stack\_wrapper@{stack\_wrapper}}
+\doxysubsubsection{\texorpdfstring{bottom}{bottom}}
+{\footnotesize\ttfamily \label{structstack__wrapper_aee1117046bd196ed5734143e3a96da7f} 
+\mbox{\hyperlink{faststack_8h_a346be4603390333bda226c34d18cd91c}{stack\+\_\+lvl\+\_\+t}}\texorpdfstring{$\ast$}{*} bottom}
+
+The bottom of the stack. If this is NULL, the stack is empty. \Hypertarget{structstack__wrapper_ad12fc34ce789bce6c8a05d8a17138534}\index{stack\_wrapper@{stack\_wrapper}!height@{height}}
+\index{height@{height}!stack\_wrapper@{stack\_wrapper}}
+\doxysubsubsection{\texorpdfstring{height}{height}}
+{\footnotesize\ttfamily \label{structstack__wrapper_ad12fc34ce789bce6c8a05d8a17138534} 
+int height}
+
+The current height of the stack, in terms of allocated and used levels. \Hypertarget{structstack__wrapper_a0820062af6377855ab194ea9ab2fdfbc}\index{stack\_wrapper@{stack\_wrapper}!top@{top}}
+\index{top@{top}!stack\_wrapper@{stack\_wrapper}}
+\doxysubsubsection{\texorpdfstring{top}{top}}
+{\footnotesize\ttfamily \label{structstack__wrapper_a0820062af6377855ab194ea9ab2fdfbc} 
+\mbox{\hyperlink{faststack_8h_a346be4603390333bda226c34d18cd91c}{stack\+\_\+lvl\+\_\+t}}\texorpdfstring{$\ast$}{*} top}
+
+The top of the stack. If this is NULL, the stack is empty. 

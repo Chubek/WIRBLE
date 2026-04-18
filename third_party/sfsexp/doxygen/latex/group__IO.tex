@@ -1,0 +1,59 @@
+\doxysection{I/O routines }
+\hypertarget{group__IO}{}\label{group__IO}\index{I/O routines@{I/O routines}}
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structsexp__iowrap}{sexp\+\_\+iowrap}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structsexp__iowrap}{sexp\+\_\+iowrap}} \mbox{\hyperlink{group__IO_ga7b4c4e4366408c822da57fda8293d94e}{sexp\+\_\+iowrap\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{group__IO_ga7b4c4e4366408c822da57fda8293d94e}{sexp\+\_\+iowrap\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__IO_ga826b91ed5d285b6ccdf5d90301bb23f2}{init\+\_\+iowrap}} (int fd)
+\item 
+void \mbox{\hyperlink{group__IO_ga3eacc12bba60c2e94609e8e46c003b20}{destroy\+\_\+iowrap}} (\mbox{\hyperlink{group__IO_ga7b4c4e4366408c822da57fda8293d94e}{sexp\+\_\+iowrap\+\_\+t}} \texorpdfstring{$\ast$}{*}iow)
+\item 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__IO_ga40e1d44645d4f7d47e4e595d99908994}{read\+\_\+one\+\_\+sexp}} (\mbox{\hyperlink{group__IO_ga7b4c4e4366408c822da57fda8293d94e}{sexp\+\_\+iowrap\+\_\+t}} \texorpdfstring{$\ast$}{*}iow)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\label{doc-typedef-members}
+\Hypertarget{group__IO_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{group__IO_ga7b4c4e4366408c822da57fda8293d94e}\index{I/O routines@{I/O routines}!sexp\_iowrap\_t@{sexp\_iowrap\_t}}
+\index{sexp\_iowrap\_t@{sexp\_iowrap\_t}!I/O routines@{I/O routines}}
+\doxysubsubsection{\texorpdfstring{sexp\_iowrap\_t}{sexp\_iowrap\_t}}
+{\footnotesize\ttfamily \label{group__IO_ga7b4c4e4366408c822da57fda8293d94e} 
+typedef struct \mbox{\hyperlink{structsexp__iowrap}{sexp\+\_\+iowrap}} \mbox{\hyperlink{group__IO_ga7b4c4e4366408c822da57fda8293d94e}{sexp\+\_\+iowrap\+\_\+t}}}
+
+This structure is a wrapper around a standard I/O file descriptor and the parsing infrastructure (continuation and a buffer) required to parse off of it. This is used so that routines can hide the loops and details required to accumulate up data read off of the file descriptor and parse expressions individually out of it. 
+
+\label{doc-func-members}
+\Hypertarget{group__IO_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{group__IO_ga3eacc12bba60c2e94609e8e46c003b20}\index{I/O routines@{I/O routines}!destroy\_iowrap@{destroy\_iowrap}}
+\index{destroy\_iowrap@{destroy\_iowrap}!I/O routines@{I/O routines}}
+\doxysubsubsection{\texorpdfstring{destroy\_iowrap()}{destroy\_iowrap()}}
+{\footnotesize\ttfamily \label{group__IO_ga3eacc12bba60c2e94609e8e46c003b20} 
+void destroy\+\_\+iowrap (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__IO_ga7b4c4e4366408c822da57fda8293d94e}{sexp\+\_\+iowrap\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{iow}{}\end{DoxyParamCaption})}
+
+destroy an IO wrapper structure. The file descriptor wrapped in the wrapper will {\bfseries{not}} be closed, so the caller is responsible for manually calling close on the file descriptor. \Hypertarget{group__IO_ga826b91ed5d285b6ccdf5d90301bb23f2}\index{I/O routines@{I/O routines}!init\_iowrap@{init\_iowrap}}
+\index{init\_iowrap@{init\_iowrap}!I/O routines@{I/O routines}}
+\doxysubsubsection{\texorpdfstring{init\_iowrap()}{init\_iowrap()}}
+{\footnotesize\ttfamily \label{group__IO_ga826b91ed5d285b6ccdf5d90301bb23f2} 
+\mbox{\hyperlink{group__IO_ga7b4c4e4366408c822da57fda8293d94e}{sexp\+\_\+iowrap\+\_\+t}} \texorpdfstring{$\ast$}{*} init\+\_\+iowrap (\begin{DoxyParamCaption}\item[{int}]{fd}{}\end{DoxyParamCaption})}
+
+create an IO wrapper structure around a file descriptor. A NULL return value indicates some problem occurred allocating the wrapper, so the user should check the value of sexp\+\_\+errno for further information. \Hypertarget{group__IO_ga40e1d44645d4f7d47e4e595d99908994}\index{I/O routines@{I/O routines}!read\_one\_sexp@{read\_one\_sexp}}
+\index{read\_one\_sexp@{read\_one\_sexp}!I/O routines@{I/O routines}}
+\doxysubsubsection{\texorpdfstring{read\_one\_sexp()}{read\_one\_sexp()}}
+{\footnotesize\ttfamily \label{group__IO_ga40e1d44645d4f7d47e4e595d99908994} 
+\mbox{\hyperlink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t}} \texorpdfstring{$\ast$}{*} read\+\_\+one\+\_\+sexp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__IO_ga7b4c4e4366408c822da57fda8293d94e}{sexp\+\_\+iowrap\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{iow}{}\end{DoxyParamCaption})}
+
+given and IO wrapper handle, read one s-\/expression off of it. this expression may be contained in a continuation, so there is no guarantee that under the covers an IO read actually is occurring. A return value of NULL can either indicate a parser error or no more data on the input IO handle. In the event that NULL is returned, the user should check to see if sexp\+\_\+errno contains SEXP\+\_\+\+ERR\+\_\+\+IO\+\_\+\+EMPTY (no more data) or a more problematic error. 

@@ -1,0 +1,103 @@
+\doxysection{elt Struct Reference}
+\hypertarget{structelt}{}\label{structelt}\index{elt@{elt}}
+
+
+{\ttfamily \#include $<$sexp.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{sexp_8h_a61b4209867717e6c58f53ff2e8ddceb6}{elt\+\_\+t}} \mbox{\hyperlink{structelt_ac41a3a68e12b03e36c3382f7475bcb9c}{ty}}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structelt_a1d80a43cb41e5b550d4563dd10d302bc}{val}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structelt_a91f128358878eb65263a902c890a7d0a}{val\+\_\+allocated}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structelt_a42bc61e3fb0a2624a299c49b9bcd3c99}{val\+\_\+used}}
+\item 
+struct \mbox{\hyperlink{structelt}{elt}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structelt_abfc7da92d8494e8324f9110972e701b6}{list}}
+\item 
+struct \mbox{\hyperlink{structelt}{elt}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structelt_a054bea2012edef97a279278839adad15}{next}}
+\item 
+\mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8}{atom\+\_\+t}} \mbox{\hyperlink{structelt_a66d8c150b9abd99438db7f8908edda57}{aty}}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structelt_afd909e12d7992add70cbf30c99a4280f}{bindata}}
+\item 
+size\+\_\+t \mbox{\hyperlink{structelt_ac71961cdbebf7a81e8e7b609a7f4c8aa}{binlength}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+An s-\/expression is represented as a linked structure of elements, where each element is either an {\itshape atom} or {\itshape list}. An atom corresponds to a string, while a list corresponds to an s-\/expression. The following grammar represents our definition of an s-\/expression\+:
+
+
+\begin{DoxyPre}
+sexpr  ::= ( sx )
+sx     ::= atom sxtail | sexpr sxtail | 'sexpr sxtail | 'atom sxtail | NULL
+sxtail ::= sx | NULL
+atom   ::= quoted | value
+quoted ::= "{}ws\_string"{}
+value  ::= nws\_string
+\end{DoxyPre}
+ 
+
+An atom can either be a quoted string, which is a string containing whitespace (possibly) surrounded by double quotes, or a non-\/whitespace string that does not require surrounding quotes. An element representing an atom will have a type of {\itshape value} and data stored in the {\itshape val} field. An element of type {\itshape list} represents an s-\/expression corresponding to {\itshape sexpr} in the grammar, and will have a pointer to the head of the appropriate s-\/expression. Details regarding these fields and their values given with the fields themselves. Notice that a single quote can appear directly before an s-\/expression or atom, similar to the use in LISP. 
+
+\label{doc-variable-members}
+\Hypertarget{structelt_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structelt_a66d8c150b9abd99438db7f8908edda57}\index{elt@{elt}!aty@{aty}}
+\index{aty@{aty}!elt@{elt}}
+\doxysubsubsection{\texorpdfstring{aty}{aty}}
+{\footnotesize\ttfamily \label{structelt_a66d8c150b9abd99438db7f8908edda57} 
+\mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8}{atom\+\_\+t}} aty}
+
+For elements that represent {\itshape values}, this field will specify the specific type of value that it represents. This can be used by functions to determine how this value should be printed (ie\+: how it should be quoted) or interpreted (ie\+: interpreting s-\/expressions that are prefixed with a tick-\/mark.). This value also indicates whether or not the programmer should look in the val field or bindata field for the atom data. \Hypertarget{structelt_afd909e12d7992add70cbf30c99a4280f}\index{elt@{elt}!bindata@{bindata}}
+\index{bindata@{bindata}!elt@{elt}}
+\doxysubsubsection{\texorpdfstring{bindata}{bindata}}
+{\footnotesize\ttfamily \label{structelt_afd909e12d7992add70cbf30c99a4280f} 
+char\texorpdfstring{$\ast$}{*} bindata}
+
+For elements that represent {\itshape binary} blobs, this field will point to a memory location where the data resides. The length of this memory blob is the next field. char\texorpdfstring{$\ast$}{*} implies byte sized elements. This is only used in INLINE\+\_\+\+BINARY parser mode. {\bfseries{IMPORTANT NOTE}}\+: The data in this field is freed on a \doxylink{sexp_8h_a6ed8f4177cdbe458e904fb75b2b7d914}{destroy\+\_\+sexp()} call, so users should copy it to memory they allocate if they wish it to persist after the \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t} has been freed. \Hypertarget{structelt_ac71961cdbebf7a81e8e7b609a7f4c8aa}\index{elt@{elt}!binlength@{binlength}}
+\index{binlength@{binlength}!elt@{elt}}
+\doxysubsubsection{\texorpdfstring{binlength}{binlength}}
+{\footnotesize\ttfamily \label{structelt_ac71961cdbebf7a81e8e7b609a7f4c8aa} 
+size\+\_\+t binlength}
+
+The length of the data pointed at by bindata in bytes. \Hypertarget{structelt_abfc7da92d8494e8324f9110972e701b6}\index{elt@{elt}!list@{list}}
+\index{list@{list}!elt@{elt}}
+\doxysubsubsection{\texorpdfstring{list}{list}}
+{\footnotesize\ttfamily \label{structelt_abfc7da92d8494e8324f9110972e701b6} 
+struct \mbox{\hyperlink{structelt}{elt}}\texorpdfstring{$\ast$}{*} list}
+
+If the type of the element is {\bfseries{SEXP\+\_\+\+LIST}}, this field will contain a pointer to the head element of the list. \Hypertarget{structelt_a054bea2012edef97a279278839adad15}\index{elt@{elt}!next@{next}}
+\index{next@{next}!elt@{elt}}
+\doxysubsubsection{\texorpdfstring{next}{next}}
+{\footnotesize\ttfamily \label{structelt_a054bea2012edef97a279278839adad15} 
+struct \mbox{\hyperlink{structelt}{elt}}\texorpdfstring{$\ast$}{*} next}
+
+The {\itshape next} field is a pointer to the next element in the current expression. If this element is the last element in the s-\/expression, this field will be {\itshape NULL}. \Hypertarget{structelt_ac41a3a68e12b03e36c3382f7475bcb9c}\index{elt@{elt}!ty@{ty}}
+\index{ty@{ty}!elt@{elt}}
+\doxysubsubsection{\texorpdfstring{ty}{ty}}
+{\footnotesize\ttfamily \label{structelt_ac41a3a68e12b03e36c3382f7475bcb9c} 
+\mbox{\hyperlink{sexp_8h_a61b4209867717e6c58f53ff2e8ddceb6}{elt\+\_\+t}} ty}
+
+The element has a type that determines how the structure is used. If the type is {\bfseries{SEXP\+\_\+\+VALUE}}, then a programmer knows that either the val field or bindata field is meaningful depending on the value of the aty field, and contains the data associated with this element of the s-\/expression. If the type is {\bfseries{SEXP\+\_\+\+LIST}}, then the list field contains a pointer to the s-\/expression element representing the head of the list. For each case, the field for the opposite case contains no meaningful data and using them in any way is likely to cause an error. \Hypertarget{structelt_a1d80a43cb41e5b550d4563dd10d302bc}\index{elt@{elt}!val@{val}}
+\index{val@{val}!elt@{elt}}
+\doxysubsubsection{\texorpdfstring{val}{val}}
+{\footnotesize\ttfamily \label{structelt_a1d80a43cb41e5b550d4563dd10d302bc} 
+char\texorpdfstring{$\ast$}{*} val}
+
+If the type of the element is {\bfseries{SEXP\+\_\+\+VALUE}} and the aty field is not {\bfseries{SEXP\+\_\+\+BINARY}}, this field will contain the actual data represented by this element. \Hypertarget{structelt_a91f128358878eb65263a902c890a7d0a}\index{elt@{elt}!val\_allocated@{val\_allocated}}
+\index{val\_allocated@{val\_allocated}!elt@{elt}}
+\doxysubsubsection{\texorpdfstring{val\_allocated}{val\_allocated}}
+{\footnotesize\ttfamily \label{structelt_a91f128358878eb65263a902c890a7d0a} 
+size\+\_\+t val\+\_\+allocated}
+
+Number of bytes allocated for val. \Hypertarget{structelt_a42bc61e3fb0a2624a299c49b9bcd3c99}\index{elt@{elt}!val\_used@{val\_used}}
+\index{val\_used@{val\_used}!elt@{elt}}
+\doxysubsubsection{\texorpdfstring{val\_used}{val\_used}}
+{\footnotesize\ttfamily \label{structelt_a42bc61e3fb0a2624a299c49b9bcd3c99} 
+size\+\_\+t val\+\_\+used}
+
+Number of bytes used in val (\texorpdfstring{$<$}{<}= val\+\_\+allocated). 

@@ -1,0 +1,99 @@
+\doxysection{cstring.\+h File Reference}
+\hypertarget{cstring_8h}{}\label{cstring_8h}\index{cstring.h@{cstring.h}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct____cstring}{\+\_\+\+\_\+cstring}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{struct____cstring}{\+\_\+\+\_\+cstring}} \mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{cstring_8h_ae1ce26ad7e7ab2ff953cb0acb34f1353}{sgrowsize}} (size\+\_\+t s)
+\item 
+\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{cstring_8h_adf3ba48ce0a4c1b3974b5078f160e4f6}{snew}} (size\+\_\+t s)
+\item 
+\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{cstring_8h_a95796d2ec9aea5ddcbbb9ef5287e826d}{sadd}} (\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*}s, char \texorpdfstring{$\ast$}{*}a)
+\item 
+\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{cstring_8h_a391826ae45bf65a9477c541c053bef0c}{saddch}} (\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*}s, char a)
+\item 
+\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{cstring_8h_a43f355e9ee97a5579cea3c69c6cc71fc}{strim}} (\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*}s)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{cstring_8h_a8368dc32fcfa55a293fb674c8873a4d9}{to\+Char\+Ptr}} (\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*}s)
+\item 
+void \mbox{\hyperlink{cstring_8h_a4b9624fdfe90a1347744d09ee98fe90c}{sempty}} (\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*}s)
+\item 
+void \mbox{\hyperlink{cstring_8h_a3be75f18f72a4a8da708e9b0f562cc11}{sdestroy}} (\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*}s)
+\end{DoxyCompactItemize}
+
+
+\label{doc-typedef-members}
+\Hypertarget{cstring_8h_doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\Hypertarget{cstring_8h_aced8a57d1104ad377781be4af7763a2a}\index{cstring.h@{cstring.h}!CSTRING@{CSTRING}}
+\index{CSTRING@{CSTRING}!cstring.h@{cstring.h}}
+\doxysubsubsection{\texorpdfstring{CSTRING}{CSTRING}}
+{\footnotesize\ttfamily \label{cstring_8h_aced8a57d1104ad377781be4af7763a2a} 
+typedef struct \mbox{\hyperlink{struct____cstring}{\+\_\+\+\_\+cstring}} \mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}}}
+
+\doxylink{cstring_8h}{cstring.\+h} \+: c string library to make Ron happy. Wrapper around plain C strings that handles automatically growing the string as data is concattenated to the end. (note\+: this is an improved version of cstring from supermon. Migrate it into that library eventually... )
+
+-\/matt sottile Structure wrapping the character pointer and size counters (allocated vs. actual used). 
+
+\label{doc-func-members}
+\Hypertarget{cstring_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{cstring_8h_a95796d2ec9aea5ddcbbb9ef5287e826d}\index{cstring.h@{cstring.h}!sadd@{sadd}}
+\index{sadd@{sadd}!cstring.h@{cstring.h}}
+\doxysubsubsection{\texorpdfstring{sadd()}{sadd()}}
+{\footnotesize\ttfamily \label{cstring_8h_a95796d2ec9aea5ddcbbb9ef5287e826d} 
+\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*} sadd (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*}}]{s}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{a}{}\end{DoxyParamCaption})}
+
+Concatenate the second argument to the \doxylink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING} passed in the first. The second argument must be a pointer to a null terminated string. A NULL return value indicates that something went wrong and that sexp\+\_\+errno should be checked for the cause. The contents of s are left alone. As such, the caller should check the pointer returned before overwriting the value of s, as this may result in a memory leak if an error condition occurs. \Hypertarget{cstring_8h_a391826ae45bf65a9477c541c053bef0c}\index{cstring.h@{cstring.h}!saddch@{saddch}}
+\index{saddch@{saddch}!cstring.h@{cstring.h}}
+\doxysubsubsection{\texorpdfstring{saddch()}{saddch()}}
+{\footnotesize\ttfamily \label{cstring_8h_a391826ae45bf65a9477c541c053bef0c} 
+\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*} saddch (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*}}]{s}{, }\item[{char}]{a}{}\end{DoxyParamCaption})}
+
+Append a character to the end of the \doxylink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}. A NULL return value indicates that something went wrong and that sexp\+\_\+errno should be checked for the cause. The contents of s are left alone. As such, the caller should check the pointer returned before overwriting the value of s, as this may result in a memory leak if an error condition occurs. \Hypertarget{cstring_8h_a3be75f18f72a4a8da708e9b0f562cc11}\index{cstring.h@{cstring.h}!sdestroy@{sdestroy}}
+\index{sdestroy@{sdestroy}!cstring.h@{cstring.h}}
+\doxysubsubsection{\texorpdfstring{sdestroy()}{sdestroy()}}
+{\footnotesize\ttfamily \label{cstring_8h_a3be75f18f72a4a8da708e9b0f562cc11} 
+void sdestroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*}}]{s}{}\end{DoxyParamCaption})}
+
+Destroy the \doxylink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING} struct and the data it points at. \Hypertarget{cstring_8h_a4b9624fdfe90a1347744d09ee98fe90c}\index{cstring.h@{cstring.h}!sempty@{sempty}}
+\index{sempty@{sempty}!cstring.h@{cstring.h}}
+\doxysubsubsection{\texorpdfstring{sempty()}{sempty()}}
+{\footnotesize\ttfamily \label{cstring_8h_a4b9624fdfe90a1347744d09ee98fe90c} 
+void sempty (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*}}]{s}{}\end{DoxyParamCaption})}
+
+Set the current length to zero, effectively dumping the string without deallocating it so we can use it later without reallocating any memory. \Hypertarget{cstring_8h_ae1ce26ad7e7ab2ff953cb0acb34f1353}\index{cstring.h@{cstring.h}!sgrowsize@{sgrowsize}}
+\index{sgrowsize@{sgrowsize}!cstring.h@{cstring.h}}
+\doxysubsubsection{\texorpdfstring{sgrowsize()}{sgrowsize()}}
+{\footnotesize\ttfamily \label{cstring_8h_ae1ce26ad7e7ab2ff953cb0acb34f1353} 
+void sgrowsize (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{s}{}\end{DoxyParamCaption})}
+
+Set the growth size. Values less than one are ignored. \Hypertarget{cstring_8h_adf3ba48ce0a4c1b3974b5078f160e4f6}\index{cstring.h@{cstring.h}!snew@{snew}}
+\index{snew@{snew}!cstring.h@{cstring.h}}
+\doxysubsubsection{\texorpdfstring{snew()}{snew()}}
+{\footnotesize\ttfamily \label{cstring_8h_adf3ba48ce0a4c1b3974b5078f160e4f6} 
+\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*} snew (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{s}{}\end{DoxyParamCaption})}
+
+Allocate a new \doxylink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING} of the given size. A NULL return value indicates that something went wrong and that sexp\+\_\+errno should be checked for the cause. \Hypertarget{cstring_8h_a43f355e9ee97a5579cea3c69c6cc71fc}\index{cstring.h@{cstring.h}!strim@{strim}}
+\index{strim@{strim}!cstring.h@{cstring.h}}
+\doxysubsubsection{\texorpdfstring{strim()}{strim()}}
+{\footnotesize\ttfamily \label{cstring_8h_a43f355e9ee97a5579cea3c69c6cc71fc} 
+\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*} strim (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*}}]{s}{}\end{DoxyParamCaption})}
+
+Trim the allocated memory to precisely the string length plus one char to hold the null terminator A NULL return value indicates that something went wrong and that sexp\+\_\+errno should be checked for the cause. The contents of s are left alone. As such, the caller should check the pointer returned before overwriting the value of s, as this may result in a memory leak if an error condition occurs. \Hypertarget{cstring_8h_a8368dc32fcfa55a293fb674c8873a4d9}\index{cstring.h@{cstring.h}!toCharPtr@{toCharPtr}}
+\index{toCharPtr@{toCharPtr}!cstring.h@{cstring.h}}
+\doxysubsubsection{\texorpdfstring{toCharPtr()}{toCharPtr()}}
+{\footnotesize\ttfamily \label{cstring_8h_a8368dc32fcfa55a293fb674c8873a4d9} 
+char \texorpdfstring{$\ast$}{*} to\+Char\+Ptr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}} \texorpdfstring{$\ast$}{*}}]{s}{}\end{DoxyParamCaption})}
+
+Return the base pointer of the \doxylink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}. NULL either means the base pointer was null, or the \doxylink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING} itself was NULL. 

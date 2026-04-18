@@ -1,0 +1,50 @@
+\doxysection{parser\+\_\+event\+\_\+handlers Struct Reference}
+\hypertarget{structparser__event__handlers}{}\label{structparser__event__handlers}\index{parser\_event\_handlers@{parser\_event\_handlers}}
+
+
+{\ttfamily \#include $<$sexp.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structparser__event__handlers_a3600759a7f4ea3024d7ee83ec36962d7}{start\+\_\+sexpr}} )()
+\item 
+void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structparser__event__handlers_a62872180b545e4d37fb39fed2e0db1a7}{end\+\_\+sexpr}} )()
+\item 
+void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structparser__event__handlers_ad0bfb2163406938507e9ff5ff811b2c1}{characters}} )(const char \texorpdfstring{$\ast$}{*}data, size\+\_\+t len, \mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8}{atom\+\_\+t}} aty)
+\item 
+void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structparser__event__handlers_a8bb9528656e02c95d8c8d013a10baf08}{binary}} )(const char \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Some users would prefer to, instead of parsing a full string and walking a potentially huge \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t} structure, use an XML SAX-\/style parser where events are triggered as certain parts of the s-\/expression are encountered. This structure contains a set of function pointers that are called by the parser as it hits expression start and end, and completes reading atoms and binary data. NOTE\+: The parser\+\_\+event\+\_\+handler struct that is a field in the continuation data structure is NOT freed by destroy\+\_\+continuation since structs for callbacks are ALWAYS malloc\textquotesingle{}d by the user, not the library. 
+
+\label{doc-variable-members}
+\Hypertarget{structparser__event__handlers_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structparser__event__handlers_a8bb9528656e02c95d8c8d013a10baf08}\index{parser\_event\_handlers@{parser\_event\_handlers}!binary@{binary}}
+\index{binary@{binary}!parser\_event\_handlers@{parser\_event\_handlers}}
+\doxysubsubsection{\texorpdfstring{binary}{binary}}
+{\footnotesize\ttfamily \label{structparser__event__handlers_a8bb9528656e02c95d8c8d013a10baf08} 
+void(\texorpdfstring{$\ast$}{*} binary) (const char \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)}
+
+The binary function pointer is called when the parser is functioning in INLINE\+\_\+\+BINARY mode and binary data is encountered. The function must take two arguments\+: a pointer to the beginning of the binary data and the number of bytes of data present. \Hypertarget{structparser__event__handlers_ad0bfb2163406938507e9ff5ff811b2c1}\index{parser\_event\_handlers@{parser\_event\_handlers}!characters@{characters}}
+\index{characters@{characters}!parser\_event\_handlers@{parser\_event\_handlers}}
+\doxysubsubsection{\texorpdfstring{characters}{characters}}
+{\footnotesize\ttfamily \label{structparser__event__handlers_ad0bfb2163406938507e9ff5ff811b2c1} 
+void(\texorpdfstring{$\ast$}{*} characters) (const char \texorpdfstring{$\ast$}{*}data, size\+\_\+t len, \mbox{\hyperlink{sexp_8h_a60aa3e0d0ec7b4ce00dedb96e043c2e8}{atom\+\_\+t}} aty)}
+
+The characters function pointer is called when an atom is completely parsed. The function must take three arguments\+: a pointer to the atom data, the number of elements the atom contains, and the specific type of atom that the data represents. \Hypertarget{structparser__event__handlers_a62872180b545e4d37fb39fed2e0db1a7}\index{parser\_event\_handlers@{parser\_event\_handlers}!end\_sexpr@{end\_sexpr}}
+\index{end\_sexpr@{end\_sexpr}!parser\_event\_handlers@{parser\_event\_handlers}}
+\doxysubsubsection{\texorpdfstring{end\_sexpr}{end\_sexpr}}
+{\footnotesize\ttfamily \label{structparser__event__handlers_a62872180b545e4d37fb39fed2e0db1a7} 
+void(\texorpdfstring{$\ast$}{*} end\+\_\+sexpr) ()}
+
+The end\+\_\+sexpr function pointer is called when an close parenthesis is encountered ending an expression. \Hypertarget{structparser__event__handlers_a3600759a7f4ea3024d7ee83ec36962d7}\index{parser\_event\_handlers@{parser\_event\_handlers}!start\_sexpr@{start\_sexpr}}
+\index{start\_sexpr@{start\_sexpr}!parser\_event\_handlers@{parser\_event\_handlers}}
+\doxysubsubsection{\texorpdfstring{start\_sexpr}{start\_sexpr}}
+{\footnotesize\ttfamily \label{structparser__event__handlers_a3600759a7f4ea3024d7ee83ec36962d7} 
+void(\texorpdfstring{$\ast$}{*} start\+\_\+sexpr) ()}
+
+The start\+\_\+sexpr function pointer is called when an open parenthesis is encountered starting an expression. 

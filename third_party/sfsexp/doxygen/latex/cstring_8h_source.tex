@@ -1,0 +1,45 @@
+\doxysection{cstring.\+h}
+\hypertarget{cstring_8h_source}{}\label{cstring_8h_source}\index{cstring.h@{cstring.h}}
+\mbox{\hyperlink{cstring_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#ifndef\ \_\_CSTRING\_H\_\_}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ \_\_CSTRING\_H\_\_}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct____cstring}{\_\_cstring}}\ \{}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{struct____cstring_aaa2fae125feca2b4de4f3f7640c76ce4}{base}};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{struct____cstring_a7360b55975153b822efc5217b7734e6a}{len}};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{struct____cstring_add2fb4603eb5006f62cbf14ae24af846}{curlen}};}
+\DoxyCodeLine{00071\ \}\ \mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00074\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{cstring_8h_ae1ce26ad7e7ab2ff953cb0acb34f1353}{sgrowsize}}(\textcolor{keywordtype}{size\_t}\ s);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00087\ \ \ \mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}}\ *\mbox{\hyperlink{cstring_8h_adf3ba48ce0a4c1b3974b5078f160e4f6}{snew}}(\textcolor{keywordtype}{size\_t}\ s);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00098\ \ \ \mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}}\ *\mbox{\hyperlink{cstring_8h_a95796d2ec9aea5ddcbbb9ef5287e826d}{sadd}}(\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}}\ *s,\ \textcolor{keywordtype}{char}\ *a);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00108\ \ \ \mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}}\ *\mbox{\hyperlink{cstring_8h_a391826ae45bf65a9477c541c053bef0c}{saddch}}(\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}}\ *s,\ \textcolor{keywordtype}{char}\ a);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00119\ \ \ \mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}}\ *\mbox{\hyperlink{cstring_8h_a43f355e9ee97a5579cea3c69c6cc71fc}{strim}}(\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}}\ *s);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{cstring_8h_a8368dc32fcfa55a293fb674c8873a4d9}{toCharPtr}}(\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}}\ *s);}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00131\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{cstring_8h_a4b9624fdfe90a1347744d09ee98fe90c}{sempty}}(\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}}\ *s);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00136\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{cstring_8h_a3be75f18f72a4a8da708e9b0f562cc11}{sdestroy}}(\mbox{\hyperlink{cstring_8h_aced8a57d1104ad377781be4af7763a2a}{CSTRING}}\ *s);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00139\ \}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_CSTRING\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

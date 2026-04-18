@@ -1,0 +1,104 @@
+\doxysection{sexp\+\_\+errors.\+h File Reference}
+\hypertarget{sexp__errors_8h}{}\label{sexp__errors_8h}\index{sexp\_errors.h@{sexp\_errors.h}}
+
+
+Error conditions are enumerated here along with any routines for translating error codes to human readable messages.  
+
+
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024}{sexp\+\_\+errcode\+\_\+t}} \{ \newline
+\mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024a167e4e6847cd00d845bccf7fd23be85d}{SEXP\+\_\+\+ERR\+\_\+\+OK}} = 0
+, \mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024ad1a1a881942f942951b9c9a08318910b}{SEXP\+\_\+\+ERR\+\_\+\+MEMORY}}
+, \mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024a7f5ec01b704abe62eb22ecd2d5734529}{SEXP\+\_\+\+ERR\+\_\+\+BADFORM}}
+, \mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024a21d38b027b0a815d16ef7d433b0dd829}{SEXP\+\_\+\+ERR\+\_\+\+BADCONTENT}}
+, \newline
+\mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024a8c8757fbb220ef9ecf2a548d60de6101}{SEXP\+\_\+\+ERR\+\_\+\+NULLSTRING}}
+, \mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024a162f64c76fa328983e57011090678bb3}{SEXP\+\_\+\+ERR\+\_\+\+IO}}
+, \mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024a8549c0733274cc32ebb7ca308fbff0ef}{SEXP\+\_\+\+ERR\+\_\+\+IO\+\_\+\+EMPTY}}
+, \mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024a30e65d541e899a84407b50b236745788}{SEXP\+\_\+\+ERR\+\_\+\+MEM\+\_\+\+LIMIT}}
+, \newline
+\mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024ae6cf428d6ae696187c563f96b3a6b53b}{SEXP\+\_\+\+ERR\+\_\+\+BUFFER\+\_\+\+FULL}}
+, \mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024a5e9b786e64d539cf747e1f6a12e0ab6b}{SEXP\+\_\+\+ERR\+\_\+\+BAD\+\_\+\+PARAM}}
+, \mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024a0a52470ae713711b3ec49fbe2cd4fc71}{SEXP\+\_\+\+ERR\+\_\+\+BAD\+\_\+\+STACK}}
+, \mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024a24d0d54b4102f3ab7daba786e6298586}{SEXP\+\_\+\+ERR\+\_\+\+UNKNOWN\+\_\+\+STATE}}
+, \newline
+\mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024a82b8da618704e4aa131c2d61c67f6931}{SEXP\+\_\+\+ERR\+\_\+\+INCOMPLETE}}
+, \mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024a41679a580d86d795c589349d3ad068c8}{SEXP\+\_\+\+ERR\+\_\+\+BAD\+\_\+\+CONSTRUCTOR}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Error conditions are enumerated here along with any routines for translating error codes to human readable messages. 
+
+
+
+\label{doc-enum-members}
+\Hypertarget{sexp__errors_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{sexp__errors_8h_af390baa844bb251171fe5844848c2024}\index{sexp\_errors.h@{sexp\_errors.h}!sexp\_errcode\_t@{sexp\_errcode\_t}}
+\index{sexp\_errcode\_t@{sexp\_errcode\_t}!sexp\_errors.h@{sexp\_errors.h}}
+\doxysubsubsection{\texorpdfstring{sexp\_errcode\_t}{sexp\_errcode\_t}}
+{\footnotesize\ttfamily \label{sexp__errors_8h_af390baa844bb251171fe5844848c2024} 
+enum \mbox{\hyperlink{sexp__errors_8h_af390baa844bb251171fe5844848c2024}{sexp\+\_\+errcode\+\_\+t}}}
+
+Error codes used by the library are defined in this enumeration. They are either used as values for the error field within the continuation structures, or as return values for functions with a return type of \doxylink{sexp__errors_8h_af390baa844bb251171fe5844848c2024}{sexp\+\_\+errcode\+\_\+t}. \begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_ERR\_OK@{SEXP\_ERR\_OK}!sexp\_errors.h@{sexp\_errors.h}}\index{sexp\_errors.h@{sexp\_errors.h}!SEXP\_ERR\_OK@{SEXP\_ERR\_OK}}}\Hypertarget{sexp__errors_8h_af390baa844bb251171fe5844848c2024a167e4e6847cd00d845bccf7fd23be85d}\label{sexp__errors_8h_af390baa844bb251171fe5844848c2024a167e4e6847cd00d845bccf7fd23be85d} 
+SEXP\+\_\+\+ERR\+\_\+\+OK&no error. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_ERR\_MEMORY@{SEXP\_ERR\_MEMORY}!sexp\_errors.h@{sexp\_errors.h}}\index{sexp\_errors.h@{sexp\_errors.h}!SEXP\_ERR\_MEMORY@{SEXP\_ERR\_MEMORY}}}\Hypertarget{sexp__errors_8h_af390baa844bb251171fe5844848c2024ad1a1a881942f942951b9c9a08318910b}\label{sexp__errors_8h_af390baa844bb251171fe5844848c2024ad1a1a881942f942951b9c9a08318910b} 
+SEXP\+\_\+\+ERR\+\_\+\+MEMORY&memory error. malloc/realloc/calloc failures may result in this error code. this can either result from the system calls failing, or in the limited memory mode of the library, the memory limit being exceeded. In limited memory mode, if this error condition is present, one should check the memory limits that were in place during the erroneous call. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_ERR\_BADFORM@{SEXP\_ERR\_BADFORM}!sexp\_errors.h@{sexp\_errors.h}}\index{sexp\_errors.h@{sexp\_errors.h}!SEXP\_ERR\_BADFORM@{SEXP\_ERR\_BADFORM}}}\Hypertarget{sexp__errors_8h_af390baa844bb251171fe5844848c2024a7f5ec01b704abe62eb22ecd2d5734529}\label{sexp__errors_8h_af390baa844bb251171fe5844848c2024a7f5ec01b704abe62eb22ecd2d5734529} 
+SEXP\+\_\+\+ERR\+\_\+\+BADFORM&badly formed expression. Missing, misplaced, or mismatched parenthesis will result in this error. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_ERR\_BADCONTENT@{SEXP\_ERR\_BADCONTENT}!sexp\_errors.h@{sexp\_errors.h}}\index{sexp\_errors.h@{sexp\_errors.h}!SEXP\_ERR\_BADCONTENT@{SEXP\_ERR\_BADCONTENT}}}\Hypertarget{sexp__errors_8h_af390baa844bb251171fe5844848c2024a21d38b027b0a815d16ef7d433b0dd829}\label{sexp__errors_8h_af390baa844bb251171fe5844848c2024a21d38b027b0a815d16ef7d433b0dd829} 
+SEXP\+\_\+\+ERR\+\_\+\+BADCONTENT&a \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t} that is inconsistent will result in this error code. An example is a SEXP\+\_\+\+BASIC \doxylink{sexp_8h_ae49130a807f3037c4b586b34006adcf2}{sexp\+\_\+t} with a null val field but a non-\/zero val\+\_\+used value. Similar cases exist for SEXP\+\_\+\+DQUOTE, SQUOTE, and BINARY types. This value is also used in the parser to flag a case where an inlined binary block is given a negative length. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_ERR\_NULLSTRING@{SEXP\_ERR\_NULLSTRING}!sexp\_errors.h@{sexp\_errors.h}}\index{sexp\_errors.h@{sexp\_errors.h}!SEXP\_ERR\_NULLSTRING@{SEXP\_ERR\_NULLSTRING}}}\Hypertarget{sexp__errors_8h_af390baa844bb251171fe5844848c2024a8c8757fbb220ef9ecf2a548d60de6101}\label{sexp__errors_8h_af390baa844bb251171fe5844848c2024a8c8757fbb220ef9ecf2a548d60de6101} 
+SEXP\+\_\+\+ERR\+\_\+\+NULLSTRING&if a null string is passed into the parser, this error occurs. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_ERR\_IO@{SEXP\_ERR\_IO}!sexp\_errors.h@{sexp\_errors.h}}\index{sexp\_errors.h@{sexp\_errors.h}!SEXP\_ERR\_IO@{SEXP\_ERR\_IO}}}\Hypertarget{sexp__errors_8h_af390baa844bb251171fe5844848c2024a162f64c76fa328983e57011090678bb3}\label{sexp__errors_8h_af390baa844bb251171fe5844848c2024a162f64c76fa328983e57011090678bb3} 
+SEXP\+\_\+\+ERR\+\_\+\+IO&general IO related errors, such as failure of fopen(). these are basically non-\/starters with respect to getting the IO routines going. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_ERR\_IO\_EMPTY@{SEXP\_ERR\_IO\_EMPTY}!sexp\_errors.h@{sexp\_errors.h}}\index{sexp\_errors.h@{sexp\_errors.h}!SEXP\_ERR\_IO\_EMPTY@{SEXP\_ERR\_IO\_EMPTY}}}\Hypertarget{sexp__errors_8h_af390baa844bb251171fe5844848c2024a8549c0733274cc32ebb7ca308fbff0ef}\label{sexp__errors_8h_af390baa844bb251171fe5844848c2024a8549c0733274cc32ebb7ca308fbff0ef} 
+SEXP\+\_\+\+ERR\+\_\+\+IO\+\_\+\+EMPTY&I/O routines that return NULL may simply have nothing to read. This is sometimes an error condition if the io wrapper continuation contains a partially complete s-\/expression, but nothing more is present (yet) on the file descriptor. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_ERR\_MEM\_LIMIT@{SEXP\_ERR\_MEM\_LIMIT}!sexp\_errors.h@{sexp\_errors.h}}\index{sexp\_errors.h@{sexp\_errors.h}!SEXP\_ERR\_MEM\_LIMIT@{SEXP\_ERR\_MEM\_LIMIT}}}\Hypertarget{sexp__errors_8h_af390baa844bb251171fe5844848c2024a30e65d541e899a84407b50b236745788}\label{sexp__errors_8h_af390baa844bb251171fe5844848c2024a30e65d541e899a84407b50b236745788} 
+SEXP\+\_\+\+ERR\+\_\+\+MEM\+\_\+\+LIMIT&when running the library under limited memory (ie, {\itshape SEXP\+\_\+\+LIMIT\+\_\+\+MEMORY} defined at build time), this error will be produced when the memory limit is exceeded. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_ERR\_BUFFER\_FULL@{SEXP\_ERR\_BUFFER\_FULL}!sexp\_errors.h@{sexp\_errors.h}}\index{sexp\_errors.h@{sexp\_errors.h}!SEXP\_ERR\_BUFFER\_FULL@{SEXP\_ERR\_BUFFER\_FULL}}}\Hypertarget{sexp__errors_8h_af390baa844bb251171fe5844848c2024ae6cf428d6ae696187c563f96b3a6b53b}\label{sexp__errors_8h_af390baa844bb251171fe5844848c2024ae6cf428d6ae696187c563f96b3a6b53b} 
+SEXP\+\_\+\+ERR\+\_\+\+BUFFER\+\_\+\+FULL&buffer for unparsing is full. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_ERR\_BAD\_PARAM@{SEXP\_ERR\_BAD\_PARAM}!sexp\_errors.h@{sexp\_errors.h}}\index{sexp\_errors.h@{sexp\_errors.h}!SEXP\_ERR\_BAD\_PARAM@{SEXP\_ERR\_BAD\_PARAM}}}\Hypertarget{sexp__errors_8h_af390baa844bb251171fe5844848c2024a5e9b786e64d539cf747e1f6a12e0ab6b}\label{sexp__errors_8h_af390baa844bb251171fe5844848c2024a5e9b786e64d539cf747e1f6a12e0ab6b} 
+SEXP\+\_\+\+ERR\+\_\+\+BAD\+\_\+\+PARAM&routines that take parameters such as memory limits, growth sizes, or default sizes, can produce this error if a bad value has been passed in. this error usually will indicate that the parameters were bad and the default values were used instead (ie, it is non-\/fatal.). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_ERR\_BAD\_STACK@{SEXP\_ERR\_BAD\_STACK}!sexp\_errors.h@{sexp\_errors.h}}\index{sexp\_errors.h@{sexp\_errors.h}!SEXP\_ERR\_BAD\_STACK@{SEXP\_ERR\_BAD\_STACK}}}\Hypertarget{sexp__errors_8h_af390baa844bb251171fe5844848c2024a0a52470ae713711b3ec49fbe2cd4fc71}\label{sexp__errors_8h_af390baa844bb251171fe5844848c2024a0a52470ae713711b3ec49fbe2cd4fc71} 
+SEXP\+\_\+\+ERR\+\_\+\+BAD\+\_\+\+STACK&bad stack state encountered. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_ERR\_UNKNOWN\_STATE@{SEXP\_ERR\_UNKNOWN\_STATE}!sexp\_errors.h@{sexp\_errors.h}}\index{sexp\_errors.h@{sexp\_errors.h}!SEXP\_ERR\_UNKNOWN\_STATE@{SEXP\_ERR\_UNKNOWN\_STATE}}}\Hypertarget{sexp__errors_8h_af390baa844bb251171fe5844848c2024a24d0d54b4102f3ab7daba786e6298586}\label{sexp__errors_8h_af390baa844bb251171fe5844848c2024a24d0d54b4102f3ab7daba786e6298586} 
+SEXP\+\_\+\+ERR\+\_\+\+UNKNOWN\+\_\+\+STATE&unknown parser state \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_ERR\_INCOMPLETE@{SEXP\_ERR\_INCOMPLETE}!sexp\_errors.h@{sexp\_errors.h}}\index{sexp\_errors.h@{sexp\_errors.h}!SEXP\_ERR\_INCOMPLETE@{SEXP\_ERR\_INCOMPLETE}}}\Hypertarget{sexp__errors_8h_af390baa844bb251171fe5844848c2024a82b8da618704e4aa131c2d61c67f6931}\label{sexp__errors_8h_af390baa844bb251171fe5844848c2024a82b8da618704e4aa131c2d61c67f6931} 
+SEXP\+\_\+\+ERR\+\_\+\+INCOMPLETE&parsing is incomplete and need more data to complete it. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SEXP\_ERR\_BAD\_CONSTRUCTOR@{SEXP\_ERR\_BAD\_CONSTRUCTOR}!sexp\_errors.h@{sexp\_errors.h}}\index{sexp\_errors.h@{sexp\_errors.h}!SEXP\_ERR\_BAD\_CONSTRUCTOR@{SEXP\_ERR\_BAD\_CONSTRUCTOR}}}\Hypertarget{sexp__errors_8h_af390baa844bb251171fe5844848c2024a41679a580d86d795c589349d3ad068c8}\label{sexp__errors_8h_af390baa844bb251171fe5844848c2024a41679a580d86d795c589349d3ad068c8} 
+SEXP\+\_\+\+ERR\+\_\+\+BAD\+\_\+\+CONSTRUCTOR&this error code indicates that an atom was created with the incorrect constructor. For example, attempting to create a binary mode atom with the new\+\_\+sexp\+\_\+atom constructor intended for text atoms will cause this to be set. \\
+\hline
+
+\end{DoxyEnumFields}

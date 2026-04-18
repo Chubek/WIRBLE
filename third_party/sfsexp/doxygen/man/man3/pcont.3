@@ -1,0 +1,127 @@
+.TH "pcont" 3 "Small, Fast S-Expression Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+pcont
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <sexp\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBfaststack_t\fP * \fBstack\fP"
+.br
+.ti -1c
+.RI "\fBsexp_t\fP * \fBlast_sexp\fP"
+.br
+.ti -1c
+.RI "char * \fBval\fP"
+.br
+.ti -1c
+.RI "size_t \fBval_allocated\fP"
+.br
+.ti -1c
+.RI "size_t \fBval_used\fP"
+.br
+.ti -1c
+.RI "char * \fBvcur\fP"
+.br
+.ti -1c
+.RI "char * \fBlastPos\fP"
+.br
+.ti -1c
+.RI "char * \fBsbuffer\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBdepth\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBqdepth\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBstate\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBesc\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBsquoted\fP"
+.br
+.ti -1c
+.RI "\fBsexp_errcode_t\fP \fBerror\fP"
+.br
+.ti -1c
+.RI "\fBparsermode_t\fP \fBmode\fP"
+.br
+.ti -1c
+.RI "size_t \fBbinexpected\fP"
+.br
+.ti -1c
+.RI "size_t \fBbinread\fP"
+.br
+.ti -1c
+.RI "char * \fBbindata\fP"
+.br
+.ti -1c
+.RI "\fBparser_event_handlers_t\fP * \fBevent_handlers\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+A continuation is used by the parser to save and restore state between invocations to support partial parsing of strings\&. For example, if we pass the string "(foo bar)(goo car)" to the parser, we want to be able to retrieve each s-expression one at a time - it would be difficult to return all s-expressions at once without knowing how many there are in advance (this would require more memory management than we want\&.\&.\&.)\&. So, by using a continuation-based parser, we can call it with this string and have it return a continuation when it has parsed the first s-expression\&. Once we have processed the s-expression (accessible through the \fIlast_sexpr\fP field of the continuation), we can call the parser again with the same string and continuation, and it will be able to pick up where it left off\&.
+
+.PP
+We use continuations instead of a state-ful parser to allow multiple concurrent strings to be parsed by simply maintaining a set of continuations\&. Manipulating continuations by hand is required if the continuation-based parser is called directly\&. This is \fBnot recommended\fP unless you are willing to deal with potential errors and are willing to learn exactly how the continuation relates to the internals of the parser\&. A simpler approach is to use either the \fIparse_sexp\fP function that simply returns an s-expression without exposing the continuations, or the \fIiparse_sexp\fP function that allows iteratively popping one s-expression at a time from a string containing one or more s-expressions\&. Refer to the documentation for each parsing function for further details on behavior and usage\&. 
+.SH "Field Documentation"
+.PP 
+.SS "char* bindata"
+Pointer to the memory containing the binary data being read in\&. 
+.SS "size_t binexpected"
+Length to expect of the current binary data being read in\&. this also corresponds to the size of the memory allocated for reading this binary data into\&. 
+.SS "size_t binread"
+Number of bytes of the binary blob that have already been read in\&. 
+.SS "unsigned int depth"
+This is the depth of parenthesis (the number of left parens encountered) that the parser is currently working with\&. 
+.SS "\fBsexp_errcode_t\fP error"
+Error code\&. Used to indicate that the continuation being returned does not represent a successful parsing and thus the contents aren't of much value\&. 
+.SS "unsigned int esc"
+This is a flag indicating whether the next character to be processed should be assumed to have been prefaced with a '\\' character to escape it\&. 
+.SS "\fBparser_event_handlers_t\fP* event_handlers"
+Pointer to a structure holding handlers for sexpr events\&. NULL for normal parser operation\&. This field is NOT freed by destroy_continuation and must be free'd by the user\&. This is because these are malloc'd outside the library ALWAYS, so they are the user's responsibility\&. 
+.SS "\fBsexp_t\fP* last_sexp"
+The last full s-expression encountered by the parser\&. If this is NULL, the parser has not encountered a full s-expression and more data is required for the current s-expression being parsed\&. If this is non-NULL, then the parser has encountered one s-expression and may be partially through parsing the next s-expression\&. 
+.SS "char* lastPos"
+Pointer to the last character to examine in the string being parsed\&. When the parser is called with the continuation, this is the first character that will be processed\&. If this is NULL, the parser will start parsing at the beginning of the string passed into the parser\&. 
+.SS "\fBparsermode_t\fP mode"
+Mode\&. The parsers' specialized behaviours can be activated by tweaking the mode setting\&. There are currently two available: normal and inline_binary\&. Inline_binary treats atoms that start with #b# specially, assuming that they have the structure:
+
+.PP
+#b#s#data
+
+.PP
+Where s is a positive (greater than 0) integer representing the length of the data, and data is s bytes of binary data following the # sign\&. After the s bytes, it is assumed normal s-expression data continues\&. 
+.SS "unsigned int qdepth"
+This is the depth of parenthesis encountered after a single quote (tick) if the character immediately following the tick was a left paren\&. 
+.SS "char* sbuffer"
+This is a pointer to the beginning of the current string being processed\&. lastPos is a pointer to some value inside the string that this points to\&. 
+.SS "unsigned int squoted"
+Flag whether or not we are processing an atom that was preceded by a single quote\&. 
+.SS "\fBfaststack_t\fP* stack"
+The parser stack used for iterative parsing\&. 
+.SS "unsigned int state"
+This is the state ID of the current state of the parser in the DFA representing the parser\&. The current parser is a DFA based parser to simplify restoring the proper state from a continuation\&. 
+.SS "char* val"
+Pointer to a temporary buffer used to store atom values during parsing\&. 
+.SS "size_t val_allocated"
+Current number of bytes allocated for val\&. 
+.SS "size_t val_used"
+Current number of used bytes in val\&. 
+.SS "char* vcur"
+Pointer to the character following the last character in the current atom value being parsed\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Small, Fast S-Expression Library from the source code\&.

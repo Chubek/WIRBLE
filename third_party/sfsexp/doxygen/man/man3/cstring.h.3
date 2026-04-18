@@ -1,0 +1,81 @@
+.TH "cstring.h" 3 "Small, Fast S-Expression Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+cstring.h
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <stdlib\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fB__cstring\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fB__cstring\fP \fBCSTRING\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBsgrowsize\fP (size_t s)"
+.br
+.ti -1c
+.RI "\fBCSTRING\fP * \fBsnew\fP (size_t s)"
+.br
+.ti -1c
+.RI "\fBCSTRING\fP * \fBsadd\fP (\fBCSTRING\fP *s, char *a)"
+.br
+.ti -1c
+.RI "\fBCSTRING\fP * \fBsaddch\fP (\fBCSTRING\fP *s, char a)"
+.br
+.ti -1c
+.RI "\fBCSTRING\fP * \fBstrim\fP (\fBCSTRING\fP *s)"
+.br
+.ti -1c
+.RI "char * \fBtoCharPtr\fP (\fBCSTRING\fP *s)"
+.br
+.ti -1c
+.RI "void \fBsempty\fP (\fBCSTRING\fP *s)"
+.br
+.ti -1c
+.RI "void \fBsdestroy\fP (\fBCSTRING\fP *s)"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fB__cstring\fP \fBCSTRING\fP"
+\fBcstring\&.h\fP : c string library to make Ron happy\&. Wrapper around plain C strings that handles automatically growing the string as data is concattenated to the end\&. (note: this is an improved version of cstring from supermon\&. Migrate it into that library eventually\&.\&.\&. )
+
+.PP
+-matt sottile Structure wrapping the character pointer and size counters (allocated vs\&. actual used)\&. 
+.SH "Function Documentation"
+.PP 
+.SS "\fBCSTRING\fP * sadd (\fBCSTRING\fP * s, char * a)"
+Concatenate the second argument to the \fBCSTRING\fP passed in the first\&. The second argument must be a pointer to a null terminated string\&. A NULL return value indicates that something went wrong and that sexp_errno should be checked for the cause\&. The contents of s are left alone\&. As such, the caller should check the pointer returned before overwriting the value of s, as this may result in a memory leak if an error condition occurs\&. 
+.SS "\fBCSTRING\fP * saddch (\fBCSTRING\fP * s, char a)"
+Append a character to the end of the \fBCSTRING\fP\&. A NULL return value indicates that something went wrong and that sexp_errno should be checked for the cause\&. The contents of s are left alone\&. As such, the caller should check the pointer returned before overwriting the value of s, as this may result in a memory leak if an error condition occurs\&. 
+.SS "void sdestroy (\fBCSTRING\fP * s)"
+Destroy the \fBCSTRING\fP struct and the data it points at\&. 
+.SS "void sempty (\fBCSTRING\fP * s)"
+Set the current length to zero, effectively dumping the string without deallocating it so we can use it later without reallocating any memory\&. 
+.SS "void sgrowsize (size_t s)"
+Set the growth size\&. Values less than one are ignored\&. 
+.SS "\fBCSTRING\fP * snew (size_t s)"
+Allocate a new \fBCSTRING\fP of the given size\&. A NULL return value indicates that something went wrong and that sexp_errno should be checked for the cause\&. 
+.SS "\fBCSTRING\fP * strim (\fBCSTRING\fP * s)"
+Trim the allocated memory to precisely the string length plus one char to hold the null terminator A NULL return value indicates that something went wrong and that sexp_errno should be checked for the cause\&. The contents of s are left alone\&. As such, the caller should check the pointer returned before overwriting the value of s, as this may result in a memory leak if an error condition occurs\&. 
+.SS "char * toCharPtr (\fBCSTRING\fP * s)"
+Return the base pointer of the \fBCSTRING\fP\&. NULL either means the base pointer was null, or the \fBCSTRING\fP itself was NULL\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Small, Fast S-Expression Library from the source code\&.

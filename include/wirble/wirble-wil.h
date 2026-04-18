@@ -1,8 +1,6 @@
 #ifndef WIRBLE_WIL_H
 #define WIRBLE_WIL_H
 
-// TODO: Add docstrings
-
 #include "api-boilerplate.h"
 
 WIRBLE_BEGIN_DECLS

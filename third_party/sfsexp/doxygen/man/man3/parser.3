@@ -1,0 +1,55 @@
+.TH "parser" 3 "Small, Fast S-Expression Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+parser \- Parser routines
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBsexp_errcode_t\fP \fBset_parser_buffer_params\fP (size_t ss, size_t gs)"
+.br
+.ti -1c
+.RI "\fBsexp_t\fP * \fBparse_sexp\fP (char *s, size_t len)"
+.br
+.ti -1c
+.RI "\fBsexp_t\fP * \fBiparse_sexp\fP (char *s, size_t len, \fBpcont_t\fP *cc)"
+.br
+.ti -1c
+.RI "\fBpcont_t\fP * \fBcparse_sexp\fP (char *s, size_t len, \fBpcont_t\fP *pc)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBpcont_t\fP * cparse_sexp (char * s, size_t len, \fBpcont_t\fP * pc)"
+given a LISP style s-expression string, parse it into a set of connected \fBsexp_t\fP structures\&. 
+.SS "\fBsexp_t\fP * iparse_sexp (char * s, size_t len, \fBpcont_t\fP * cc)"
+wrapper around parser for friendlier continuation use pre-condition : continuation (cc) is NON-NULL! 
+.SS "\fBsexp_t\fP * parse_sexp (char * s, size_t len)"
+wrapper around parser for compatibility\&. 
+.SS "\fBsexp_errcode_t\fP set_parser_buffer_params (size_t ss, size_t gs)"
+Set the parameters on atom value buffer allocation and growth sizes\&. This is an important point for performance tuning, as many factors in the expected expression structure must be taken into account such as:
+
+.PP
+.IP "\(bu" 2
+Average size of atom values
+.IP "\(bu" 2
+Variance in sizes of atom values
+.IP "\(bu" 2
+Amount of memory that is tolerably ''wasted'' (allocated but not used)
+.PP
+
+.PP
+The \fIss\fP parameter specifies the initial size of all atom buffers\&. Ideally, this should be sufficiently large to capture MOST atom values, or at least close enough such that one growth is required\&. The \fIgs\fP parameter specifies the number of bytes to increase the buffer size by when space is exhausted\&. A safe choice for parameter sizes would be on the order of the average size for \fIss\fP, and one standard deviation for \fIgs\fP\&. This ensures that 50% of all expressions are guaranteed to fit in the initial buffer, and roughly 80-90% will fit in one growth\&. If memory is not an issue, choosing ss to be the mean plus one standard deviation will capture 80-90% of expressions in the initial buffer, and a gs of one standard deviation will capture nearly all expressions\&.
+
+.PP
+Note: These parameters can be tuned at runtime as needs change, and they will be applied to all expressions and expression elements parsed after they are modified\&. They will not be applied retroactively to expressions that have already been parsed\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Small, Fast S-Expression Library from the source code\&.

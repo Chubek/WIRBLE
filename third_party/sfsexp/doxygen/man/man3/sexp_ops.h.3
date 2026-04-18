@@ -1,0 +1,148 @@
+.TH "sexp_ops.h" 3 "Small, Fast S-Expression Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sexp_ops.h \- A collection of useful operations to perform on s-expressions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'sexp\&.h'\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBhd_sexp\fP(s)"
+.br
+.ti -1c
+.RI "#define \fBtl_sexp\fP(s)"
+.br
+.ti -1c
+.RI "#define \fBnext_sexp\fP(s)"
+.br
+.ti -1c
+.RI "#define \fBreset_pcont\fP(c)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBsexp_t\fP * \fBfind_sexp\fP (const char *name, \fBsexp_t\fP *start)"
+.br
+.ti -1c
+.RI "\fBsexp_t\fP * \fBbfs_find_sexp\fP (const char *name, \fBsexp_t\fP *start)"
+.br
+.ti -1c
+.RI "int \fBsexp_list_length\fP (const \fBsexp_t\fP *sx)"
+.br
+.ti -1c
+.RI "\fBsexp_t\fP * \fBcopy_sexp\fP (const \fBsexp_t\fP *sx)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+A collection of useful operations to perform on s-expressions\&. 
+
+A set of routines for operating on s-expressions\&. 
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define hd_sexp( s)"
+\fBValue:\fP
+.nf
+((s)\->list)
+.PP
+.fi
+Return the head of a list \fIs\fP by reference, not copy\&. 
+.SS "#define next_sexp( s)"
+\fBValue:\fP
+.nf
+((s)\->next)
+.PP
+.fi
+Return the element following the argument \fIs\fP\&. 
+.SS "#define reset_pcont( c)"
+\fBValue:\fP
+.nf
+((c)\->lastPos = NULL)
+.PP
+.fi
+Reset the continuation \fIc\fP by setting the \fRlastPos\fP pointer to \fRNULL\fP\&. 
+.SS "#define tl_sexp( s)"
+\fBValue:\fP
+.nf
+((s)\->list\->next)
+.PP
+.fi
+Return the tail of a list \fIs\fP by reference, not copy\&. 
+.SH "Function Documentation"
+.PP 
+.SS "\fBsexp_t\fP * bfs_find_sexp (const char * name, \fBsexp_t\fP * start)"
+Breadth first search for s-expressions\&. Depth first search will find the first occurrence of a string in an s-expression by basically finding the earliest occurrence in the string representation of the expression itself\&. Breadth first search will find the first occurrence of a string in relation to the structure of the expression itself (IE: the instance with the lowest depth will be found)\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP Value to search for\&. 
+.br
+\fIstart\fP Root element of the s-expression to search from\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+If the value is found, return a pointer to the first occurrence in a breadth-first traversal\&. NULL if not found\&. 
+.RE
+.PP
+
+.SS "\fBsexp_t\fP * copy_sexp (const \fBsexp_t\fP * sx)"
+Copy an s-expression\&. This is a deep copy - so the resulting s-expression shares no pointers with the original\&. The new one can be changed without damaging the contents of the original\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIsx\fP S-expression to copy\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A pointer to a copy of sx\&. This is a deep copy, so no memory is shared between the original and the returned copy\&. 
+.RE
+.PP
+
+.SS "\fBsexp_t\fP * find_sexp (const char * name, \fBsexp_t\fP * start)"
+Find an atom in a sexpression data structure and return a pointer to it\&. Return NULL if the string doesn't occur anywhere as an atom\&. This is a depth-first search algorithm\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP Value to search for\&. 
+.br
+\fIstart\fP Root element of the s-expression to search from\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+If the value is found, return a pointer to the first occurrence in a depth-first traversal\&. NULL if not found\&. 
+.RE
+.PP
+
+.SS "int sexp_list_length (const \fBsexp_t\fP * sx)"
+Given an s-expression, determine the length of the list that it encodes\&. A null expression has length 0\&. An atom has length 1\&. A list has length equal to the number of \fBsexp_t\fP elements from the list head to the end of the ->next linked list from that point\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIsx\fP S-expression input\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Number of \fBsexp_t\fP elements at the same level as sx, 0 for NULL, 1 for an atom\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Small, Fast S-Expression Library from the source code\&.

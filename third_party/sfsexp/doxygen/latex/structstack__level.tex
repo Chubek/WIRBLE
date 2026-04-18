@@ -1,0 +1,42 @@
+\doxysection{stack\+\_\+level Struct Reference}
+\hypertarget{structstack__level}{}\label{structstack__level}\index{stack\_level@{stack\_level}}
+
+
+{\ttfamily \#include $<$faststack.\+h$>$}
+
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structstack__level}{stack\+\_\+level}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structstack__level_a2939391d23b373c7e3aa910900900bed}{above}}
+\item 
+struct \mbox{\hyperlink{structstack__level}{stack\+\_\+level}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structstack__level_a5945c4462b1cedde633f17fac2dcb560}{below}}
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structstack__level_a735984d41155bc1032e09bece8f8d66d}{data}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Structure representing a single level in the stack. Has a pointer to the level above and below itself and a pointer to a generic blob of data associated with this level. 
+
+\label{doc-variable-members}
+\Hypertarget{structstack__level_doc-variable-members}
+\doxysubsection{Field Documentation}
+\Hypertarget{structstack__level_a2939391d23b373c7e3aa910900900bed}\index{stack\_level@{stack\_level}!above@{above}}
+\index{above@{above}!stack\_level@{stack\_level}}
+\doxysubsubsection{\texorpdfstring{above}{above}}
+{\footnotesize\ttfamily \label{structstack__level_a2939391d23b373c7e3aa910900900bed} 
+struct \mbox{\hyperlink{structstack__level}{stack\+\_\+level}}\texorpdfstring{$\ast$}{*} above}
+
+Pointer to the level above this one. If NULL, then this level is the top of the stack. If above is non-\/\+NULL, this level {\itshape may} be the top, but all that can be guaranteed is that there are other allocated but potentially unused levels above this one. \Hypertarget{structstack__level_a5945c4462b1cedde633f17fac2dcb560}\index{stack\_level@{stack\_level}!below@{below}}
+\index{below@{below}!stack\_level@{stack\_level}}
+\doxysubsubsection{\texorpdfstring{below}{below}}
+{\footnotesize\ttfamily \label{structstack__level_a5945c4462b1cedde633f17fac2dcb560} 
+struct \mbox{\hyperlink{structstack__level}{stack\+\_\+level}}\texorpdfstring{$\ast$}{*} below}
+
+Pointer to the level below this one. If NULL, then this level is the bottom. \Hypertarget{structstack__level_a735984d41155bc1032e09bece8f8d66d}\index{stack\_level@{stack\_level}!data@{data}}
+\index{data@{data}!stack\_level@{stack\_level}}
+\doxysubsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily \label{structstack__level_a735984d41155bc1032e09bece8f8d66d} 
+void\texorpdfstring{$\ast$}{*} data}
+
+Pointer to some data associated with this level. User is responsible for knowing what to cast the {\ttfamily void} {\ttfamily \texorpdfstring{$\ast$}{*}} pointer into. 

@@ -1,0 +1,38 @@
+.TH "stack_wrapper" 3 "Small, Fast S-Expression Library" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+stack_wrapper
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <faststack\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBstack_lvl_t\fP * \fBtop\fP"
+.br
+.ti -1c
+.RI "\fBstack_lvl_t\fP * \fBbottom\fP"
+.br
+.ti -1c
+.RI "int \fBheight\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Wrapper around the stack levels - keeps a pointer to the current top and bottom of the stack and a count of the current height\&. This allows the top to have non-null above pointer resulting from previously allocated stack levels that may be recycled later without \fRmalloc\fP overhead\&. 
+.SH "Field Documentation"
+.PP 
+.SS "\fBstack_lvl_t\fP* bottom"
+The bottom of the stack\&. If this is NULL, the stack is empty\&. 
+.SS "int height"
+The current height of the stack, in terms of allocated and used levels\&. 
+.SS "\fBstack_lvl_t\fP* top"
+The top of the stack\&. If this is NULL, the stack is empty\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Small, Fast S-Expression Library from the source code\&.

@@ -1,0 +1,50 @@
+\doxysection{sexp\+\_\+memory.\+h}
+\hypertarget{sexp__memory_8h_source}{}\label{sexp__memory_8h_source}\index{sexp\_memory.h@{sexp\_memory.h}}
+\mbox{\hyperlink{sexp__memory_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#ifndef\ \_\_SEXP\_MEMORY\_H\_\_}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ \_\_SEXP\_MEMORY\_H\_\_}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#ifdef\ \_SEXP\_LIMIT\_MEMORY\_}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00054\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{sexp__memory_8h_ae5ce195066a12a22bcb5c70aaec31b78}{sexp\_malloc}}(\textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{sexp__memory_8h_a7bcad4aaee1f4a1e1efbcd6aa016a047}{sexp\_calloc}}(\textcolor{keywordtype}{size\_t}\ count,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{sexp__memory_8h_a34da54ff65fa0cc92534be52422e9b35}{sexp\_free}}(\textcolor{keywordtype}{void}\ *ptr,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{sexp__memory_8h_ab43d6647d17a8f40f037183c676b32f8}{sexp\_realloc}}(\textcolor{keywordtype}{void}\ *ptr,\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{size\_t}\ oldsize);}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordtype}{size\_t}\ get\_sexp\_max\_memory();}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{size\_t}\ get\_sexp\_used\_memory();}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{int}\ set\_sexp\_max\_memory(\textcolor{keywordtype}{size\_t}\ newsize);}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00129\ \}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#define\ sexp\_calloc(count,size)\ calloc(count,size)}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#define\ sexp\_malloc(size)\ malloc(size)}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ sexp\_free(ptr,size)\ free(ptr)}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ sexp\_realloc(ptr,size,oldsize)\ realloc((ptr),(size))}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_SEXP\_MEMORY\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}
