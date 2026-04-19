@@ -168,3 +168,7 @@ _agents/
 *.wvmo
 *.wvmx
 *.wvmc
+
+*-MANIFEST.yaml
+IMPLEMENTATION-STAGES.yaml
+IMPLEMENTATION-PROGRESS.md
