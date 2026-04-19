@@ -18,10 +18,13 @@
 #ifndef WIRBLE_MAL_H
 #define WIRBLE_MAL_H
 
-WIRBLE_BEGIN_DECLS
 
 #include <stddef.h>
 #include <stdint.h>
+
+#include "api-boilerplate.h"
+
+WIRBLE_BEGIN_DECLS
 
 /* ── Forward declarations from companion headers ────────────────────── */
 
