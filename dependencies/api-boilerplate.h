@@ -3,8 +3,8 @@
  * @brief Portable API macros for the APIs, built on top of hedley.h
  */
 
-#ifndef API_BOILERPLATE_H
-#define API_BOILERPLATE_H
+#ifndef API_WIRBLE_H
+#define API_WIRBLE_H
 
 #include "hedley.h"
 
@@ -12,8 +12,8 @@
  * VERSION
  * ========================================================================= */
 
-#define WIRBLE_VERSION_MAJOR 1
-#define WIRBLE_VERSION_MINOR 0
+#define WIRBLE_VERSION_MAJOR 0
+#define WIRBLE_VERSION_MINOR 1
 #define WIRBLE_VERSION_PATCH 0
 
 /**
@@ -48,10 +48,10 @@
 
 /** Public API symbol – exported when building, imported when consuming. */
 #if defined(WIRBLE_BUILD)
-#define API_BOILERPLATE                                                       \
+#define API_WIRBLE                                                       \
   HEDLEY_PUBLIC /* __declspec(dllexport) / visibility("default") */
 #else
-#define API_BOILERPLATE                                                       \
+#define API_WIRBLE                                                       \
   HEDLEY_IMPORT /* __declspec(dllimport) / extern               */
 #endif
 
@@ -102,7 +102,7 @@
  * (hedley.h: __attribute__((malloc)) / __declspec(restrict))
  *
  * Usage:
- *   API_BOILERPLATE WIRBLE_MALLOC(size)
+ *   API_WIRBLE WIRBLE_MALLOC(size)
  *   void *wirble_alloc(size_t size);
  *
  * The parameter name 'n' is kept as a documentation convention; it is
@@ -144,7 +144,7 @@
  * PRINTF FORMAT CHECKING  (hedley.h lines 1289-1318)
  *
  * Usage:
- *   API_BOILERPLATE WIRBLE_PRINTF(1, 2)
+ *   API_WIRBLE WIRBLE_PRINTF(1, 2)
  *   void wirble_log(const char *fmt, ...);
  *
  *   fmt_idx    – 1-based index of the format-string argument
@@ -315,4 +315,4 @@
 #define WIRBLE_END_DECLS
 #endif
 
-#endif /* API_BOILERPLATE_H */
+#endif /* API_WIRBLE_H */
