@@ -1,53 +1,119 @@
 #ifndef WIRBLE_MDS_H
 #define WIRBLE_MDS_H
 
+#include <stddef.h>
+#include <stdint.h>
+
 #include "api-boilerplate.h"
-#include "wirble-mal.h"
 
 WIRBLE_BEGIN_DECLS
 
-/* ------------------------------------------------------------
-   Basic Types
-   ------------------------------------------------------------ */
+/* Forward declarations */
+typedef struct WRSSExpr WRSSExpr;
+typedef struct MALModule MALModule;
+typedef struct MALFunction MALFunction;
+typedef struct MALInst MALInst;
+typedef struct MALOperand MALOperand;
+/* ════════════════════════════════════════════════════════════════════
+ *  §1  BASIC TYPES
+ * ════════════════════════════════════════════════════════════════════ */
 
-typedef unsigned long MDSRegId;
-typedef unsigned long MDSInstrId;
-typedef unsigned long MDSIndex;
+typedef uint32_t MDSRegId;
+typedef uint32_t MDSInstrId;
+typedef uint32_t MDSIndex;
+typedef uint32_t MDSPatternId;
+/* ════════════════════════════════════════════════════════════════════
+ *  §2  REGISTER MODEL
+ * ════════════════════════════════════════════════════════════════════ */
 
-
-/* ------------------------------------------------------------
-   MDS Register Class
-   ------------------------------------------------------------ */
-
-typedef enum
+typedef enum MDSRegisterClass
 {
-  MDS_REG_CLASS_GPR,    /* General purpose registers */
-  MDS_REG_CLASS_FP,     /* Floating point registers */
-  MDS_REG_CLASS_VECTOR, /* Vector registers */
-  MDS_REG_CLASS_SPECIAL /* Special purpose (flags, PC, etc.) */
+  MDS_REGCLASS_GPR = 0,
+  MDS_REGCLASS_FP,
+  MDS_REGCLASS_VECTOR,
+  MDS_REGCLASS_SPECIAL,
+  MDS_REGCLASS__COUNT
 } MDSRegisterClass;
-
 typedef struct MDSRegister
 {
   MDSRegId id;
   const char *name; /* e.g., "rax", "xmm0", "v0" */
   MDSRegisterClass regClass;
-  unsigned int bitWidth;
-  int isAllocatable; /* Can be used by register allocator */
+  uint32_t bitWidth;
+  int allocatable; /* Can be used by RA */
+
+  /* Register aliasing (e.g., al/ax/eax/rax on x86) */
+  MDSRegId *aliases;
+  uint32_t aliasCount;
+  /* Sub-register relationships */
+  MDSRegId parentReg;    /* 0 if none */
+  uint32_t subRegOffset; /* Bit offset within parent */
+
+  /* Calling convention info */
+  int isCallerSaved;
+  int isCalleeSaved;
+  int isArgumentReg;
+  int isReturnReg;
+  uint32_t argumentIndex; /* If isArgumentReg */
 } MDSRegister;
+/* ════════════════════════════════════════════════════════════════════
+ *  §3  OPERAND MODEL
+ * ════════════════════════════════════════════════════════════════════ */
 
-/* ------------------------------------------------------------
-   MDS Instruction Descriptor
-   ------------------------------------------------------------ */
-
-typedef struct MDSOperand
+typedef enum MDSOperandType
 {
-  const char *name;
-  MDSRegisterClass regClass;
+  MDS_OPERAND_REG,
+  MDS_OPERAND_IMM,
+  MDS_OPERAND_MEM,
+  MDS_OPERAND_LABEL
+} MDSOperandType;
+typedef struct MDSOperandDesc
+{
+  const char *name; /* e.g., "$dst", "$src1" */
+  MDSOperandType type;
+  MDSRegisterClass regClass; /* If type == REG */
+  uint32_t bitWidth;
   int isInput;
   int isOutput;
-  int isImmediate;
-} MDSOperand;
+  int isEarlyClobber; /* Output written before inputs read */
+  int isTiedTo;       /* Index of tied operand, -1 if none */
+
+  /* Immediate constraints */
+  int64_t immMin;
+  int64_t immMax;
+  /* Memory addressing mode constraints */
+  int allowsBaseReg;
+  int allowsIndexReg;
+  int allowsDisplacement;
+  int allowsScale;
+} MDSOperandDesc;
+/* ════════════════════════════════════════════════════════════════════
+ *  §4  INSTRUCTION ENCODING
+ * ════════════════════════════════════════════════════════════════════ */
+
+typedef struct MDSEncoding
+{ /* Fixed encoding bytes (opcode, prefixes, etc.) */
+  uint8_t *fixedBytes;
+  uint32_t fixedLength;
+  /* Encoding template with placeholders for operands */
+  const char *template; /* e.g., "48 8B /r" for x86 */
+
+  /* Operand encoding positions */
+  struct
+  {
+    uint32_t operandIndex; /* Which operand */
+    uint32_t byteOffset;   /* Where in encoding */
+    uint32_t bitOffset;
+    uint32_t bitWidth;
+  } *operandEncodings;
+  uint32_t operandEncodingCount;
+  /* Variable-length encoding info */
+  uint32_t minLength;
+  uint32_t maxLength;
+} MDSEncoding;
+/* ════════════════════════════════════════════════════════════════════
+ *  §5  INSTRUCTION DESCRIPTOR
+ * ════════════════════════════════════════════════════════════════════ */
 
 typedef struct MDSInstruction
 {
@@ -55,247 +121,224 @@ typedef struct MDSInstruction
   const char *mnemonic;    /* e.g., "add", "mov", "vaddps" */
   const char *asmTemplate; /* e.g., "add %0, %1, %2" */
 
-  MDSOperand *operands;
-  MDSIndex operandCount;
+  /* Operands */
+  MDSOperandDesc *operands;
+  uint32_t operndCount;
+  /* Encoding */
 
-  /* Binary encoding information */
-  unsigned char *encodingBytes;
-  MDSIndex encodingLength;
+  MDSEncoding encoding;
+  /* Instruction properties */
 
-  /* Instruction selection cost (for pattern matching) */
+  int isBranch;
+  int isCall;
+  int isReturn;
+  int isLoad;
+  int isStore;
+  int isBarrier;
+  int mayTrap;
+  /* Cost model (from schema) */
+
   int selectionCost;
-
-  /* Scheduling information */
   int latency;
   int throughput;
+  /* Scheduling constraints */
 
+  uint32_t pipelineClass;
 } MDSInstruction;
+/* ════════════════════════════════════════════════════════════════════
 
-/* ------------------------------------------------------------
-   MDS Machine Model
-   ------------------------------------------------------------ */
+    §6 FP / VECTOR EXTENSION SUITES
+    ════════════════════════════════════════════════════════════════════ */
 
+typedef struct MDSFPSuite
+{
+  const char *name;
+  const char **formats;
+  uint32_t formatCount;
+} MDSFPSuite;
+typedef struct MDSVectorSuite
+{
+  const char *name;
+  uint32_t vectorWidth;
+  const char **elementTypes;
+  uint32_t elementTypeCount;
+} MDSVectorSuite;
+/* ════════════════════════════════════════════════════════════════════
+
+    §7 MACHINE MODEL
+    ════════════════════════════════════════════════════════════════════ */
+
+typedef enum MDSEndianness
+{
+  MDS_ENDIAN_LITTLE,
+  MDS_ENDIAN_BIG
+
+} MDSEndianness;
 typedef struct MDSMachine
 {
-  const char *name; /* e.g., "x86_64", "aarch64", "wasm" */
+  const char *name;
   const char *vendor;
+  MDSEndianness endianness;
+  uint32_t pointerSize;
+  /* Register file */
 
-  MDSRegister **registers;
-  MDSIndex registerCount;
+  MDSRegister *registers;
+  uint32_t registerCount;
+  /* Instruction set */
 
-  MDSInstruction **instructions;
-  MDSIndex instructionCount;
+  MDSInstruction *instructions;
+  uint32_t instructionCount;
+  /* Lookup tables for fast access */
 
-  /* Floating point suites */
-  MALFloatingPointInterface **fpSuites;
-  MDSIndex fpSuiteCount;
+  MDSInstruction **instrById;
+  /* Extension suites */
 
-  /* Vector extension suites */
-  MALVectorInterface **vectorSuites;
-  MDSIndex vectorSuiteCount;
-
-  /* Endianness */
-  int isLittleEndian;
-
-  /* Pointer size in bytes */
-  unsigned int pointerSize;
-
+  MDSFPSuite *fpSuites;
+  uint32_t fpSuiteCount;
+  MDSVectorSuite *vectorSuites;
+  uint32_t vectorSuiteCount;
 } MDSMachine;
+/* ════════════════════════════════════════════════════════════════════
 
-/* ------------------------------------------------------------
-   Machine Specification Loading (JSON/YAML/XML)
-   ------------------------------------------------------------ */
+    §8 MACHINE SPEC LOADING
+    ════════════════════════════════════════════════════════════════════ */
 
-typedef enum
+typedef enum MDSSpecFormat
 {
   MDS_FORMAT_JSON,
   MDS_FORMAT_YAML,
   MDS_FORMAT_XML
+
 } MDSSpecFormat;
-
-/* Load machine specification from file */
-MDSMachine *mdsLoadMachine (const char *filepath, MDSSpecFormat format);
-
-/* Destroy machine model */
+MDSMachine *mdsLoadMachine (const char *path, MDSSpecFormat format);
 void mdsDestroyMachine (MDSMachine *machine);
-
-/* Validate machine specification */
 int mdsValidateMachine (const MDSMachine *machine);
+/* ════════════════════════════════════════════════════════════════════
 
-/* ------------------------------------------------------------
-   Instruction Selection Pattern System
-   ------------------------------------------------------------ */
+    §9 INSTRUCTION SELECTION PATTERN GRAPH
+    ════════════════════════════════════════════════════════════════════ */
 
-typedef struct MDSPattern MDSPattern;
-typedef struct MDSPatternRule MDSPatternRule;
-typedef struct MDSInstrSelector MDSInstrSelector;
+typedef struct MDSPatternNode
+{
+  /* MAL opcode constraint */
 
-/* Create instruction selector for a machine */
+  uint32_t malOpcode;
+  /* Operand constraints */
+
+  struct
+  {
+    int mustBeConst;
+    int mustBeReg;
+    int mustBeImm;
+    int bitWidth;
+  } *operands;
+  uint32_t operandCount;
+  /* DAG edges */
+
+  struct MDSPatternNode **inputs;
+  uint32_t inputCount;
+} MDSPatternNode;
+typedef struct MDSPattern
+{
+  MDSPatternId id;
+  /* Pattern DAG root */
+
+  MDSPatternNode *root;
+  /* Emitted instructions */
+
+  MDSInstrId *emitInstrs;
+  uint32_t emitInstrCount;
+  /* Cost override */
+
+  int cost;
+} MDSPattern;
+typedef struct MDSInstrSelector
+{
+  const MDSMachine *machine;
+  MDSPattern *patterns;
+  uint32_t patternCount;
+  /* Fast opcode dispatch */
+
+  MDSPattern **patternsByOpcode;
+} MDSInstrSelector;
+/* Pattern management */
+
 MDSInstrSelector *mdsCreateSelector (const MDSMachine *machine);
 void mdsDestroySelector (MDSInstrSelector *selector);
+int mdsLoadPatterns (MDSInstrSelector *selector, const char *path);
+void mdsAddPattern (MDSInstrSelector *selector, MDSPattern *pattern);
+/* Pattern matching */
 
-/* Load instruction selection patterns from file */
-/* Pattern files are half-MAL (input), half-MDS (output) */
-int mdsLoadPatterns (MDSInstrSelector *selector, const char *filepath);
+const MDSPattern *mdsMatchPattern (const MDSInstrSelector *selector,
+                                   const MALInst *inst);
+const MDSPattern *mdsSelectBestPattern (const MDSInstrSelector *selector,
+                                        const MALInst *inst);
+/* ════════════════════════════════════════════════════════════════════
 
-/* Add a single pattern rule programmatically */
-void mdsAddPattern (MDSInstrSelector *selector, MDSPatternRule *rule);
-
-/* ------------------------------------------------------------
-   MAL to MDS Lowering (Instruction Selection)
-   ------------------------------------------------------------ */
+    §10 LOWERING MAL → MDS
+    ════════════════════════════════════════════════════════════════════ */
 
 typedef struct MDSProgram MDSProgram;
-
-/* Lower MAL unit to MDS program using instruction selection */
-MDSProgram *mdsLowerFromMAL (const MALUnit *malUnit,
-                             MDSInstrSelector *selector,
+typedef struct MDSBasicBlock MDSBasicBlock;
+MDSProgram *mdsLowerFromMAL (const MALModule *module,
+                             const MDSInstrSelector *selector,
                              const MDSMachine *machine);
+/* ════════════════════════════════════════════════════════════════════
 
-/* Destroy MDS program */
-void mdsDestroyProgram (MDSProgram *program);
+    §11 MDS PROGRAM
+    ════════════════════════════════════════════════════════════════════ */
 
-/* ------------------------------------------------------------
-   MDS Program Representation
-   ------------------------------------------------------------ */
-
-typedef struct MDSBasicBlock
+typedef struct MDSInst
 {
-  MDSIndex id;
-  MDSInstruction **instructions;
-  MDSIndex instrCount;
+  const MDSInstruction *desc;
+  /* Physical operands */
 
-  MDSIndex *successors;
-  MDSIndex successorCount;
-} MDSBasicBlock;
+  MALOperand *operands;
+  uint32_t operandCount;
+} MDSInst;
+
+struct MDSBasicBlock
+{
+  uint32_t id;
+  MDSInst *instructions;
+  uint32_t instrCount;
+  uint32_t *successors;
+  uint32_t successorCount;
+};
 
 struct MDSProgram
 {
-  MDSBasicBlock **blocks;
-  MDSIndex blockCount;
-
   const MDSMachine *machine;
-
-  /* Symbol table for labels, functions, etc. */
-  void *symbolTable;
+  MDSBasicBlock *blocks;
+  uint32_t blockCount;
 };
+/* ════════════════════════════════════════════════════════════════════
 
-/* ------------------------------------------------------------
-   Post-Lowering Optimization
-   ------------------------------------------------------------ */
+    §12 CODE GENERATION
+    ════════════════════════════════════════════════════════════════════ */
 
-/* Peephole optimization on MDS program */
-void mdsOptimizePeephole (MDSProgram *program);
+int mdsEmitAssembly (const MDSProgram *program, const char *path);
+int mdsEmitBinary (const MDSProgram *program, const char *path);
+unsigned char *mdsEmitBuffer (const MDSProgram *program, size_t *outSize);
+/* ════════════════════════════════════════════════════════════════════
 
-/* Dead code elimination */
-void mdsOptimizeDCE (MDSProgram *program);
+    §13 ENCODING / DECODING
+    ════════════════════════════════════════════════════════════════════ */
 
-/* Instruction scheduling */
-void mdsScheduleInstructions (MDSProgram *program);
-
-/* Register allocation (final physical register assignment) */
-void mdsAllocateRegisters (MDSProgram *program);
-
-/* ------------------------------------------------------------
-   Code Emission (Assembly and Binary)
-   ------------------------------------------------------------ */
-
-/* Emit assembly code to file */
-int mdsEmitAssembly (const MDSProgram *program, const char *filepath);
-
-/* Emit binary machine code to file */
-int mdsEmitBinary (const MDSProgram *program, const char *filepath);
-
-/* Emit to memory buffer (for JIT compilation) */
-unsigned char *mdsEmitToBuffer (const MDSProgram *program, size_t *outSize);
-
-/* ------------------------------------------------------------
-   Serialization and Deserialization
-   ------------------------------------------------------------ */
-
-/* Serialize MDS program to JSON/YAML/XML */
-int mdsSerializeProgram (const MDSProgram *program, const char *filepath,
-                         MDSSpecFormat format);
-
-/* Deserialize MDS program from JSON/YAML/XML */
-MDSProgram *mdsDeserializeProgram (const char *filepath, MDSSpecFormat format,
-                                   const MDSMachine *machine);
-
-/* ------------------------------------------------------------
-   Instruction Encoding Utilities
-   ------------------------------------------------------------ */
-
-/* Encode a single instruction to bytes */
 unsigned char *mdsEncodeInstruction (const MDSInstruction *instr,
-                                     const MDSOperand *operands,
-                                     MDSIndex operandCount, size_t *outSize);
+                                     const MALOperand *operands,
+                                     uint32_t operandCount, size_t *outSize);
+const MDSInstruction *mdsDecodeInstruction (const MDSMachine *machine,
+                                            const unsigned char *bytes,
+                                            size_t length);
+/* ════════════════════════════════════════════════════════════════════
 
-/* Decode bytes to instruction (for disassembly) */
-MDSInstruction *mdsDecodeInstruction (const MDSMachine *machine,
-                                      const unsigned char *bytes,
-                                      size_t length);
+    §14 DEBUGGING
+    ════════════════════════════════════════════════════════════════════ */
 
-/* ------------------------------------------------------------
-   Register Allocation Interface
-   ------------------------------------------------------------ */
-
-typedef struct MDSRegisterAllocator MDSRegisterAllocator;
-
-/* Create register allocator for a machine */
-MDSRegisterAllocator *mdsCreateAllocator (const MDSMachine *machine);
-void mdsDestroyAllocator (MDSRegisterAllocator *allocator);
-
-/* Perform register allocation on program */
-void mdsRunAllocation (MDSRegisterAllocator *allocator, MDSProgram *program);
-
-/* Query allocation results */
-MDSRegId mdsGetPhysicalReg (const MDSRegisterAllocator *allocator,
-                            MALReg virtualReg);
-
-/* ------------------------------------------------------------
-   Instruction Selection Cost Model
-   ------------------------------------------------------------ */
-
-/* Compute cost of selecting a pattern */
-int mdsPatternCost (const MDSPattern *pattern, const MALInstr *instr);
-
-/* Find best pattern match for MAL instruction */
-const MDSPatternRule *mdsFindBestPattern (const MDSInstrSelector *selector,
-                                          const MALInstr *instr);
-
-/* ------------------------------------------------------------
-   Debugging and Introspection
-   ------------------------------------------------------------ */
-
-/* Print machine specification */
 void mdsPrintMachine (const MDSMachine *machine);
-
-/* Print instruction descriptor */
 void mdsPrintInstruction (const MDSInstruction *instr);
-
-/* Print register descriptor */
-void mdsPrintRegister (const MDSRegister *reg);
-
-/* Print MDS program (assembly-like format) */
 void mdsPrintProgram (const MDSProgram *program);
+WIRBLE_END_DECLS
 
-/* Print instruction selection patterns */
-void mdsPrintPatterns (const MDSInstrSelector *selector);
-
-/* Disassemble binary to MDS program */
-MDSProgram *mdsDisassemble (const unsigned char *bytes, size_t length,
-                            const MDSMachine *machine);
-
-/* ------------------------------------------------------------
-   Virtual Machine Support (e.g., WASM)
-   ------------------------------------------------------------ */
-
-/* Check if machine is virtual */
-int mdsIsVirtualMachine (const MDSMachine *machine);
-
-/* Emit to virtual machine bytecode format */
-int mdsEmitVMBytecode (const MDSProgram *program, const char *filepath);
-
-WIRBLE_BEGIN_DECLS
-
-#endif /* WIRBLE_MDS_H */
+#endif
