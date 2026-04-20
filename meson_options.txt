@@ -1,0 +1,34 @@
+option(
+  'install_docs',
+  type : 'boolean',
+  value : false,
+  description : 'Generate and install Doxygen HTML/LaTeX/PDF documentation'
+)
+
+option(
+  'install_manfiles',
+  type : 'boolean',
+  value : false,
+  description : 'Generate and install Doxygen manpages under man3wil'
+)
+
+option(
+  'install_manifest',
+  type : 'boolean',
+  value : false,
+  description : 'Install WIRBLE manifests under share/wirble/manifests'
+)
+
+option(
+  'install_toolchain',
+  type : 'boolean',
+  value : true,
+  description : 'Install WIRBLE toolchain executables'
+)
+
+option(
+  'no_install_machines',
+  type : 'boolean',
+  value : false,
+  description : 'Disable installing machine descriptions under manifests/machines'
+)

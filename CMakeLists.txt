@@ -2,6 +2,14 @@ cmake_minimum_required(VERSION 3.20)
 
 project(WIRBLE VERSION 0.4 LANGUAGES C)
 
+include(GNUInstallDirs)
+
+option(INSTALL_DOCS "Install generated documentation outputs" OFF)
+option(INSTALL_MANFILES "Install generated Doxygen manpages" OFF)
+option(INSTALL_MANIFEST "Install WIRBLE manifests" OFF)
+option(INSTALL_TOOLCHAIN "Install WIRBLE toolchain binaries" ON)
+option(NO_INSTALL_MACHINES "Disable installing machine descriptions" OFF)
+
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
@@ -466,27 +474,9 @@ if(BUILD_TESTING)
   )
 endif()
 
-install(
-  TARGETS
-    wirble
-    wirblecc
-    iwirble
-    wil-lower
-    wrs-rewrite
-    mal-lower
-    mal-opt
-    mds-select
-    tos-build
-    wvm-emit
-    wvm-run
-  EXPORT wirbleTargets
-)
-install(DIRECTORY include/wirble DESTINATION include)
-install(
-  FILES
-    dependencies/api-boilerplate.h
-    dependencies/hedley.h
-    dependencies/lmdb.h
-  DESTINATION include
-)
-install(DIRECTORY stdrewrite DESTINATION share/wirble)
+add_subdirectory(dependencies)
+add_subdirectory(stdrewrite)
+add_subdirectory(manifests)
+add_subdirectory(machines)
+add_subdirectory(toolchain)
+add_subdirectory(docs)
