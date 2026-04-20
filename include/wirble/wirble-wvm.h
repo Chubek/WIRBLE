@@ -8,6 +8,8 @@
 
 WIRBLE_BEGIN_DECLS
 
+struct WVMState;
+
 /* ------------------------------------------------------------
    WVM Instruction Encoding
    All instructions fit in 64 bits (uint64_t)

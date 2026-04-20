@@ -1,0 +1,72 @@
+; stdrewrite/canonical.wrs
+; Canonical forms that steer equivalent WIL graphs toward one shape.
+
+(rule
+  :name neg-neg
+  :match (neg (neg ?x))
+  :replace ?x)
+
+(rule
+  :name abs-neg
+  :match (abs (neg ?x))
+  :replace (abs ?x))
+
+(rule
+  :name add-neg-right
+  :match (add ?x (neg ?y))
+  :replace (sub ?x ?y))
+
+(rule
+  :name add-neg-left
+  :match (add (neg ?y) ?x)
+  :replace (sub ?x ?y))
+
+(rule
+  :name sub-neg-right
+  :match (sub ?x (neg ?y))
+  :replace (add ?x ?y))
+
+(rule
+  :name mul-neg-one-right
+  :match (mul ?x -1)
+  :replace (neg ?x))
+
+(rule
+  :name mul-neg-one-left
+  :match (mul -1 ?x)
+  :replace (neg ?x))
+
+(rule
+  :name not-eq
+  :match (not (eq ?x ?y))
+  :replace (ne ?x ?y))
+
+(rule
+  :name not-ne
+  :match (not (ne ?x ?y))
+  :replace (eq ?x ?y))
+
+(rule
+  :name not-lt
+  :match (not (lt ?x ?y))
+  :replace (ge ?x ?y))
+
+(rule
+  :name not-le
+  :match (not (le ?x ?y))
+  :replace (gt ?x ?y))
+
+(rule
+  :name not-gt
+  :match (not (gt ?x ?y))
+  :replace (le ?x ?y))
+
+(rule
+  :name not-ge
+  :match (not (ge ?x ?y))
+  :replace (lt ?x ?y))
+
+(rule
+  :name select-not-cond
+  :match (select (not ?cond) ?x ?y)
+  :replace (select ?cond ?y ?x))

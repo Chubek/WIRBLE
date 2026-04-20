@@ -1,0 +1,102 @@
+; stdrewrite/logic.wrs
+; Boolean identities, idempotence, and branch simplifications.
+
+(rule
+  :name and-true-right
+  :match (and ?x true)
+  :replace ?x)
+
+(rule
+  :name and-true-left
+  :match (and true ?x)
+  :replace ?x)
+
+(rule
+  :name and-false-right
+  :match (and ?x false)
+  :replace false)
+
+(rule
+  :name and-false-left
+  :match (and false ?x)
+  :replace false)
+
+(rule
+  :name and-idempotent
+  :match (and ?x ?x)
+  :replace ?x)
+
+(rule
+  :name or-false-right
+  :match (or ?x false)
+  :replace ?x)
+
+(rule
+  :name or-false-left
+  :match (or false ?x)
+  :replace ?x)
+
+(rule
+  :name or-true-right
+  :match (or ?x true)
+  :replace true)
+
+(rule
+  :name or-true-left
+  :match (or true ?x)
+  :replace true)
+
+(rule
+  :name or-idempotent
+  :match (or ?x ?x)
+  :replace ?x)
+
+(rule
+  :name xor-false-right
+  :match (xor ?x false)
+  :replace ?x)
+
+(rule
+  :name xor-false-left
+  :match (xor false ?x)
+  :replace ?x)
+
+(rule
+  :name not-not
+  :match (not (not ?x))
+  :replace ?x)
+
+(rule
+  :name not-true
+  :match (not true)
+  :replace false)
+
+(rule
+  :name not-false
+  :match (not false)
+  :replace true)
+
+(rule
+  :name eq-self
+  :match (eq ?x ?x)
+  :replace true)
+
+(rule
+  :name ne-self
+  :match (ne ?x ?x)
+  :replace false)
+
+(rule
+  :name select-true
+  :match (select true ?x ?y)
+  :replace ?x)
+
+(rule
+  :name select-false
+  :match (select false ?x ?y)
+  :replace ?y)
+
+(rule
+  :name select-same-branches
+  :match (select ?cond ?x ?x)
+  :replace ?x)

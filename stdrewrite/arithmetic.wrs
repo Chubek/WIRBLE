@@ -1,0 +1,87 @@
+; stdrewrite/arithmetic.wrs
+; Arithmetic identities and neutral/annihilator rules.
+
+(rule
+  :name add-zero-right
+  :match (add ?x 0)
+  :replace ?x)
+
+(rule
+  :name add-zero-left
+  :match (add 0 ?x)
+  :replace ?x)
+
+(rule
+  :name sub-zero
+  :match (sub ?x 0)
+  :replace ?x)
+
+(rule
+  :name sub-zero-left
+  :match (sub 0 ?x)
+  :replace (neg ?x))
+
+(rule
+  :name sub-self
+  :match (sub ?x ?x)
+  :replace 0)
+
+(rule
+  :name mul-one-right
+  :match (mul ?x 1)
+  :replace ?x)
+
+(rule
+  :name mul-one-left
+  :match (mul 1 ?x)
+  :replace ?x)
+
+(rule
+  :name mul-zero-right
+  :match (mul ?x 0)
+  :replace 0)
+
+(rule
+  :name mul-zero-left
+  :match (mul 0 ?x)
+  :replace 0)
+
+(rule
+  :name div-one
+  :match (div ?x 1)
+  :replace ?x)
+
+(rule
+  :name div-self
+  :match (div ?x ?x)
+  :replace 1)
+
+(rule
+  :name mod-one
+  :match (mod ?x 1)
+  :replace 0)
+
+(rule
+  :name neg-zero
+  :match (neg 0)
+  :replace 0)
+
+(rule
+  :name abs-zero
+  :match (abs 0)
+  :replace 0)
+
+(rule
+  :name shl-zero
+  :match (shl ?x 0)
+  :replace ?x)
+
+(rule
+  :name shr-zero
+  :match (shr ?x 0)
+  :replace ?x)
+
+(rule
+  :name add-self
+  :match (add ?x ?x)
+  :replace (mul ?x 2))

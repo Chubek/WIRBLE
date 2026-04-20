@@ -1,0 +1,282 @@
+# TOOLCHAIN-MANIFEST.yaml
+# Describes the executable tools that form the WIRBLE compiler pipeline.
+
+toolchain:
+  name: wirble
+  version: 0.4
+
+  pipeline:
+    - parse
+    - wil
+    - rewrite
+    - mal
+    - mds
+    - tos
+    - wvm
+
+# -------------------------------------------------------------------
+# Frontend Drivers
+# -------------------------------------------------------------------
+
+tools:
+
+  - name: wirblecc
+    stage: driver
+    description: |
+      Ahead-of-time compiler for the Stage 11/12 Wirble example language.
+      Uses dparser to parse arithmetic expressions, lowers them into WIL,
+      and runs the WIRBLE pipeline to emit WVM bytecode objects.
+      Stage 12 adds optimization-level selection and default IR verification
+      across the WIL → MAL → TOS → WVM path.
+    executable: bin/wirblecc
+    inputs:
+      - wirble-source
+    outputs:
+      - wvm-bytecode
+      - executable
+    depends_on:
+      - wrs-rewrite
+      - mal-opt
+      - mds-select
+      - tos-build
+      - wvm-emit
+    arguments:
+      - name: input
+        type: path
+        description: input source file
+      - name: output
+        type: path
+        description: output executable or bytecode file
+      - name: optimize
+        type: integer
+        description: optimization level controlling WRS, MRS, and TOS passes
+        values: [0,1,2,3]
+      - name: target
+        type: string
+        description: target architecture
+        values: [x86_64,aarch64,wasm]
+
+
+  - name: iwirble
+    stage: driver
+    description: |
+      Interactive Wirble interpreter with a REPL using microrl.
+      Parses arithmetic expressions using dparser, compiles them into WVM
+      bytecode, and executes immediately through the WVM runtime.
+      Supports startup optimization levels and an in-REPL `:opt` command
+      for switching optimization strength between `0` and `3`.
+    executable: bin/iwirble
+    inputs:
+      - wirble-source
+    outputs:
+      - interactive-execution
+    depends_on:
+      - wvm-runtime
+    arguments:
+      - name: interactive
+        type: flag
+        description: start REPL mode
+      - name: file
+        type: path
+        description: optional file to execute before REPL
+      - name: optimize
+        type: integer
+        description: optimization level controlling WRS, MRS, and TOS passes
+        values: [0,1,2,3]
+      - name: target
+        type: string
+        description: target architecture
+        values: [x86_64,aarch64,wasm]
+      - name: repl-opt
+        type: command
+        description: interactive `:opt N` command to change optimization level
+
+
+# -------------------------------------------------------------------
+# WIL Tools
+# -------------------------------------------------------------------
+
+  - name: wil-lower
+    stage: wil
+    description: |
+      Converts parsed AST structures into WIL (Wirble Intermediate Language).
+      Performs structural normalization and validation.
+    executable: bin/wil-lower
+    inputs:
+      - ast
+    outputs:
+      - wil
+    arguments:
+      - name: validate
+        type: flag
+        description: enable IR validation
+      - name: dump
+        type: flag
+        description: print resulting WIL
+
+
+# -------------------------------------------------------------------
+# WRS Rewrite Engine
+# -------------------------------------------------------------------
+
+  - name: wrs-rewrite
+    stage: rewrite
+    description: |
+      Applies rewrite rules defined in .wrs files using the WRS rewrite engine.
+      Loads rule systems from stdrewrite and applies them to WIL or MAL IR.
+      Stage 12 extends the default arithmetic library with additional
+      canonicalization identities used by the example-driver pipeline.
+    executable: bin/wrs-rewrite
+    inputs:
+      - wil
+      - wrs-rules
+    outputs:
+      - wil
+    arguments:
+      - name: rules
+        type: path
+        description: directory containing .wrs rewrite files
+        default: stdrewrite/
+      - name: fixpoint
+        type: flag
+        description: apply rules until no further rewrites occur
+      - name: debug
+        type: flag
+        description: show rule matches
+
+
+# -------------------------------------------------------------------
+# MAL Optimization
+# -------------------------------------------------------------------
+
+  - name: mal-lower
+    stage: mal
+    description: |
+      Converts WIL into MAL IR. This stage prepares instructions
+      for peephole rewriting and mid-level optimization.
+    executable: bin/mal-lower
+    inputs:
+      - wil
+    outputs:
+      - mal
+    arguments:
+      - name: dump
+        type: flag
+        description: print MAL IR
+
+
+  - name: mal-opt
+    stage: mal
+    description: |
+      Runs MAL peephole optimizations using the MAL Rewrite System (MRS).
+      Uses mal_mrs_load() and malApplyPeepholeToFixpoint() internally.
+      Stage 12 extends the default peephole set with zero-folding and
+      shift-by-zero simplifications exercised by the validation suite.
+    executable: bin/mal-opt
+    inputs:
+      - mal
+      - wrs-rules
+    outputs:
+      - mal
+    arguments:
+      - name: rules
+        type: path
+        description: rewrite rules to load
+      - name: fixpoint
+        type: flag
+        description: iterate until convergence
+      - name: stats
+        type: flag
+        description: print optimization statistics
+
+
+# -------------------------------------------------------------------
+# Machine Selection
+# -------------------------------------------------------------------
+
+  - name: mds-select
+    stage: mds
+    description: |
+      Machine data selection pass. Converts MAL instructions
+      into target operations represented by TOS.
+    executable: bin/mds-select
+    inputs:
+      - mal
+    outputs:
+      - tos
+    arguments:
+      - name: target
+        type: string
+        description: target architecture
+        values:
+          - wvm
+          - x86_64
+          - aarch64
+      - name: dump
+        type: flag
+        description: print selected instructions
+
+
+# -------------------------------------------------------------------
+# Target Operation Stream
+# -------------------------------------------------------------------
+
+  - name: tos-build
+    stage: tos
+    description: |
+      Builds and optimizes the Target Operation Stream produced by MDS.
+      Responsible for instruction ordering and stream finalization.
+    executable: bin/tos-build
+    inputs:
+      - tos
+    outputs:
+      - tos
+    arguments:
+      - name: optimize
+        type: flag
+        description: enable stream optimizations
+      - name: dump
+        type: flag
+        description: print final TOS
+
+
+# -------------------------------------------------------------------
+# WVM Backend
+# -------------------------------------------------------------------
+
+  - name: wvm-emit
+    stage: wvm
+    description: |
+      Converts the Target Operation Stream into WVM bytecode.
+      Used by both the interpreter and AOT compiler drivers.
+    executable: bin/wvm-emit
+    inputs:
+      - tos
+    outputs:
+      - wvm-bytecode
+    arguments:
+      - name: output
+        type: path
+        description: output bytecode file
+      - name: debug
+        type: flag
+        description: embed debug metadata
+
+
+  - name: wvm-runtime
+    stage: wvm
+    description: |
+      Runtime executor for WVM bytecode.
+      Used by the interactive interpreter and test harnesses.
+    executable: bin/wvm-run
+    inputs:
+      - wvm-bytecode
+    outputs:
+      - program-execution
+    arguments:
+      - name: trace
+        type: flag
+        description: trace instruction execution
+      - name: stack
+        type: flag
+        description: print stack state

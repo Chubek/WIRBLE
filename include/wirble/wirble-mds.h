@@ -22,6 +22,14 @@ typedef uint32_t MDSRegId;
 typedef uint32_t MDSInstrId;
 typedef uint32_t MDSIndex;
 typedef uint32_t MDSPatternId;
+
+typedef enum MDSTargetKind
+{
+  MDS_TARGET_GENERIC = 0,
+  MDS_TARGET_X86_64,
+  MDS_TARGET_AARCH64,
+  MDS_TARGET_WASM
+} MDSTargetKind;
 /* ════════════════════════════════════════════════════════════════════
  *  §2  REGISTER MODEL
  * ════════════════════════════════════════════════════════════════════ */
@@ -176,6 +184,7 @@ typedef enum MDSEndianness
 } MDSEndianness;
 typedef struct MDSMachine
 {
+  MDSTargetKind targetKind;
   const char *name;
   const char *vendor;
   MDSEndianness endianness;
@@ -283,6 +292,7 @@ typedef struct MDSBasicBlock MDSBasicBlock;
 MDSProgram *mdsLowerFromMAL (const MALModule *module,
                              const MDSInstrSelector *selector,
                              const MDSMachine *machine);
+void mdsDestroyProgram (MDSProgram *program);
 /* ════════════════════════════════════════════════════════════════════
 
     §11 MDS PROGRAM
@@ -339,6 +349,7 @@ const MDSInstruction *mdsDecodeInstruction (const MDSMachine *machine,
 void mdsPrintMachine (const MDSMachine *machine);
 void mdsPrintInstruction (const MDSInstruction *instr);
 void mdsPrintProgram (const MDSProgram *program);
+const char *mdsTargetKindName (MDSTargetKind kind);
 WIRBLE_END_DECLS
 
 #endif

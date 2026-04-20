@@ -1,0 +1,154 @@
+(* WRS.ebnf
+ *
+ * Grammar for the WIRBLE Rewrite System (WRS) S-expression surface syntax.
+ *
+ * This grammar documents the syntax accepted by the current WRS loader in:
+ * - src/wirble/support/sexp_reader.c
+ * - src/wirble/wrs/wrs_loader.c
+ * - src/wirble/wrs/wrs_parser.c
+ *
+ * Notes:
+ * - A WRS file is a sequence of top-level S-expressions.
+ * - The loader currently recognizes top-level (rule ...) and (strategy ...).
+ * - Rule bodies require :match and :replace; :name and :when are optional.
+ * - Comments beginning with ';' are line comments in the underlying reader.
+ * - Single-quoted, double-quoted, and bare atoms are accepted by the reader,
+ *   but most rewrite patterns are expressed with bare atoms.
+ *)
+
+WRSFile            = { TopLevelForm } ;
+
+TopLevelForm       = RuleForm | StrategyForm | ExtensionForm ;
+
+RuleForm           = "(" , "rule" , { RuleField } , ")" ;
+RuleField          = NameField | MatchField | ReplaceField | WhenField | ExtensionField ;
+
+NameField          = ":name" , RuleName ;
+MatchField         = ":match" , Pattern ;
+ReplaceField       = ":replace" , Pattern ;
+WhenField          = ":when" , GuardExpr ;
+
+StrategyForm       = "(" , "strategy" , StrategyAtom , ")" ;
+StrategyAtom       = "innermost" | "outermost" | "leftmost" | "parallel" ;
+
+ExtensionForm      = List ;
+ExtensionField     = Keyword , SExpr ;
+
+RuleName           = Atom ;
+
+Pattern            = WildcardPattern
+                   | VariablePattern
+                   | ConstantPattern
+                   | NodeSymbolPattern
+                   | ListPattern ;
+
+WildcardPattern    = "_" ;
+VariablePattern    = "?" , Identifier ;
+ConstantPattern    = Integer | Boolean ;
+NodeSymbolPattern  = NodeSymbol ;
+
+ListPattern        = NodePattern
+                   | SequencePattern
+                   | RefinementPattern
+                   | PredicatePattern
+                   | GenericListPattern ;
+
+NodePattern        = "(" , NodeSymbol , { Pattern } , ")" ;
+SequencePattern    = "(" , "seq" , VariablePattern , Pattern , ")" ;
+RefinementPattern  = "(" , "refine" , Pattern , ")" ;
+PredicatePattern   = "(" , "pred" , { SExpr } , ")" ;
+GenericListPattern = List ;
+
+GuardExpr          = SExpr ;
+
+SExpr              = Atom | List ;
+List               = "(" , { SExpr } , ")" ;
+
+Atom               = BareAtom | SingleQuotedAtom | DoubleQuotedAtom | BinaryAtom ;
+
+BareAtom           = Boolean
+                   | Integer
+                   | Float
+                   | Keyword
+                   | VariableToken
+                   | Symbol ;
+
+SingleQuotedAtom   = "'" , Symbol ;
+DoubleQuotedAtom   = "\"" , { StringChar } , "\"" ;
+BinaryAtom         = "#{" , { BinaryChar } , "}" ;
+
+VariableToken      = "?" , Identifier ;
+Keyword            = ":" , Identifier ;
+
+Boolean            = "true" | "false" ;
+Integer            = [ Sign ] , Digit , { Digit } ;
+Float              = [ Sign ] , Digit , { Digit } , "." , Digit , { Digit } ;
+Sign               = "+" | "-" ;
+
+RuleKeyword        = ":name" | ":match" | ":replace" | ":when" ;
+
+NodeSymbol         = "const_int"
+                   | "const_float"
+                   | "const_bool"
+                   | "undef"
+                   | "param"
+                   | "add"
+                   | "sub"
+                   | "mul"
+                   | "div"
+                   | "mod"
+                   | "and"
+                   | "or"
+                   | "xor"
+                   | "shl"
+                   | "shr"
+                   | "neg"
+                   | "not"
+                   | "abs"
+                   | "eq"
+                   | "ne"
+                   | "lt"
+                   | "le"
+                   | "gt"
+                   | "ge"
+                   | "load"
+                   | "store"
+                   | "alloca"
+                   | "start"
+                   | "region"
+                   | "if"
+                   | "loop"
+                   | "return"
+                   | "jump"
+                   | "proj"
+                   | "phi"
+                   | "call"
+                   | "call_indirect"
+                   | "cast"
+                   | "bitcast"
+                   | "extract"
+                   | "insert"
+                   | "select" ;
+
+Identifier         = IdentifierStart , { IdentifierContinue } ;
+Symbol             = SymbolStart , { SymbolContinue } ;
+
+IdentifierStart    = Letter | "_" ;
+IdentifierContinue = IdentifierStart | Digit | "-" ;
+
+SymbolStart        = Letter | "_" | "-" | "*" | "/" | "<" | ">" | "=" | "!" ;
+SymbolContinue     = SymbolStart | Digit | "." | ":" | "?" ;
+
+Letter             = "A" | "B" | "C" | "D" | "E" | "F" | "G"
+                   | "H" | "I" | "J" | "K" | "L" | "M" | "N"
+                   | "O" | "P" | "Q" | "R" | "S" | "T" | "U"
+                   | "V" | "W" | "X" | "Y" | "Z"
+                   | "a" | "b" | "c" | "d" | "e" | "f" | "g"
+                   | "h" | "i" | "j" | "k" | "l" | "m" | "n"
+                   | "o" | "p" | "q" | "r" | "s" | "t" | "u"
+                   | "v" | "w" | "x" | "y" | "z" ;
+
+Digit              = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+
+StringChar         = ? any character except double quote ? ;
+BinaryChar         = ? implementation-defined binary payload character ? ;

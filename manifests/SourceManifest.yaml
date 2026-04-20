@@ -1,0 +1,193 @@
+# SOURCE-MANIFEST.yaml
+# Canonical description of all compiler source modules in src/wirble/
+# This manifest reflects subsystem boundaries and header APIs discovered in
+# wirble-header-files.h (WIL, WRS, MAL, MDS, TOS, WVM).
+
+wirble:
+  version: 0.4
+  layout:
+    root: src/wirble
+
+  # ----------------------------------------------------------------------
+  # Common Infrastructure
+  # ----------------------------------------------------------------------
+  common:
+    description: |
+      Generic utilities shared across all compiler layers.
+      Must not depend on any IR (WIL, WRS, MAL, MDS, TOS, WVM).
+    files:
+      - common/arena.c
+      - common/arena.h
+      - common/diagnostics.c
+      - common/diagnostics.h
+      - common/strpool.c
+      - common/strpool.h
+      - common/bytebuf.c
+      - common/bytebuf.h
+
+
+  # ----------------------------------------------------------------------
+  # WIL — Wirble Intermediate Language (High-Level IR)
+  # ----------------------------------------------------------------------
+  wil:
+    public_header: include/wirble/wirble-wil.h
+    description: |
+      High-level frontend IR.
+      Created by AST lowering (e.g., in wirblecc or iwirble).
+      Performs early canonicalization and structural validation.
+    files:
+      - wil/wil_nodes.c
+      - wil/wil_nodes.h
+      - wil/wil_builder.c
+      - wil/wil_builder.h
+      - wil/wil_lower_ast.c
+      - wil/wil_validate.c
+      - wil/wil_printer.c
+
+
+  # ----------------------------------------------------------------------
+  # WRS — Wirble Rewrite System (Pattern Rewriting)
+  # ----------------------------------------------------------------------
+  wrs:
+    public_header: include/wirble/wirble-wrs.h
+    description: |
+      S-expression driven rewrite engine. Loads .wrs rule files,
+      produces rewrite systems, and applies transformations to WIL or MAL.
+      Interfaces with MAL via the MAL Rewrite System loader.
+    files:
+      - wrs/wrs_loader.c       # parses .wrs rule files
+      - wrs/wrs_parser.c       # s-expression reader
+      - wrs/wrs_system.c       # rule storage, pattern-matching
+      - wrs/wrs_match.c
+      - wrs/wrs_apply.c
+      - wrs/wrs_debug.c
+      - wrs/wrs_internal.h
+    rule_substrates:
+      - stdrewrite              # default rewrite rule library directory
+
+
+  # ----------------------------------------------------------------------
+  # MAL — Mid-level Abstract Lowering (MAL) + Rewrite System (MRS)
+  # ----------------------------------------------------------------------
+  mal:
+    public_header: include/wirble/wirble-mal.h
+    description: |
+      MAL IR and the MAL Rewrite System (MRS). This IR is lower-level than WIL
+      and supports instruction‑level patterns used by the peephole passes.
+      Header analysis from wirble-mal.h shows:
+        - mal_mrs_load(path)
+        - malApplyOnePeephole()
+        - malApplyPeepholeToFixpoint()
+      Therefore, MAL owns rewrite-based optimization.
+    files:
+      - mal/mal_ir.c
+      - mal/mal_ir.h
+      - mal/mal_builder.c
+      - mal/mal_validate.c
+      - mal/mal_printer.c
+      - mal/mrs_loader.c        # loads .wrs-style MAL rules
+      - mal/mrs_match.c
+      - mal/mrs_apply.c
+      - mal/mrs_debug.c
+
+
+  # ----------------------------------------------------------------------
+  # MDS — Machine Data Selection / Lowering to Target Ops
+  # ----------------------------------------------------------------------
+  mds:
+    public_header: include/wirble/wirble-mds.h
+    description: |
+      Performs machine-independent → machine-specific op lowering.
+      Converts MAL instructions into TOS-level target operations.
+    files:
+      - mds/mds_selector.c
+      - mds/mds_patterns.c
+      - mds/mds_tables.c
+      - mds/mds_printer.c
+
+
+  # ----------------------------------------------------------------------
+  # TOS — Target Operation Stream
+  # ----------------------------------------------------------------------
+  tos:
+    public_header: include/wirble/wirble-tos.h
+    description: |
+      Linearized instruction representation. Target-like but still not final
+      bytecode/assembly. Created by MDS and consumed by WVM or codegens.
+    files:
+      - tos/tos_stream.c
+      - tos/tos_stream.h
+      - tos/tos_opt.c
+      - tos/tos_printer.c
+
+
+  # ----------------------------------------------------------------------
+  # WVM — Wirble Virtual Machine Backend
+  # ----------------------------------------------------------------------
+  wvm:
+    public_header: include/wirble/wirble-wvm.h
+    description: |
+      Bytecode generator and VM support routines. Drives code emission for
+      iwirble (interpreter) and wirblecc (AOT compiler).
+    files:
+      - wvm/wvm_encoder.c
+      - wvm/wvm_encoder.h
+      - wvm/wvm_emit.c
+      - wvm/wvm_runtime.c
+      - wvm/wvm_printer.c
+
+
+  # ----------------------------------------------------------------------
+  # stdrewrite — Standard Rewrite Rule Substrate
+  # ----------------------------------------------------------------------
+  stdrewrite:
+    description: |
+      Built‑in library of .wrs rule files loaded by default by WRS and MRS.
+      These rules implement canonical simplifications, arithmetic identities,
+      logical simplifications, and peepholes used throughout the pipeline.
+      Stage 12 expands these rules with additional arithmetic identities and
+      MAL zero/shift canonicalization patterns used by validation tests.
+    files:
+      - stdrewrite/arithmetic.wrs
+      - stdrewrite/logic.wrs
+      - stdrewrite/canonical.wrs
+      - stdrewrite/mal_peephole.wrs
+      - stdrewrite/README.md
+
+
+  # ----------------------------------------------------------------------
+  # Internal Support / Shared Utilities
+  # ----------------------------------------------------------------------
+  support:
+    description: |
+      Subsystems used across WRS, WIL, MAL, etc., but not part of IR definitions.
+    files:
+      - support/sexp_reader.c
+      - support/sexp_reader.h
+      - support/hash_table.c
+      - support/hash_table.h
+      - support/filemap.c
+      - support/filemap.h
+
+examples:
+  description: |
+    Example frontends and shared helper code used by the Stage 11/12 drivers.
+    The shared frontend now exposes compile options for optimization levels
+    and enables verification across the WIL, MAL, TOS, and WVM pipeline.
+  files:
+    - examples/common/frontend.c
+    - examples/common/frontend.h
+    - examples/common/wirble_expr.g
+    - examples/wirblecc/main.c
+    - examples/iwirble/main.c
+    - examples/stage11.expr
+
+manifests:
+  description: |
+    Repository grammar and schema artifacts that document external formats
+    consumed by WIRBLE subsystems.
+  files:
+    - manifests/grammars/WRS.ebnf
+    - manifests/schema/MDS-Schema.json
+    - manifests/schema/MDS-Schema.xsd
+    - manifests/schema/MDS-Schema.yaml

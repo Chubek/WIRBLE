@@ -1,0 +1,62 @@
+; stdrewrite/mal_peephole.wrs
+; MAL peephole canonicalization rules used by Stage 7 MRS.
+
+(rule
+  :name add-zero-right
+  :match (add ?x 0)
+  :replace (copy ?x))
+
+(rule
+  :name add-zero-left
+  :match (add 0 ?x)
+  :replace (copy ?x))
+
+(rule
+  :name sub-zero
+  :match (sub ?x 0)
+  :replace (copy ?x))
+
+(rule
+  :name mul-zero-right
+  :match (mul ?x 0)
+  :replace (copy 0))
+
+(rule
+  :name mul-zero-left
+  :match (mul 0 ?x)
+  :replace (copy 0))
+
+(rule
+  :name mul-one-right
+  :match (mul ?x 1)
+  :replace (copy ?x))
+
+(rule
+  :name mul-one-left
+  :match (mul 1 ?x)
+  :replace (copy ?x))
+
+(rule
+  :name and-zero-right
+  :match (and ?x 0)
+  :replace (copy 0))
+
+(rule
+  :name or-zero-right
+  :match (or ?x 0)
+  :replace (copy ?x))
+
+(rule
+  :name xor-zero-right
+  :match (xor ?x 0)
+  :replace (copy ?x))
+
+(rule
+  :name shl-zero-right
+  :match (shl ?x 0)
+  :replace (copy ?x))
+
+(rule
+  :name ashr-zero-right
+  :match (shr ?x 0)
+  :replace (copy ?x))

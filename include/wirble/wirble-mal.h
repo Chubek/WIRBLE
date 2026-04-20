@@ -409,8 +409,6 @@ int malRegisterAllocate (MALFunction *fn, const MALRAOptions *opts,
  *  §16 MAL → MDS LOWERING
  * ════════════════════════════════════════════════════════════════ */
 
-struct MDSInstrSelector * 
-
 struct MDSProgram *malLowerToMDS (const MALModule *m,
                                   const struct MDSInstrSelector *isel);
 
