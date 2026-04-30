@@ -8,8 +8,7 @@ STRIP_FROM_PATH        = "@WIRBLE_TOP_SRCDIR@"
 STRIP_FROM_INC_PATH    = "@WIRBLE_STRIP_FROM_INC_PATH@"
 LAYOUT_FILE            = "@WIRBLE_LAYOUT_FILE@"
 
-INPUT                  = "@WIRBLE_TOP_SRCDIR@/README.md" \
-                         "@WIRBLE_TOP_SRCDIR@/include" \
+INPUT                  = "@WIRBLE_TOP_SRCDIR@/include" \
                          "@WIRBLE_TOP_SRCDIR@/src/wirble"
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.h *.c *.md
@@ -19,7 +18,7 @@ EXCLUDE                = "@WIRBLE_TOP_SRCDIR@/third_party" \
                          "@WIRBLE_TOP_SRCDIR@/.git"
 EXCLUDE_SYMLINKS       = YES
 
-USE_MDFILE_AS_MAINPAGE = "@WIRBLE_TOP_SRCDIR@/README.md"
+USE_MDFILE_AS_MAINPAGE = "@WIRBLE_TOP_SRCDIR@/docs/frontpage.md"
 MARKDOWN_SUPPORT       = YES
 TOC_INCLUDE_HEADINGS   = 3
 AUTOLINK_SUPPORT       = YES
