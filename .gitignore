@@ -152,9 +152,19 @@ Thumbs.db
 .env
 *.local
 
-# Agents
-AGENTS.md
-_agents/
+# Markdown files
+!README.md
+!INSTALL.md
+!DOCKER.md
+!GUIDE.md
+!CONTRIBUTE.md
+!CHANGELOG.md
+!VERSION.md
+!AUTHORS.md
+!USAGE.md
+!LICENSE.md
+!docs/*.md
+*.md
 
 # WIRBLE binary images & archives
 *.wbi
@@ -173,3 +183,5 @@ _agents/
 IMPLEMENTATION-STAGES.yaml
 IMPLEMENTATION-PROGRESS.md
 FULL-REPORT.md
+
+_symbols
