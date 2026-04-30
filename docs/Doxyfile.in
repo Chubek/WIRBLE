@@ -5,11 +5,20 @@ OUTPUT_DIRECTORY       = "@WIRBLE_OUTPUT_DIRECTORY@"
 OUTPUT_LANGUAGE        = English
 FULL_PATH_NAMES        = YES
 STRIP_FROM_PATH        = "@WIRBLE_TOP_SRCDIR@"
-STRIP_FROM_INC_PATH    = "@WIRBLE_STRIP_FROM_INC_PATH@"
-LAYOUT_FILE            = "@WIRBLE_LAYOUT_FILE@"
+STRIP_FROM_INC_PATH    = "@WIRBLE_TOP_SRCDIR/include/wirble@"	\
+			 "@WIRBLE_TOP_SRCDIR/src/wirble"	\
+LAYOUT_FILE            = "@WIRBLE_TOP_SRCDIR@/docs/layout.xml"
 
-INPUT                  = "@WIRBLE_TOP_SRCDIR@/include" \
-                         "@WIRBLE_TOP_SRCDIR@/src/wirble"
+INPUT                  = "@WIRBLE_TOP_SRCDIR@/include/wirble" 		\
+                         "@WIRBLE_TOP_SRCDIR@/src/wirble/common" 	\
+			 "@WIRBLE_TOP_SRCDIR@/src/wirble/mal"		\
+			 "@WIRBLE_TOP_SRCDIR@/src/wirble/mds"		\
+			 "@WIRBLE_TOP_SRCDIR@/src/wirble/support" 	\
+			 "@WIRBLE_TOP_SRCDIR@/src/wirble/tos"		\
+			 "@WIRBLE_TOP_SRCDIR@/src/wirble/wil"		\
+			 "@WIRBLE_TOP_SRCDIR@/src/wirble/wrs"		\
+			 "@WIRBLE_TOP_SRCDIR@/src/wirble/wvm"   	\
+			 "@WIRBLE_TOP_SRCDIR@/docs/vade-mecum"
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.h *.c *.md
 RECURSIVE              = YES
