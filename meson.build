@@ -17,3 +17,5 @@ subdir('manifests')
 subdir('machines')
 subdir('toolchain')
 subdir('docs')
+
+# third_party/equinox is vendored and consumed by CMake build.

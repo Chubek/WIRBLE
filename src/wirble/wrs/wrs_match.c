@@ -33,7 +33,7 @@ wrs_substitution_bind (WILSubstitution *subst, const char *name, WILNode *node)
     {
       if (strcmp (subst->bindings[index].name, name) == 0)
         {
-          return subst->bindings[index].node == node;
+          return wrs_nodes_equivalent (subst->bindings[index].node, node);
         }
     }
 

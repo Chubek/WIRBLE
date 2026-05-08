@@ -1,0 +1,9 @@
+rewrite_system = { rule } ;
+rule = "(" , "rule" , name_attr , match_attr , replace_attr , [ guard_attr ] , ")" ;
+name_attr = ":name" , string ;
+match_attr = ":match" , term ;
+replace_attr = ":replace" , term ;
+guard_attr = ":guard" , sexpr ;
+term = atom | "(" , atom , { term } , ")" ;
+atom = symbol | variable | number | string | "_" ;
+variable = "?" , symbol ;

@@ -1,0 +1,237 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "http://warble.ir:8000/CLI.schema.json",
+  "title": "CLI Manifest Schema",
+  "description": "Schema for declarative CLI specifications.",
+
+  "type": "object",
+  "required": ["$CLI", "$Schema", "$Description", "command", "arguments", "options"],
+
+  "additionalProperties": false,
+
+  "properties": {
+    "$CLI": {
+      "type": "string",
+      "pattern": "^v\\d+\\.\\d+\\.\\d+$",
+      "description": "Version of CLI manifest spec (semver)."
+    },
+
+    "$Schema": {
+      "type": "string",
+      "format": "uri",
+      "description": "Schema URI."
+    },
+
+    "$Description": {
+      "type": "string",
+      "minLength": 10
+    },
+
+    "command": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Executable name."
+    },
+
+    "usage": {
+      "type": "string"
+    },
+
+    "description": {
+      "type": "string"
+    },
+
+    "arguments": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/argument" }
+    },
+
+    "options": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/option" }
+    },
+
+    "validation": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/validationRule" }
+    },
+
+    "examples": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/example" }
+    }
+  },
+
+  "$defs": {
+
+    "argument": {
+      "type": "object",
+      "required": ["name", "type", "position", "description"],
+      "additionalProperties": false,
+
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_]+$"
+        },
+
+        "type": {
+          "$ref": "#/$defs/type"
+        },
+
+        "required": {
+          "type": "boolean",
+          "default": true
+        },
+
+        "position": {
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "description": {
+          "type": "string",
+          "minLength": 5
+        },
+
+        "enum": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+
+        "examples": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "option": {
+      "type": "object",
+      "required": ["name", "long", "type", "description"],
+      "additionalProperties": false,
+
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$"
+        },
+
+        "long": {
+          "type": "string",
+          "pattern": "^--[a-z0-9\\-]+$"
+        },
+
+        "short": {
+          "type": "string",
+          "pattern": "^-[a-zA-Z]$",
+          "description": "Single-character short flag."
+        },
+
+        "type": {
+          "$ref": "#/$defs/type"
+        },
+
+        "description": {
+          "type": "string",
+          "minLength": 5
+        },
+
+        "required": {
+          "type": "boolean",
+          "default": false
+        },
+
+        "default": {},
+
+        "items": {
+          "type": "object",
+          "required": ["type"],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "$ref": "#/$defs/type"
+            },
+            "pattern": {
+              "type": "string"
+            }
+          }
+        },
+
+        "enum": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+
+        "examples": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+
+        "semantics": {
+          "type": "string"
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": { "type": { "const": "array" } }
+          },
+          "then": {
+            "required": ["items"]
+          }
+        }
+      ]
+    },
+
+    "type": {
+      "type": "string",
+      "enum": ["string", "boolean", "integer", "number", "array"]
+    },
+
+    "validationRule": {
+      "type": "object",
+      "required": ["rule", "description", "expression"],
+      "additionalProperties": false,
+
+      "properties": {
+        "rule": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$"
+        },
+
+        "description": {
+          "type": "string",
+          "minLength": 5
+        },
+
+        "expression": {
+          "type": "string",
+          "minLength": 3,
+          "description": "Declarative validation expression (interpreted by CLI engine)."
+        }
+      }
+    },
+
+    "example": {
+      "type": "object",
+      "required": ["description", "command"],
+      "additionalProperties": false,
+
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 5
+        },
+
+        "command": {
+          "type": "string",
+          "minLength": 3
+        }
+      }
+    }
+  }
+}

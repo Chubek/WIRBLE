@@ -1,0 +1,21 @@
+name: x86_64
+arch: x86_64
+registers:
+  - { name: rax, class: gpr, bits: 64 }
+  - { name: rbx, class: gpr, bits: 64 }
+instructions:
+  - { name: mov_rr, mnemonic: x64.mov.rr, operands: [gpr,gpr] }
+  - { name: ret, mnemonic: x64.ret, operands: [gpr] }
+vector_extensions:
+  - name: AVX2
+    registers:
+      - { name: ymm0, class: vr, bits: 256 }
+      - { name: ymm1, class: vr, bits: 256 }
+    instructions:
+      - { semantic: add, mnemonic: vaddps, lanes: 8, element_type: f32 }
+      - { semantic: mul, mnemonic: vmulps, lanes: 8, element_type: f32 }
+  - name: SSE4
+    registers:
+      - { name: xmm0, class: vr, bits: 128 }
+    instructions:
+      - { semantic: add, mnemonic: addps, lanes: 4, element_type: f32 }

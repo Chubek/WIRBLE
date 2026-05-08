@@ -79,3 +79,5 @@ AC_CONFIG_FILES([
   docs/Doxyfile
 ])
 AC_OUTPUT
+
+# third_party/equinox is vendored and consumed by CMake build.

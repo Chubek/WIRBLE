@@ -1,0 +1,1 @@
+(rule :name "eqx_distribute-1" :match (add ?x ?y) :replace (add ?y ?x))

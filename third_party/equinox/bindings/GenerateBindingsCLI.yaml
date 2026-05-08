@@ -1,0 +1,207 @@
+$CLI: v1.0.0
+$Schema: "http://warble.ir:8000/CLI.schema.json"
+$Description: >
+  Declarative specification for the generate-bindings.sh CLI.
+  Defines arguments, flags, validation rules, and usage patterns.
+
+command: generate-bindings.sh
+
+usage: |
+  generate-bindings.sh <language> [options]
+
+description: |
+  Generate language bindings from a SWIG interface (.i file),
+  applying optional XFeats and producing distributable outputs.
+
+arguments:
+  - name: language
+    type: string
+    required: true
+    position: 0
+    description: |
+      Target language for binding generation.
+
+      Example:
+        generate-bindings.sh Python
+
+    enum:
+      - Python
+      - JavaScript
+      - Go
+      - Java
+      - CSharp
+      - Ruby
+      - Lua
+      - Perl
+      - PHP
+      - R
+      - OCaml
+
+options:
+
+  - name: out_dir
+    long: --out-dir
+    short: -o
+    type: string
+    required: true
+    description: |
+      Output directory for generated bindings.
+
+      Example:
+        --out-dir=~/libfoo-py
+        -o ~/libfoo-py
+
+    examples:
+      - "--out-dir=./build/python"
+      - "-o ./build/python"
+
+  - name: xfeats
+    long: --xfeats
+    short: -x
+    type: array
+    items:
+      type: string
+      pattern: "^[+-][a-z0-9_]+$"
+    description: |
+      Enable or disable XFeats.
+
+      Prefix:
+        +feature → enable
+        -feature → disable
+
+      Example:
+        --xfeats +null_check_guard +string_conversion
+        -x +null_check_guard +string_conversion
+
+    examples:
+      - "--xfeats +null_check_guard +string_conversion"
+      - "-x +super_safe_core"
+
+    semantics: |
+      Parsed left-to-right.
+      Later entries override earlier ones.
+
+  - name: add_installer
+    long: --add-installer
+    short: -i
+    type: boolean
+    default: false
+    description: |
+      Generate installer/package files.
+
+      Example:
+        -i
+
+  - name: add_docs
+    long: --add-docs
+    short: -d
+    type: boolean
+    default: false
+    description: |
+      Generate documentation.
+
+      Example:
+        -d
+
+  - name: dry_run
+    long: --dry-run
+    short: -n
+    type: boolean
+    default: false
+    description: |
+      Perform a dry run without writing files.
+
+      Example:
+        -n
+
+  - name: verbose
+    long: --verbose
+    short: -v
+    type: boolean
+    default: false
+    description: |
+      Enable verbose output.
+
+      Example:
+        -v
+
+  - name: force
+    long: --force
+    short: -f
+    type: boolean
+    default: false
+    description: |
+      Overwrite existing output directory.
+
+      Example:
+        -f
+
+  - name: swig_opts
+    long: --swig-opts
+    short: -s
+    type: array
+    items:
+      type: string
+    description: |
+      Additional flags passed directly to SWIG.
+
+      Example:
+        --swig-opts -Wall -O
+        -s -Wall -O
+
+  - name: config
+    long: --config
+    short: -c
+    type: string
+    description: |
+      Path to YAML config file with presets.
+
+      Example:
+        -c xfeats.yaml
+
+
+validation:
+
+  - rule: out_dir_must_exist_or_force
+    description: |
+      If output directory exists, --force must be specified.
+    expression: |
+      exists(out_dir) → force == true
+
+  - rule: xfeats_format
+    description: |
+      XFeats must begin with + or -.
+    expression: |
+      all(x startsWith '+' or '-' for x in xfeats)
+
+  - rule: language_required
+    description: |
+      Language argument must be provided.
+    expression: |
+      language != null
+
+
+examples:
+
+  - description: Minimal usage
+    command: |
+      generate-bindings.sh Python -o ~/libfoo-py
+
+  - description: With XFeats
+    command: |
+      generate-bindings.sh Python \
+        -o ~/libfoo-py \
+        -x +null_check_guard +string_conversion
+
+  - description: Full build
+    command: |
+      generate-bindings.sh JavaScript \
+        -o ./js \
+        -x +super_node_modern \
+        -i -d -v
+
+  - description: Dry run
+    command: |
+      generate-bindings.sh Go \
+        -o ./go \
+        -n

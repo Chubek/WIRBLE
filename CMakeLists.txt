@@ -122,6 +122,33 @@ target_include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/sfsexp/src
 )
 
+
+add_library(
+  wirble_third_party_equinox
+  STATIC
+    third_party/equinox/src/enode.c
+    third_party/equinox/src/eclass.c
+    third_party/equinox/src/egraph.c
+    third_party/equinox/src/unionfind.c
+    third_party/equinox/src/hashcons.c
+    third_party/equinox/src/rewrite.c
+    third_party/equinox/third_party/tlsf/tlsf.c
+)
+target_compile_definitions(
+  wirble_third_party_equinox
+  PRIVATE
+    _GNU_SOURCE
+)
+
+target_include_directories(
+  wirble_third_party_equinox
+  PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/equinox/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/equinox/third_party/uthash/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/equinox/third_party/tlsf
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/equinox/third_party/libdag-ethash
+)
+
 add_library(wirble_third_party_lmdb INTERFACE)
 target_include_directories(
   wirble_third_party_lmdb
@@ -168,6 +195,9 @@ set(WIRBLE_LIBRARY_SOURCES
   src/wirble/support/sexp_reader.c
   src/wirble/support/hash_table.c
   src/wirble/support/filemap.c
+  src/wirble/vxt/vxt_common.c
+  src/wirble/vxt/lower.c
+  src/wirble/wrs/wrs_equinox.c
 )
 
 add_library(wirble STATIC ${WIRBLE_LIBRARY_SOURCES})
@@ -191,6 +221,7 @@ target_link_libraries(
     wirble_third_party_dparser
     wirble_third_party_sfsexp
     wirble_third_party_lmdb
+    wirble_third_party_equinox
 )
 
 set(WIRBLE_EXPR_PARSER ${CMAKE_CURRENT_BINARY_DIR}/wirble_expr.g.d_parser.c)

@@ -1,0 +1,1 @@
+(rule :name "eqx_boolcanon-1" :match (add ?x ?y) :replace (add ?y ?x))
