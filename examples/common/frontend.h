@@ -3,6 +3,7 @@
 
 #include <wirble/wirble-mal.h>
 #include <wirble/wirble-mds.h>
+#include <wirble/wirble-symbolic_output.h>
 #include <wirble/wirble-tos.h>
 #include <wirble/wirble-wil.h>
 #include <wirble/wirble-wvm.h>

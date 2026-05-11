@@ -10,7 +10,7 @@ static void
 wirblecc_usage (const char *argv0)
 {
   fprintf (stderr,
-           "Usage: %s [-o output.wvmo] [-target x86_64|aarch64|wasm] input.wb\n",
+           "Usage: %s [--symbolic] [--intel] [-o output] [--target x86_64|aarch64|wasm] input.wb\n",
            argv0);
 }
 
@@ -19,6 +19,9 @@ main (int argc, char **argv)
 {
   const char *inputPath = NULL;
   const char *outputPath = "a.out.wvmo";
+  int symbolicMode = 0;
+  WirbleAsmFlavor asmFlavor = WIRBLE_ASM_FLAVOR_GAS;
+  WirbleX86Syntax x86Syntax = WIRBLE_X86_SYNTAX_ATT;
   WirbleCompileOptions options;
   char *source = NULL;
   char *errorMessage = NULL;
@@ -55,7 +58,8 @@ main (int argc, char **argv)
           outputPath = argv[++index];
           continue;
         }
-      if (strcmp (argv[index], "-target") == 0)
+      if (strcmp (argv[index], "--target") == 0
+          || strcmp (argv[index], "-target") == 0)
         {
           if (index + 1 >= argc)
             {
@@ -63,6 +67,21 @@ main (int argc, char **argv)
               return 1;
             }
           options.target = argv[++index];
+          continue;
+        }
+      if (strcmp (argv[index], "--symbolic") == 0)
+        {
+          symbolicMode = 1;
+          continue;
+        }
+      if (strcmp (argv[index], "--intel") == 0)
+        {
+          x86Syntax = WIRBLE_X86_SYNTAX_INTEL;
+          continue;
+        }
+      if (strcmp (argv[index], "--nasm") == 0)
+        {
+          asmFlavor = WIRBLE_ASM_FLAVOR_NASM;
           continue;
         }
       if (argv[index][0] == '-')
@@ -86,6 +105,31 @@ main (int argc, char **argv)
                errorMessage == NULL ? "unable to read input" : errorMessage);
       goto cleanup;
     }
+  if (symbolicMode)
+    {
+      WirblePipelineArtifacts artifacts;
+      wirblePipelineArtifactsInit (&artifacts);
+      if (!wirbleBuildPipelineArtifacts (source, inputPath, &options, &artifacts,
+                                         &errorMessage))
+        {
+          wirblePipelineArtifactsDestroy (&artifacts);
+          fprintf (stderr, "wirblecc: %s\n",
+                   errorMessage == NULL ? "compilation failed" : errorMessage);
+          goto cleanup;
+        }
+      if (!wirbleEmitSymbolicAssembly (artifacts.mdsProgram, outputPath, asmFlavor,
+                                       x86Syntax))
+        {
+          wirblePipelineArtifactsDestroy (&artifacts);
+          fprintf (stderr, "wirblecc: unable to write `%s`\n", outputPath);
+          goto cleanup;
+        }
+      wirblePipelineArtifactsDestroy (&artifacts);
+      printf ("wrote %s\n", outputPath);
+      status = 0;
+      goto cleanup;
+    }
+
   proto = wirbleCompileSourceToPrototype (source, inputPath, &options, &errorMessage);
   if (proto == NULL)
     {

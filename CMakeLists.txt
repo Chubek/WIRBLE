@@ -195,6 +195,7 @@ set(WIRBLE_LIBRARY_SOURCES
   src/wirble/support/sexp_reader.c
   src/wirble/support/hash_table.c
   src/wirble/support/filemap.c
+  src/wirble/support/symbolic_output/symbolic_output.c
   src/wirble/vxt/vxt_common.c
   src/wirble/vxt/lower.c
   src/wirble/wrs/wrs_equinox.c
