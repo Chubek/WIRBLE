@@ -1,0 +1,6 @@
+ ; Multiplication operation
+ function @multiply(i32 %x, i32 %y) -> i32 {
+ entry:
+   %prod = mul i32 %x, %y
+   ret i32 %prod
+ }

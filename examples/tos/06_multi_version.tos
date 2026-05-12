@@ -1,0 +1,19 @@
+ ; Multi-versioning based on runtime conditions
+ trace @polymorphic_call {
+   base_version: 1
+   
+   version_1:  ; Integer path
+     guard_type %arg, i32, deopt_v1
+     %result = add i32 %arg, 10
+     ret i32 %result
+   
+   version_2:  ; Float path
+     guard_type %arg, f32, deopt_v2
+     %result = fadd f32 %arg, 10.0
+     ret f32 %result
+   
+   version_3:  ; String path
+     guard_type %arg, ptr, deopt_v3
+     %result = call @string_concat(ptr %arg, "10")
+     ret ptr %result
+ }

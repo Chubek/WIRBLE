@@ -1,0 +1,25 @@
+ ; Profiling data for trace selection
+ profile @hot_function {
+   execution_count: 10000
+   
+   block_frequencies {
+     entry: 10000
+     loop_header: 50000
+     loop_body: 50000
+     exit: 10000
+   }
+   
+   branch_probabilities {
+     loop_condition: {
+       taken: 0.8
+       not_taken: 0.2
+     }
+   }
+   
+   type_feedback {
+     %arg_0: {
+       i32: 0.95
+       f32: 0.05
+     }
+   }
+ }

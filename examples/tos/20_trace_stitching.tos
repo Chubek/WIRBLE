@@ -1,0 +1,30 @@
+ ; Trace stitching for connecting hot traces
+ trace @trace_a {
+   version: 1
+   exit_target: @trace_b
+   
+   block_0:
+     %x = load i32, ptr %x_ptr
+     %y = add i32 %x, 10
+     store i32 %y, ptr %y_ptr
+     stitch_to @trace_b
+ }
+ 
+ trace @trace_b {
+   version: 1
+   entry_from: @trace_a
+   
+   block_0:
+     %y = load i32, ptr %y_ptr
+     %z = mul i32 %y, 2
+     ret i32 %z
+ }
+ 
+ stitch_metadata {
+   source: @trace_a
+   target: @trace_b
+   register_mapping: {
+     %y: rax
+   }
+   avoid_spill: true
+ }

@@ -1,0 +1,15 @@
+ ; Stack push/pop operations
+ .function stack_example
+   load_imm r0, 10
+   push r0
+   load_imm r1, 20
+   push r1
+   load_imm r2, 30
+   push r2
+   pop r3
+   pop r4
+   pop r5
+   add r6, r3, r4
+   add r7, r6, r5
+   return r7
+ .end

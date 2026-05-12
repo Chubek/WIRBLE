@@ -1,0 +1,15 @@
+ ; Simple loop counting to N
+ function @count_to_n(i32 %n) -> i32 {
+ entry:
+   %zero = load_imm i32 0
+   br label %loop
+ 
+ loop:
+   %i = phi i32 [%zero, %entry], [%next, %loop]
+   %next = add i32 %i, 1
+   %cmp = icmp_slt i32 %next, %n
+   cbr i1 %cmp, label %loop, label %exit
+ 
+ exit:
+   ret i32 %next
+ }

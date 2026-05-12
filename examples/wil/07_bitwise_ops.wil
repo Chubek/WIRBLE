@@ -1,0 +1,12 @@
+ ; Bitwise operations
+ graph @bitwise {
+   n0 = start : control
+   n1 = param 0 : i32 "a"
+   n2 = param 1 : i32 "b"
+   n3 = and : i32 <- data:n1 data:n2
+   n4 = or : i32 <- data:n3 data:n2
+   n5 = xor : i32 <- data:n4 data:n1
+   n6 = const_int 2 : i32
+   n7 = shl : i32 <- data:n5 data:n6
+   n8 = return : control <- control:n0 data:n7
+ }

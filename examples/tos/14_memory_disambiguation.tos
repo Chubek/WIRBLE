@@ -1,0 +1,16 @@
+ ; Memory disambiguation for load/store reordering
+ peephole @reorder_independent_stores {
+   match:
+     store i32 %val1, ptr %addr1
+     %loaded = load i32, ptr %addr2
+     store i32 %val2, ptr %addr3
+   
+   replace:
+     store i32 %val1, ptr %addr1
+     store i32 %val2, ptr %addr3
+     %loaded = load i32, ptr %addr2
+   
+   condition: no_alias(%addr1, %addr2) && no_alias(%addr2, %addr3)
+   cost_delta: 0
+   benefit: better_scheduling
+ }

@@ -1,0 +1,22 @@
+ ; Blend and select operations
+ vector_extension blend {
+   vector_bits: 256
+   
+   operation blend_variable {
+     semantic: "blend"
+     element_type: "f32"
+     lanes: 8
+     instruction: "vblendvps"
+     mask_operand: true
+     latency: 1
+   }
+   
+   operation blend_immediate {
+     semantic: "blend"
+     element_type: "i32"
+     lanes: 8
+     instruction: "vpblendd"
+     immediate_mask: true
+     latency: 1
+   }
+ }

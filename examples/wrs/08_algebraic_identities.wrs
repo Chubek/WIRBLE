@@ -1,0 +1,20 @@
+ ; Algebraic identity rules
+ (rule
+   :name "double-negation"
+   :match (neg (neg ?x))
+   :replace ?x)
+ 
+ (rule
+   :name "xor-self"
+   :match (xor ?x ?x)
+   :replace 0)
+ 
+ (rule
+   :name "and-all-ones"
+   :match (and ?x -1)
+   :replace ?x)
+ 
+ (rule
+   :name "or-zero"
+   :match (or ?x 0)
+   :replace ?x)

@@ -1,0 +1,21 @@
+ ; SIMD shuffle operations
+ machine simd_ops {
+   target: x86_64
+   
+   instruction pshufb {
+     mnemonic: "pshufb"
+     operands: [$dst:vector, $mask:vector]
+     tied: [$dst = $dst]
+     encoding: "0x66 0x0F 0x38 0x00 /r"
+     cost: 1
+     latency: 1
+   }
+   
+   instruction vperm2f128 {
+     mnemonic: "vperm2f128"
+     operands: [$dst:vector_wide, $src1:vector_wide, $src2:vector_wide, $imm:imm8]
+     encoding: "VEX.256.66.0F3A.W0 06 /r ib"
+     cost: 3
+     latency: 3
+   }
+ }

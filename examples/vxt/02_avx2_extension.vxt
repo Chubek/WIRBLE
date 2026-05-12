@@ -1,0 +1,14 @@
+ ; AVX2 vector extension
+ vector_extension avx2 {
+   vector_bits: 256
+   gather: true
+   scatter: false
+   masks: false
+   
+   operations: [
+     {semantic: "add", element: "i32", lanes: 8, instr: "vpaddd"},
+     {semantic: "mul", element: "i32", lanes: 8, instr: "vpmulld"},
+     {semantic: "add", element: "f32", lanes: 8, instr: "vaddps"},
+     {semantic: "mul", element: "f32", lanes: 8, instr: "vmulps"}
+   ]
+ }

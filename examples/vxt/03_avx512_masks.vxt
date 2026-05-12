@@ -1,0 +1,19 @@
+ ; AVX-512 with masking support
+ vector_extension avx512f {
+   vector_bits: 512
+   gather: true
+   scatter: true
+   masks: true
+   predication: true
+   
+   mask_registers: [k0, k1, k2, k3, k4, k5, k6, k7]
+   
+   operation masked_add {
+     semantic: "add"
+     element_type: "f32"
+     lanes: 16
+     instruction: "vaddps"
+     mask_operand: true
+     zeroing: true
+   }
+ }

@@ -1,0 +1,10 @@
+ ; Distributivity rules
+ (rule
+   :name "mul-add-distribute"
+   :match (mul ?x (add ?y ?z))
+   :replace (add (mul ?x ?y) (mul ?x ?z)))
+ 
+ (rule
+   :name "mul-add-factor"
+   :match (add (mul ?x ?y) (mul ?x ?z))
+   :replace (mul ?x (add ?y ?z)))

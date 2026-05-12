@@ -1,0 +1,10 @@
+ ; Stack allocation
+ graph @stack_alloc {
+   n0 = start : control
+   n1 = param 0 : i32 "size"
+   n2 = alloca : ptr <- control:n0 data:n1
+   n3 = const_int 42 : i32
+   n4 = store : effect <- control:n0 data:n2 data:n3
+   n5 = load : i32 <- effect:n4 data:n2
+   n6 = return : control <- effect:n4 data:n5
+ }

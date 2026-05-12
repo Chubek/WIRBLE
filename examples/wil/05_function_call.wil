@@ -1,0 +1,10 @@
+ ; Function call example
+ graph @caller {
+   n0 = start : control
+   n1 = param 0 : i32 "x"
+   n2 = const_int 10 : i32
+   n3 = mul : i32 <- data:n1 data:n2
+   n4 = call @helper : i32 <- control:n0 data:n3
+   n5 = add : i32 <- data:n4 data:n2
+   n6 = return : control <- control:n0 data:n5
+ }

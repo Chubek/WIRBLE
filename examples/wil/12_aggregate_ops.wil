@@ -1,0 +1,12 @@
+ ; Aggregate extract/insert operations
+ graph @aggregate {
+   n0 = start : control
+   n1 = param 0 : ptr "struct_ptr"
+   n2 = const_int 0 : i32
+   n3 = const_int 1 : i32
+   n4 = extract : i32 <- data:n1 data:n2
+   n5 = extract : i32 <- data:n1 data:n3
+   n6 = add : i32 <- data:n4 data:n5
+   n7 = insert : ptr <- data:n1 data:n2 data:n6
+   n8 = return : control <- control:n0 data:n7
+ }

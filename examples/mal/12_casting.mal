@@ -1,0 +1,9 @@
+ ; Type casting operations
+ function @cast_demo(i32 %x, f32 %y) -> i64 {
+ entry:
+   %extended = sext i32 %x to i64
+   %float_to_int = fptosi f32 %y to i32
+   %int_to_long = zext i32 %float_to_int to i64
+   %result = add i64 %extended, %int_to_long
+   ret i64 %result
+ }

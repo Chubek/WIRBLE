@@ -1,0 +1,14 @@
+ ; Multiple return paths
+ graph @multi_return {
+   n0 = start : control
+   n1 = param 0 : i32 "x"
+   n2 = const_int 0 : i32
+   n3 = eq : i1 <- data:n1 data:n2
+   n4 = if : control <- control:n0 data:n3
+   n5 = proj_true : control <- control:n4
+   n6 = proj_false : control <- control:n4
+   n7 = const_int -1 : i32
+   n8 = return : control <- control:n5 data:n7
+   n9 = mul : i32 <- data:n1 data:n1
+   n10 = return : control <- control:n6 data:n9
+ }

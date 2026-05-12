@@ -1,0 +1,26 @@
+ ; Store-to-load forwarding
+ peephole @forward_store_to_load {
+   match:
+     store i32 %val, ptr %addr
+     %loaded = load i32, ptr %addr
+   
+   replace:
+     store i32 %val, ptr %addr
+     copy %loaded = %val
+   
+   condition: same_address(%addr, %addr)
+   cost_delta: -2
+ }
+ 
+ peephole @forward_through_alias {
+   match:
+     store i32 %val, ptr %addr1
+     %loaded = load i32, ptr %addr2
+   
+   replace:
+     store i32 %val, ptr %addr1
+     copy %loaded = %val
+   
+   condition: must_alias(%addr1, %addr2)
+   cost_delta: -2
+ }

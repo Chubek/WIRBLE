@@ -1,0 +1,7 @@
+ ; Bit rotation operations
+ function @rotate_bits(i32 %x, i32 %amount) -> i32 {
+ entry:
+   %rotl_result = rotl i32 %x, %amount
+   %rotr_result = rotr i32 %rotl_result, %amount
+   ret i32 %rotr_result
+ }

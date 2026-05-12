@@ -1,0 +1,9 @@
+ ; Floating-point arithmetic
+ function @float_calc(f32 %x, f32 %y) -> f32 {
+ entry:
+   %sum = fadd f32 %x, %y
+   %prod = fmul f32 %sum, %x
+   %div = fdiv f32 %prod, %y
+   %sqrt = fsqrt f32 %div
+   ret f32 %sqrt
+ }

@@ -1,0 +1,22 @@
+ ; Vector shift operations
+ vector_extension shifts {
+   vector_bits: 256
+   
+   operation shift_left {
+     semantic: "shl"
+     element_type: "i32"
+     lanes: 8
+     instruction: "vpslld"
+     shift_amount: immediate
+     latency: 1
+   }
+   
+   operation shift_right_logical {
+     semantic: "lshr"
+     element_type: "i32"
+     lanes: 8
+     instruction: "vpsrld"
+     shift_amount: variable
+     latency: 1
+   }
+ }

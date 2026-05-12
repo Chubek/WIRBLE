@@ -1,0 +1,15 @@
+ ; Cast elimination rules
+ (rule
+   :name "cast-identity"
+   :match (cast ?type ?x ?type)
+   :replace ?x)
+ 
+ (rule
+   :name "cast-chain"
+   :match (cast ?t1 (cast ?t2 ?x ?t3) ?t4)
+   :replace (cast ?t1 ?x ?t4))
+ 
+ (rule
+   :name "bitcast-bitcast"
+   :match (bitcast (bitcast ?x))
+   :replace ?x)

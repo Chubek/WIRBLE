@@ -1,0 +1,9 @@
+ ; Type conversion operations
+ .function convert_types
+   move r0, arg0
+   to_int r1, r0
+   to_float r2, r1
+   to_string r3, r2
+   to_bool r4, r3
+   return r4
+ .end

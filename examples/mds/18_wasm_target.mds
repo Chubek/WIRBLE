@@ -1,0 +1,27 @@
+ ; WebAssembly target description
+ machine wasm32 {
+   target: wasm
+   endianness: little
+   pointer_size: 32
+   
+   register_class local {
+     virtual: true
+     unlimited: true
+   }
+   
+   instruction i32_add {
+     mnemonic: "i32.add"
+     operands: []  ; stack-based
+     stack_effect: [-2, +1]
+     encoding: "0x6A"
+     cost: 1
+   }
+   
+   instruction local_get {
+     mnemonic: "local.get"
+     operands: [$idx:local_index]
+     stack_effect: [0, +1]
+     encoding: "0x20"
+     cost: 1
+   }
+ }

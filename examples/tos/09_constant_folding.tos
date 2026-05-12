@@ -1,0 +1,30 @@
+ ; Constant folding peepholes
+ peephole @fold_add_zero {
+   match:
+     %result = add i32 %x, 0
+   
+   replace:
+     copy %result = %x
+   
+   cost_delta: -1
+ }
+ 
+ peephole @fold_mul_one {
+   match:
+     %result = mul i32 %x, 1
+   
+   replace:
+     copy %result = %x
+   
+   cost_delta: -2
+ }
+ 
+ peephole @fold_constant_expr {
+   match:
+     %result = add i32 5, 10
+   
+   replace:
+     %result = load_imm i32 15
+   
+   cost_delta: -1
+ }

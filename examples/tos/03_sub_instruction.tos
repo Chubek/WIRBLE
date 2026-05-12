@@ -1,0 +1,12 @@
+ ; Sub-instruction fusion
+ subinstr @fused_add_shift {
+   components:
+     %tmp = add i32 %a, %b
+     %result = shl i32 %tmp, 2
+   
+   fused:
+     %result = lea i32 [%a + %b * 4]
+   
+   cost: 1
+   latency: 1
+ }

@@ -1,0 +1,13 @@
+ ; Tied operands (x86-style two-address form)
+ machine tied_ops {
+   target: x86_64
+   
+   instruction add_tied {
+     mnemonic: "add"
+     operands: [$dst:gpr, $src:gpr]
+     tied: [$dst = $dst]  ; dst is both input and output
+     encoding: "0x01 /r"
+     cost: 1
+     latency: 1
+   }
+ }

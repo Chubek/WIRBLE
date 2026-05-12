@@ -1,0 +1,23 @@
+ ; Fused multiply-add vector operations
+ vector_extension fma3 {
+   vector_bits: 256
+   
+   operation vector_fma {
+     semantic: "fma"
+     element_type: "f32"
+     lanes: 8
+     instruction: "vfmadd231ps"
+     operands: 3
+     latency: 5
+     throughput: 2
+   }
+   
+   operation vector_fms {
+     semantic: "fms"
+     element_type: "f32"
+     lanes: 8
+     instruction: "vfmsub231ps"
+     operands: 3
+     latency: 5
+   }
+ }

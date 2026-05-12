@@ -1,0 +1,23 @@
+ ; Pipeline and scheduling model
+ machine pipelined_cpu {
+   target: generic
+   
+   pipeline {
+     stages: [fetch, decode, execute, memory, writeback]
+     width: 4
+   }
+   
+   execution_unit alu {
+     count: 2
+     operations: [add, sub, and, or, xor]
+     latency: 1
+     throughput: 1
+   }
+   
+   execution_unit multiplier {
+     count: 1
+     operations: [mul]
+     latency: 3
+     throughput: 1
+   }
+ }

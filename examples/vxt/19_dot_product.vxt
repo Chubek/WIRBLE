@@ -1,0 +1,24 @@
+ ; Dot product operations
+ vector_extension dot_product {
+   vector_bits: 128
+   
+   operation dp_float {
+     semantic: "dot_product"
+     element_type: "f32"
+     lanes: 4
+     instruction: "vdpps"
+     immediate_mask: true
+     result_lanes: 1
+     latency: 11
+   }
+   
+   operation dp_int {
+     semantic: "dot_product"
+     element_type: "i16"
+     lanes: 8
+     instruction: "vpmaddwd"
+     result_type: "i32"
+     result_lanes: 4
+     latency: 5
+   }
+ }

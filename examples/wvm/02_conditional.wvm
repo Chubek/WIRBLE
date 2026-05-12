@@ -1,0 +1,13 @@
+ ; Conditional branch
+ .function max
+   move r0, arg0
+   move r1, arg1
+   gt r2, r0, r1
+   jump_if_true r2, .then
+   move r3, r1
+   jump .end
+ .then:
+   move r3, r0
+ .end:
+   return r3
+ .end

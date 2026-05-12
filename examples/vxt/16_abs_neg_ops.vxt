@@ -1,0 +1,21 @@
+ ; Absolute value and negation
+ vector_extension abs_neg {
+   vector_bits: 256
+   
+   operation vector_abs {
+     semantic: "abs"
+     element_type: "i32"
+     lanes: 8
+     instruction: "vpabsd"
+     latency: 1
+   }
+   
+   operation vector_neg {
+     semantic: "neg"
+     element_type: "f32"
+     lanes: 8
+     instruction: "vxorps"
+     sign_bit_flip: true
+     latency: 1
+   }
+ }

@@ -1,0 +1,17 @@
+ ; Instruction selection patterns
+ machine pattern_match {
+   target: generic
+   
+   pattern add_immediate {
+     match: (add $reg, $imm)
+     condition: is_small_immediate($imm)
+     emit: addi $reg, $reg, $imm
+     cost: 1
+   }
+   
+   pattern add_register {
+     match: (add $reg1, $reg2)
+     emit: add $reg1, $reg1, $reg2
+     cost: 1
+   }
+ }

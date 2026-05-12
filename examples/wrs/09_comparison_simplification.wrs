@@ -1,0 +1,20 @@
+ ; Comparison simplification rules
+ (rule
+   :name "eq-same"
+   :match (eq ?x ?x)
+   :replace true)
+ 
+ (rule
+   :name "ne-same"
+   :match (ne ?x ?x)
+   :replace false)
+ 
+ (rule
+   :name "lt-same"
+   :match (lt ?x ?x)
+   :replace false)
+ 
+ (rule
+   :name "le-same"
+   :match (le ?x ?x)
+   :replace true)

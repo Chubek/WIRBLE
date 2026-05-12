@@ -1,0 +1,23 @@
+ ; Vector comparison operations
+ vector_extension comparisons {
+   vector_bits: 256
+   
+   operation compare_eq {
+     semantic: "cmp_eq"
+     element_type: "i32"
+     lanes: 8
+     instruction: "vpcmpeqd"
+     result_type: mask
+     latency: 1
+   }
+   
+   operation compare_gt {
+     semantic: "cmp_gt"
+     element_type: "f32"
+     lanes: 8
+     instruction: "vcmpps"
+     immediate: 0x1E
+     result_type: mask
+     latency: 3
+   }
+ }

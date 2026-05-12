@@ -1,0 +1,20 @@
+ ; Instruction definition example
+ machine simple_risc {
+   target: generic
+   
+   instruction add_reg {
+     mnemonic: "add"
+     operands: [$dst:gpr, $src1:gpr, $src2:gpr]
+     encoding: "0x01 /r"
+     cost: 1
+     latency: 1
+   }
+   
+   instruction sub_reg {
+     mnemonic: "sub"
+     operands: [$dst:gpr, $src1:gpr, $src2:gpr]
+     encoding: "0x02 /r"
+     cost: 1
+     latency: 1
+   }
+ }

@@ -1,0 +1,22 @@
+ ; Shuffle and permute operations
+ vector_extension shuffle_ops {
+   vector_bits: 256
+   
+   operation shuffle {
+     semantic: "shuffle"
+     element_type: "i32"
+     lanes: 8
+     instruction: "vpshufd"
+     immediate_mask: true
+     latency: 1
+   }
+   
+   operation permute {
+     semantic: "permute"
+     element_type: "f32"
+     lanes: 8
+     instruction: "vpermps"
+     variable_indices: true
+     latency: 3
+   }
+ }

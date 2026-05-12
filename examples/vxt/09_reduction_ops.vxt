@@ -1,0 +1,21 @@
+ ; Reduction operations (horizontal ops)
+ vector_extension reductions {
+   vector_bits: 128
+   
+   operation horizontal_add {
+     semantic: "hadd"
+     element_type: "f32"
+     lanes: 4
+     instruction: "haddps"
+     reduction: true
+     latency: 5
+   }
+   
+   operation reduce_sum {
+     semantic: "reduce_add"
+     element_type: "i32"
+     lanes: 4
+     output_lanes: 1
+     multi_step: true
+   }
+ }

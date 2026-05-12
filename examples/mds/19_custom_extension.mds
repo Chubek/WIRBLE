@@ -1,0 +1,25 @@
+ ; Custom ISA extension
+ machine custom_crypto {
+   target: generic
+   extension: crypto_v1
+   
+   instruction aes_encrypt {
+     mnemonic: "aesenc"
+     operands: [$dst:vector, $key:vector]
+     tied: [$dst = $dst]
+     encoding: "0x66 0x0F 0x38 0xDC /r"
+     cost: 7
+     latency: 7
+     requires: [aes]
+   }
+   
+   instruction sha256_round {
+     mnemonic: "sha256rnds2"
+     operands: [$dst:vector, $src:vector]
+     implicit: [xmm0]
+     encoding: "0x0F 0x38 0xCB /r"
+     cost: 4
+     latency: 4
+     requires: [sha]
+   }
+ }

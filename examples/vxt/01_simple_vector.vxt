@@ -1,0 +1,12 @@
+ ; Simple vector addition
+ vector_extension sse2 {
+   vector_bits: 128
+   
+   operation vector_add {
+     semantic: "add"
+     element_type: "f32"
+     lanes: 4
+     instruction: "addps"
+     latency: 3
+   }
+ }

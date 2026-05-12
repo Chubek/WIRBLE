@@ -1,0 +1,12 @@
+ ; Load/store forwarding rules
+ (rule
+   :name "forward-store-to-load"
+   :match (load (store ?addr ?val))
+   :replace ?val
+   :condition (same-address ?addr ?addr))
+ 
+ (rule
+   :name "eliminate-dead-store"
+   :match (store ?addr (load ?addr))
+   :replace (nop)
+   :condition (same-address ?addr ?addr))

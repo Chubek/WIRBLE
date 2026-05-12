@@ -1,0 +1,15 @@
+ ; Function call example
+ .function helper
+   move r0, arg0
+   load_imm r1, 2
+   mul r2, r0, r1
+   return r2
+ .end
+ 
+ .function main
+   load_imm r0, 5
+   call r1, helper, r0
+   load_imm r2, 10
+   add r3, r1, r2
+   return r3
+ .end

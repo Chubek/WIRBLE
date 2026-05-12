@@ -1,0 +1,12 @@
+ ; Peephole optimization pattern
+ peephole @eliminate_redundant_load {
+   match:
+     store i32 %val, ptr %addr
+     %loaded = load i32, ptr %addr
+   
+   replace:
+     store i32 %val, ptr %addr
+     copy %loaded = %val
+   
+   cost_delta: -2
+ }

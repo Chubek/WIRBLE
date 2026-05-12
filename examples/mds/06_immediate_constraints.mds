@@ -1,0 +1,16 @@
+ ; Immediate operand constraints
+ machine risc_imm {
+   target: generic
+   
+   instruction addi {
+     mnemonic: "addi"
+     operands: [$dst:gpr, $src:gpr, $imm:imm12]
+     immediate_constraint: {
+       min: -2048
+       max: 2047
+       signed: true
+     }
+     encoding: "0x13 /r imm12"
+     cost: 1
+   }
+ }

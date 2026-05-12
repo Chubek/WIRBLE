@@ -1,0 +1,22 @@
+ ; Extract and insert element operations
+ vector_extension element_ops {
+   vector_bits: 128
+   
+   operation extract_element {
+     semantic: "extract"
+     element_type: "i32"
+     lanes: 4
+     instruction: "vpextrd"
+     immediate_index: true
+     latency: 1
+   }
+   
+   operation insert_element {
+     semantic: "insert"
+     element_type: "f32"
+     lanes: 4
+     instruction: "vinsertps"
+     immediate_index: true
+     latency: 1
+   }
+ }

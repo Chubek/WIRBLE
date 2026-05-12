@@ -1,0 +1,20 @@
+ ; Branch and control flow instructions
+ machine branch_model {
+   target: generic
+   
+   instruction jmp {
+     mnemonic: "jmp"
+     operands: [$target:label]
+     properties: [is_branch, is_unconditional]
+     encoding: "0xE9 rel32"
+     cost: 1
+   }
+   
+   instruction je {
+     mnemonic: "je"
+     operands: [$target:label]
+     properties: [is_branch, is_conditional]
+     encoding: "0x0F 0x84 rel32"
+     cost: 1
+   }
+ }

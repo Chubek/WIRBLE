@@ -1,0 +1,5 @@
+ ; Simple rewrite rule
+ (rule
+   :name "add-zero-right"
+   :match (add ?x 0)
+   :replace ?x)

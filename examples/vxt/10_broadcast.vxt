@@ -1,0 +1,22 @@
+ ; Broadcast operations
+ vector_extension broadcast {
+   vector_bits: 256
+   
+   operation broadcast_scalar {
+     semantic: "broadcast"
+     element_type: "f32"
+     lanes: 8
+     instruction: "vbroadcastss"
+     source: scalar
+     latency: 1
+   }
+   
+   operation broadcast_mem {
+     semantic: "broadcast"
+     element_type: "i32"
+     lanes: 8
+     instruction: "vpbroadcastd"
+     source: memory
+     latency: 3
+   }
+ }

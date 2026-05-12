@@ -1,0 +1,24 @@
+ ; Register aliasing (x86-style)
+ machine x86_aliases {
+   target: x86_64
+   
+   register rax {
+     class: gpr
+     width: 64
+     aliases: [eax, ax, al, ah]
+   }
+   
+   register eax {
+     class: gpr
+     width: 32
+     parent: rax
+     offset: 0
+   }
+   
+   register ax {
+     class: gpr
+     width: 16
+     parent: rax
+     offset: 0
+   }
+ }

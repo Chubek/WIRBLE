@@ -4,11 +4,15 @@ project(WIRBLE VERSION 0.4 LANGUAGES C)
 
 include(GNUInstallDirs)
 
+# Include custom CMake modules
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 option(INSTALL_DOCS "Install generated documentation outputs" OFF)
 option(INSTALL_MANFILES "Install generated Doxygen manpages" OFF)
 option(INSTALL_MANIFEST "Install WIRBLE manifests" OFF)
 option(INSTALL_TOOLCHAIN "Install WIRBLE toolchain binaries" ON)
 option(NO_INSTALL_MACHINES "Disable installing machine descriptions" OFF)
+option(INSTALL_EXAMPLES "Install WIRBLE example files" OFF)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -512,3 +516,18 @@ add_subdirectory(manifests)
 add_subdirectory(machines)
 add_subdirectory(toolchain)
 add_subdirectory(docs)
+
+# Include HandleExamples for example installation
+include(HandleExamples)
+
+# Generate and install pkg-config file
+configure_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/wirble.pc.in
+  ${CMAKE_CURRENT_BINARY_DIR}/wirble.pc
+  @ONLY
+)
+
+install(
+  FILES ${CMAKE_CURRENT_BINARY_DIR}/wirble.pc
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
+)

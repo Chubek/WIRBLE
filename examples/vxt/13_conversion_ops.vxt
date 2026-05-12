@@ -1,0 +1,23 @@
+ ; Type conversion operations
+ vector_extension conversions {
+   vector_bits: 256
+   
+   operation int_to_float {
+     semantic: "cvt_i2f"
+     source_type: "i32"
+     dest_type: "f32"
+     lanes: 8
+     instruction: "vcvtdq2ps"
+     latency: 3
+   }
+   
+   operation float_to_int {
+     semantic: "cvt_f2i"
+     source_type: "f32"
+     dest_type: "i32"
+     lanes: 8
+     instruction: "vcvttps2dq"
+     rounding: truncate
+     latency: 3
+   }
+ }

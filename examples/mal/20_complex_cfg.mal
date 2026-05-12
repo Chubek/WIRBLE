@@ -1,0 +1,23 @@
+ ; Complex control flow graph
+ function @complex_logic(i32 %x, i32 %y, i32 %z) -> i32 {
+ entry:
+   %cmp1 = icmp_sgt i32 %x, %y
+   cbr i1 %cmp1, label %path_a, label %path_b
+ 
+ path_a:
+   %sum_a = add i32 %x, %z
+   %cmp2 = icmp_sgt i32 %sum_a, 100
+   cbr i1 %cmp2, label %merge, label %path_a_alt
+ 
+ path_a_alt:
+   %mul_a = mul i32 %sum_a, 2
+   br label %merge
+ 
+ path_b:
+   %sum_b = add i32 %y, %z
+   br label %merge
+ 
+ merge:
+   %result = phi i32 [%sum_a, %path_a], [%mul_a, %path_a_alt], [%sum_b, %path_b]
+   ret i32 %result
+ }

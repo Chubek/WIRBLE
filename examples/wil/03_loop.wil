@@ -1,0 +1,16 @@
+ ; Loop structure
+ graph @count_loop {
+   n0 = start : control
+   n1 = param 0 : i32 "n"
+   n2 = const_int 0 : i32
+   n3 = const_int 1 : i32
+   n4 = loop : control <- control:n0 control:n9
+   n5 = phi : i32 <- control:n4 data:n2 data:n8
+   n6 = add : i32 <- data:n5 data:n3
+   n7 = lt : i1 <- data:n6 data:n1
+   n8 = select : i32 <- data:n7 data:n6 data:n5
+   n9 = if : control <- control:n4 data:n7
+   n10 = proj_true : control <- control:n9
+   n11 = proj_false : control <- control:n9
+   n12 = return : control <- control:n11 data:n8
+ }

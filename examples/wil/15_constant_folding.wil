@@ -1,0 +1,14 @@
+ ; Graph with constant folding opportunities
+ graph @const_fold {
+   n0 = start : control
+   n1 = param 0 : i32 "x"
+   n2 = const_int 5 : i32
+   n3 = const_int 10 : i32
+   n4 = add : i32 <- data:n2 data:n3
+   n5 = mul : i32 <- data:n1 data:n4
+   n6 = const_int 0 : i32
+   n7 = add : i32 <- data:n5 data:n6
+   n8 = const_int 1 : i32
+   n9 = mul : i32 <- data:n7 data:n8
+   n10 = return : control <- control:n0 data:n9
+ }

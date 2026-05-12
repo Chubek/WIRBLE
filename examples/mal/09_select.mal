@@ -1,0 +1,9 @@
+ ; Select operation (ternary operator)
+ function @abs(i32 %x) -> i32 {
+ entry:
+   %zero = load_imm i32 0
+   %is_neg = icmp_slt i32 %x, %zero
+   %negated = neg i32 %x
+   %result = select i1 %is_neg, i32 %negated, i32 %x
+   ret i32 %result
+ }

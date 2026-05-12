@@ -1,0 +1,17 @@
+ ; ARM NEON vector extension
+ vector_extension neon {
+   vector_bits: 128
+   gather: false
+   scatter: false
+   
+   register_class vector {
+     registers: [v0, v1, v2, v3, v4, v5, v6, v7]
+     width: 128
+   }
+   
+   operations: [
+     {semantic: "add", element: "i32", lanes: 4, instr: "add.4s"},
+     {semantic: "mul", element: "i32", lanes: 4, instr: "mul.4s"},
+     {semantic: "add", element: "f32", lanes: 4, instr: "fadd.4s"}
+   ]
+ }

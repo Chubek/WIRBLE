@@ -1,0 +1,16 @@
+ ; Phi node simplification
+ (rule
+   :name "phi-single-value"
+   :match (phi ?x ?x)
+   :replace ?x)
+ 
+ (rule
+   :name "phi-all-same"
+   :match (phi ?x ?x ?x)
+   :replace ?x)
+ 
+ (rule
+   :name "phi-with-self"
+   :match (phi ?self ?x)
+   :replace ?x
+   :condition (is-phi ?self))

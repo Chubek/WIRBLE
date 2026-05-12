@@ -1,0 +1,14 @@
+ ; Comparison operations
+ graph @compare {
+   n0 = start : control
+   n1 = param 0 : i32 "a"
+   n2 = param 1 : i32 "b"
+   n3 = eq : i1 <- data:n1 data:n2
+   n4 = ne : i1 <- data:n1 data:n2
+   n5 = lt : i1 <- data:n1 data:n2
+   n6 = le : i1 <- data:n1 data:n2
+   n7 = and : i1 <- data:n3 data:n5
+   n8 = or : i1 <- data:n4 data:n6
+   n9 = xor : i1 <- data:n7 data:n8
+   n10 = return : control <- control:n0 data:n9
+ }

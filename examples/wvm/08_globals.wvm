@@ -1,0 +1,12 @@
+ ; Global variable access
+ .global counter 0
+ .global multiplier 2
+ 
+ .function increment_counter
+   load_global r0, counter
+   load_global r1, multiplier
+   mul r2, r0, r1
+   inc r2
+   store_global counter, r2
+   return r2
+ .end

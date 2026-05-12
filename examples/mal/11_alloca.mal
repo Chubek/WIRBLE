@@ -1,0 +1,10 @@
+ ; Stack allocation example
+ function @stack_array(i32 %size) -> i32 {
+ entry:
+   %arr = alloca i32, i32 %size
+   %zero = load_imm i32 0
+   %first_ptr = alloca i32, i32 1
+   store i32 42, ptr %first_ptr
+   %val = load i32, ptr %first_ptr
+   ret i32 %val
+ }

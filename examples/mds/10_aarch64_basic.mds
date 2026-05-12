@@ -1,0 +1,19 @@
+ ; ARM AArch64 basic machine description
+ machine aarch64_basic {
+   target: aarch64
+   endianness: little
+   pointer_size: 64
+   
+   register_class gpr {
+     registers: [x0, x1, x2, x3, x4, x5, x6, x7, x8, x9, x10]
+     width: 64
+   }
+   
+   instruction add_shifted {
+     mnemonic: "add"
+     operands: [$dst:gpr, $src1:gpr, $src2:gpr, $shift:shift_op]
+     encoding: "0x8B000000"
+     cost: 1
+     latency: 1
+   }
+ }

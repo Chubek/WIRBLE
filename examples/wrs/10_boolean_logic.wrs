@@ -1,0 +1,25 @@
+ ; Boolean logic simplification
+ (rule
+   :name "and-true"
+   :match (and ?x true)
+   :replace ?x)
+ 
+ (rule
+   :name "and-false"
+   :match (and ?x false)
+   :replace false)
+ 
+ (rule
+   :name "or-true"
+   :match (or ?x true)
+   :replace true)
+ 
+ (rule
+   :name "or-false"
+   :match (or ?x false)
+   :replace ?x)
+ 
+ (rule
+   :name "not-not"
+   :match (not (not ?x))
+   :replace ?x)

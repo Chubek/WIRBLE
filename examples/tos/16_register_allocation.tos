@@ -1,0 +1,23 @@
+ ; Register allocation hints for trace
+ trace @with_reg_hints {
+   version: 1
+   
+   block_0:
+     %x = load i32, ptr %x_ptr
+     hint_register %x, rax
+     
+     %y = load i32, ptr %y_ptr
+     hint_register %y, rbx
+     
+     %sum = add i32 %x, %y
+     hint_register %sum, rax  ; Reuse rax
+     
+     store i32 %sum, ptr %result_ptr
+     ret void
+   
+   register_pressure {
+     max_gpr: 8
+     max_vector: 4
+     spill_cost: 10
+   }
+ }

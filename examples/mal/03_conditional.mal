@@ -1,0 +1,12 @@
+ ; Conditional branch example
+ function @max(i32 %a, i32 %b) -> i32 {
+ entry:
+   %cmp = icmp_sgt i32 %a, %b
+   cbr i1 %cmp, label %then, label %else
+ 
+ then:
+   ret i32 %a
+ 
+ else:
+   ret i32 %b
+ }

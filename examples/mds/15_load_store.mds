@@ -1,0 +1,22 @@
+ ; Load/store architecture
+ machine load_store {
+   target: generic
+   
+   instruction load_word {
+     mnemonic: "lw"
+     operands: [$dst:gpr, $offset:imm12, $base:gpr]
+     properties: [is_load, may_trap]
+     encoding: "0x03 /r"
+     cost: 3
+     latency: 3
+   }
+   
+   instruction store_word {
+     mnemonic: "sw"
+     operands: [$src:gpr, $offset:imm12, $base:gpr]
+     properties: [is_store, may_trap]
+     encoding: "0x23 /r"
+     cost: 1
+     latency: 1
+   }
+ }

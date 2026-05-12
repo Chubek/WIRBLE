@@ -1,0 +1,21 @@
+ ; Switch statement example
+ function @classify(i32 %x) -> i32 {
+ entry:
+   switch i32 %x, label %default [
+     i32 0, label %zero
+     i32 1, label %one
+     i32 2, label %two
+   ]
+ 
+ zero:
+   ret i32 100
+ 
+ one:
+   ret i32 200
+ 
+ two:
+   ret i32 300
+ 
+ default:
+   ret i32 -1
+ }

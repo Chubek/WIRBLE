@@ -1,0 +1,31 @@
+ ; Algebraic simplification patterns
+ peephole @double_negation {
+   match:
+     %tmp = neg i32 %x
+     %result = neg i32 %tmp
+   
+   replace:
+     copy %result = %x
+   
+   cost_delta: -2
+ }
+ 
+ peephole @xor_self {
+   match:
+     %result = xor i32 %x, %x
+   
+   replace:
+     %result = load_imm i32 0
+   
+   cost_delta: -1
+ }
+ 
+ peephole @and_all_ones {
+   match:
+     %result = and i32 %x, 0xFFFFFFFF
+   
+   replace:
+     copy %result = %x
+   
+   cost_delta: -1
+ }

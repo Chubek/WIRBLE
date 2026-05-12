@@ -1,0 +1,18 @@
+ ; Predicated execution (ARM-style)
+ machine predicated {
+   target: arm
+   
+   register_class condition {
+     registers: [cpsr]
+     width: 32
+   }
+   
+   instruction add_conditional {
+     mnemonic: "addeq"
+     operands: [$dst:gpr, $src1:gpr, $src2:gpr]
+     predicate: eq
+     condition_register: cpsr
+     encoding: "0x00800000"
+     cost: 1
+   }
+ }

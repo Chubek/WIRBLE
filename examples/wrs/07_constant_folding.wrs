@@ -1,0 +1,15 @@
+ ; Constant folding rules
+ (rule
+   :name "fold-add-constants"
+   :match (add (const ?a) (const ?b))
+   :replace (const (+ ?a ?b)))
+ 
+ (rule
+   :name "fold-mul-constants"
+   :match (mul (const ?a) (const ?b))
+   :replace (const (* ?a ?b)))
+ 
+ (rule
+   :name "fold-sub-constants"
+   :match (sub (const ?a) (const ?b))
+   :replace (const (- ?a ?b)))

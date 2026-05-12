@@ -1,0 +1,13 @@
+ ; Tail call optimization
+ .function sum_tail
+   move r0, arg0
+   move r1, arg1
+   load_imm r2, 0
+   le r3, r0, r2
+   jump_if_true r3, .base
+   dec r0
+   add r1, r1, r0
+   tailcall sum_tail, r0, r1
+ .base:
+   return r1
+ .end

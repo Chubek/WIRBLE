@@ -1,0 +1,10 @@
+ ; Reassociation for constant propagation
+ (rule
+   :name "reassoc-add-const"
+   :match (add (add ?x (const ?a)) (const ?b))
+   :replace (add ?x (const (+ ?a ?b))))
+ 
+ (rule
+   :name "reassoc-mul-const"
+   :match (mul (mul ?x (const ?a)) (const ?b))
+   :replace (mul ?x (const (* ?a ?b))))

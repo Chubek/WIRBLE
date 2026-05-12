@@ -1,0 +1,16 @@
+ ; Table/array operations
+ .function array_sum
+   move r0, arg0
+   new_table r1
+   load_imm r2, 0
+   load_imm r3, 10
+   load_imm r4, 0
+ .loop:
+   set_index r1, r2, r3
+   add r4, r4, r3
+   inc r2
+   load_imm r5, 5
+   lt r6, r2, r5
+   jump_if_true r6, .loop
+   return r4
+ .end

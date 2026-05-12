@@ -1,0 +1,22 @@
+ ; Auto-vectorization in trace
+ trace @vectorized_loop {
+   version: 2
+   vectorization_factor: 4
+   
+   block_loop:
+     ; Original scalar loop vectorized
+     %vec_a = vload vec<4 x i32>, ptr %arr_a[%i]
+     %vec_b = vload vec<4 x i32>, ptr %arr_b[%i]
+     %vec_sum = vadd vec<4 x i32> %vec_a, %vec_b
+     vstore vec<4 x i32> %vec_sum, ptr %arr_c[%i]
+     
+     %next_i = add i32 %i, 4
+     guard_range %next_i, 0, %len, deopt
+     br block_loop
+   
+   vectorization_metadata {
+     original_loop: @scalar_loop
+     alignment: 16
+     trip_count_multiple: 4
+   }
+ }

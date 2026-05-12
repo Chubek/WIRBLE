@@ -1,0 +1,26 @@
+ ; Complex multi-operation extension
+ vector_extension comprehensive {
+   vector_bits: 512
+   gather: true
+   scatter: true
+   masks: true
+   predication: true
+   scalable: false
+   
+   register_classes: [
+     {name: "zmm", count: 32, width: 512},
+     {name: "mask", count: 8, width: 64}
+   ]
+   
+   operations: [
+     {semantic: "add", element: "f32", lanes: 16, instr: "vaddps", latency: 4},
+     {semantic: "mul", element: "f32", lanes: 16, instr: "vmulps", latency: 4},
+     {semantic: "fma", element: "f32", lanes: 16, instr: "vfmadd231ps", latency: 5},
+     {semantic: "gather", element: "i32", lanes: 16, instr: "vpgatherdd", latency: 10}
+   ]
+   
+   cost_model {
+     throughput: 2
+     ports: [0, 1, 5]
+   }
+ }

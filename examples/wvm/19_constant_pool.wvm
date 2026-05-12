@@ -1,0 +1,15 @@
+ ; Using constant pool
+ .const_pool
+   .const 0 42
+   .const 1 3.14159
+   .const 2 "Hello, World!"
+   .const 3 true
+ .end_pool
+ 
+ .function use_constants
+   load_const r0, 0
+   load_const r1, 1
+   load_const r2, 2
+   load_const r3, 3
+   return r0
+ .end

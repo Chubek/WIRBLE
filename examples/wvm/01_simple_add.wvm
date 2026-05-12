@@ -1,0 +1,7 @@
+ ; Simple addition bytecode
+ .function add_two
+   load_imm r0, 10
+   load_imm r1, 20
+   add r2, r0, r1
+   return r2
+ .end

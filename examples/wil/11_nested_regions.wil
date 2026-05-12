@@ -1,0 +1,18 @@
+ ; Nested control flow regions
+ graph @nested {
+   n0 = start : control
+   n1 = param 0 : i32 "x"
+   n2 = const_int 0 : i32
+   n3 = gt : i1 <- data:n1 data:n2
+   n4 = if : control <- control:n0 data:n3
+   n5 = proj_true : control <- control:n4
+   n6 = proj_false : control <- control:n4
+   n7 = const_int 10 : i32
+   n8 = lt : i1 <- data:n1 data:n7
+   n9 = if : control <- control:n5 data:n8
+   n10 = proj_true : control <- control:n9
+   n11 = proj_false : control <- control:n9
+   n12 = region : control <- control:n10 control:n11 control:n6
+   n13 = phi : i32 <- control:n12 data:n1 data:n2 data:n7
+   n14 = return : control <- control:n12 data:n13
+ }

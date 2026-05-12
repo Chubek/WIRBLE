@@ -1,0 +1,6 @@
+ ; Memory copy operation
+ function @copy_buffer(ptr %dest, ptr %src, i32 %size) -> void {
+ entry:
+   memcpy ptr %dest, ptr %src, i32 %size
+   ret void
+ }

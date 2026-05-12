@@ -1,0 +1,12 @@
+ ; Algebraic identities
+ graph @algebraic {
+   n0 = start : control
+   n1 = param 0 : i32 "x"
+   n2 = neg : i32 <- data:n1
+   n3 = neg : i32 <- data:n2
+   n4 = xor : i32 <- data:n1 data:n1
+   n5 = const_int 0xFFFFFFFF : i32
+   n6 = and : i32 <- data:n3 data:n5
+   n7 = add : i32 <- data:n6 data:n4
+   n8 = return : control <- control:n0 data:n7
+ }

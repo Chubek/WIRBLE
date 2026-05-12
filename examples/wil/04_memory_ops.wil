@@ -1,0 +1,11 @@
+ ; Memory load and store
+ graph @memory_example {
+   n0 = start : control
+   n1 = param 0 : ptr "addr"
+   n2 = param 1 : i32 "value"
+   n3 = store : effect <- control:n0 data:n1 data:n2
+   n4 = load : i32 <- effect:n3 data:n1
+   n5 = add : i32 <- data:n4 data:n2
+   n6 = store : effect <- effect:n3 data:n1 data:n5
+   n7 = return : control <- effect:n6 data:n5
+ }

@@ -1,0 +1,16 @@
+ ; Branch elimination through guards
+ peephole @eliminate_dominated_branch {
+   match:
+     guard_range %x, 0, 100, deopt1
+     ; ... some code ...
+     %cmp = icmp_slt i32 %x, 100
+     cbr i1 %cmp, label %then, label %else
+   
+   replace:
+     guard_range %x, 0, 100, deopt1
+     ; ... some code ...
+     br label %then  ; Always true due to guard
+   
+   condition: guard_dominates_branch
+   cost_delta: -1
+ }

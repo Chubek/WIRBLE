@@ -1,0 +1,11 @@
+ ; Common subexpression elimination opportunity
+ graph @cse {
+   n0 = start : control
+   n1 = param 0 : i32 "a"
+   n2 = param 1 : i32 "b"
+   n3 = add : i32 <- data:n1 data:n2
+   n4 = mul : i32 <- data:n3 data:n3
+   n5 = add : i32 <- data:n1 data:n2
+   n6 = sub : i32 <- data:n4 data:n5
+   n7 = return : control <- control:n0 data:n6
+ }

@@ -1,0 +1,16 @@
+ ; Advanced pattern matching with wildcards
+ (rule
+   :name "absorb-add-sub"
+   :match (add ?x (sub ?y ?x))
+   :replace ?y)
+ 
+ (rule
+   :name "cancel-sub-add"
+   :match (sub (add ?x ?y) ?y)
+   :replace ?x)
+ 
+ (rule
+   :name "simplify-mul-div"
+   :match (div (mul ?x ?y) ?y)
+   :replace ?x
+   :condition (not-zero ?y))

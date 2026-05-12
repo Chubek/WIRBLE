@@ -1,0 +1,18 @@
+ ; Class guard for polymorphic inline caching
+ .function polymorphic_call
+   move r0, arg0
+   guard_class r0, @Point, .try_rect
+   load_field r1, r0, "x"
+   load_field r2, r0, "y"
+   add r3, r1, r2
+   return r3
+ .try_rect:
+   guard_class r0, @Rectangle, .fallback
+   load_field r4, r0, "width"
+   load_field r5, r0, "height"
+   mul r6, r4, r5
+   return r6
+ .fallback:
+   load_imm r7, -1
+   return r7
+ .end

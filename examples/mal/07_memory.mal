@@ -1,0 +1,9 @@
+ ; Memory load and store operations
+ function @memory_ops(ptr %addr, i32 %value) -> i32 {
+ entry:
+   store i32 %value, ptr %addr
+   %loaded = load i32, ptr %addr
+   %incremented = add i32 %loaded, 1
+   store i32 %incremented, ptr %addr
+   ret i32 %incremented
+ }

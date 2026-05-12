@@ -1,0 +1,7 @@
+ ; Fused multiply-add operation
+ function @fma_example(f32 %a, f32 %b, f32 %c) -> f32 {
+ entry:
+   ; result = (a * b) + c
+   %result = fma f32 %a, %b, %c
+   ret f32 %result
+ }

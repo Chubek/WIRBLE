@@ -1,0 +1,12 @@
+ ; Type casting operations
+ graph @casting {
+   n0 = start : control
+   n1 = param 0 : i32 "x"
+   n2 = param 1 : f32 "y"
+   n3 = cast i32_to_i64 : i64 <- data:n1
+   n4 = cast f32_to_i32 : i32 <- data:n2
+   n5 = cast i32_to_f32 : f32 <- data:n4
+   n6 = bitcast : i32 <- data:n2
+   n7 = add : i64 <- data:n3 data:n3
+   n8 = return : control <- control:n0 data:n7
+ }

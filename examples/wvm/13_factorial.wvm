@@ -1,0 +1,14 @@
+ ; Factorial calculation
+ .function factorial
+   move r0, arg0
+   load_imm r1, 1
+   le r2, r0, r1
+   jump_if_true r2, .base
+   dec r0
+   call r3, factorial, r0
+   inc r0
+   mul r4, r0, r3
+   return r4
+ .base:
+   return r1
+ .end

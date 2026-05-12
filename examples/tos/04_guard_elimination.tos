@@ -1,0 +1,19 @@
+ ; Guard elimination through profiling
+ trace @guarded_access {
+   version: 1
+   
+   block_0:
+     %obj = load ptr, ptr %obj_ptr
+     guard_not_nil %obj, deopt_1
+     %type = load i32, ptr %obj.type
+     guard_class %type, @ExpectedClass, deopt_2
+     %field = load i32, ptr %obj.field
+     ret i32 %field
+   
+   ; After profiling shows guards always pass:
+   optimized_version: 2
+   block_0_opt:
+     %obj = load ptr, ptr %obj_ptr
+     %field = load i32, ptr %obj.field
+     ret i32 %field
+ }

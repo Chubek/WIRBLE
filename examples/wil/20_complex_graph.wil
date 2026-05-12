@@ -1,0 +1,20 @@
+ ; Complex graph with multiple optimization opportunities
+ graph @complex {
+   n0 = start : control
+   n1 = param 0 : i32 "x"
+   n2 = param 1 : i32 "y"
+   n3 = param 2 : i32 "z"
+   n4 = add : i32 <- data:n1 data:n2
+   n5 = mul : i32 <- data:n4 data:n3
+   n6 = const_int 0 : i32
+   n7 = gt : i1 <- data:n5 data:n6
+   n8 = if : control <- control:n0 data:n7
+   n9 = proj_true : control <- control:n8
+   n10 = proj_false : control <- control:n8
+   n11 = add : i32 <- data:n1 data:n2
+   n12 = sub : i32 <- data:n5 data:n11
+   n13 = neg : i32 <- data:n5
+   n14 = region : control <- control:n9 control:n10
+   n15 = phi : i32 <- control:n14 data:n12 data:n13
+   n16 = return : control <- control:n14 data:n15
+ }

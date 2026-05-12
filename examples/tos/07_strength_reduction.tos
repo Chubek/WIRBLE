@@ -1,0 +1,22 @@
+ ; Strength reduction peephole
+ peephole @mul_to_shift {
+   match:
+     %result = mul i32 %x, 8
+   
+   replace:
+     %result = shl i32 %x, 3
+   
+   condition: is_power_of_two(8)
+   cost_delta: -2
+ }
+ 
+ peephole @div_to_shift {
+   match:
+     %result = udiv i32 %x, 16
+   
+   replace:
+     %result = lshr i32 %x, 4
+   
+   condition: is_power_of_two(16)
+   cost_delta: -10
+ }

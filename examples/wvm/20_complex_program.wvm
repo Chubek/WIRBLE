@@ -1,0 +1,38 @@
+ ; Complex program with multiple features
+ .global result 0
+ 
+ .function main
+   load_imm r0, 10
+   call r1, compute, r0
+   store_global result, r1
+   return r1
+ .end
+ 
+ .function compute
+   move r0, arg0
+   guard_type r0, int, .error
+   load_imm r1, 0
+   gt r2, r0, r1
+   jump_if_false r2, .error
+   call r3, factorial, r0
+   load_imm r4, 2
+   div r5, r3, r4
+   return r5
+ .error:
+   load_imm r6, -1
+   return r6
+ .end
+ 
+ .function factorial
+   move r0, arg0
+   load_imm r1, 1
+   le r2, r0, r1
+   jump_if_true r2, .base
+   dec r0
+   call r3, factorial, r0
+   inc r0
+   mul r4, r0, r3
+   return r4
+ .base:
+   return r1
+ .end

@@ -1,0 +1,17 @@
+ ; Tail call optimization example
+ function @factorial_helper(i32 %n, i32 %acc) -> i32 {
+ entry:
+   %zero = load_imm i32 0
+   %cmp = icmp_sle i32 %n, %zero
+   cbr i1 %cmp, label %base, label %recurse
+ 
+ base:
+   ret i32 %acc
+ 
+ recurse:
+   %one = load_imm i32 1
+   %n_minus_1 = sub i32 %n, %one
+   %new_acc = mul i32 %n, %acc
+   %result = tailcall i32 @factorial_helper(i32 %n_minus_1, i32 %new_acc)
+   ret i32 %result
+ }

@@ -1,0 +1,13 @@
+ ; Function call example
+ function @helper(i32 %x) -> i32 {
+ entry:
+   %doubled = mul i32 %x, 2
+   ret i32 %doubled
+ }
+ 
+ function @caller(i32 %n) -> i32 {
+ entry:
+   %result = call i32 @helper(i32 %n)
+   %final = add i32 %result, 10
+   ret i32 %final
+ }

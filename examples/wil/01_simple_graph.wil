@@ -1,0 +1,8 @@
+ ; Simple sea-of-nodes graph
+ graph @add_function {
+   n0 = start : control
+   n1 = param 0 : i32 "x"
+   n2 = param 1 : i32 "y"
+   n3 = add : i32 <- data:n1 data:n2
+   n4 = return : control <- control:n0 data:n3
+ }

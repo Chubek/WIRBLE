@@ -1,0 +1,18 @@
+ ; Memory addressing modes
+ machine x86_memory {
+   target: x86_64
+   
+   instruction mov_mem {
+     mnemonic: "mov"
+     operands: [$dst:gpr, $src:mem]
+     addressing_mode: {
+       base: true
+       index: true
+       displacement: true
+       scale: [1, 2, 4, 8]
+     }
+     encoding: "0x8B /r"
+     cost: 2
+     latency: 3
+   }
+ }

@@ -1,0 +1,23 @@
+ ; Atomic memory operations
+ machine atomic_machine {
+   target: generic
+   
+   instruction atomic_add {
+     mnemonic: "lock add"
+     operands: [$mem:mem, $src:gpr]
+     properties: [is_atomic, is_barrier]
+     encoding: "0xF0 0x01 /r"
+     cost: 20
+     latency: 20
+   }
+   
+   instruction cmpxchg {
+     mnemonic: "lock cmpxchg"
+     operands: [$mem:mem, $src:gpr]
+     implicit: [rax]
+     properties: [is_atomic, is_barrier]
+     encoding: "0xF0 0x0F 0xB1 /r"
+     cost: 25
+     latency: 25
+   }
+ }

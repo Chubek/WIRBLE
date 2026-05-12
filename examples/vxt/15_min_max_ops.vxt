@@ -1,0 +1,20 @@
+ ; Min/max operations
+ vector_extension minmax {
+   vector_bits: 256
+   
+   operation vector_min {
+     semantic: "min"
+     element_type: "f32"
+     lanes: 8
+     instruction: "vminps"
+     latency: 3
+   }
+   
+   operation vector_max {
+     semantic: "max"
+     element_type: "i32"
+     lanes: 8
+     instruction: "vpmaxsd"
+     latency: 1
+   }
+ }

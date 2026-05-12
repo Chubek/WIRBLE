@@ -1,0 +1,15 @@
+ ; Branch simplification rules
+ (rule
+   :name "branch-on-constant-true"
+   :match (if true ?then ?else)
+   :replace ?then)
+ 
+ (rule
+   :name "branch-on-constant-false"
+   :match (if false ?then ?else)
+   :replace ?else)
+ 
+ (rule
+   :name "branch-same-targets"
+   :match (if ?cond ?target ?target)
+   :replace ?target)

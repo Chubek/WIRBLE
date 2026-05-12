@@ -1,0 +1,22 @@
+ ; Instructions with multiple outputs
+ machine multi_output {
+   target: generic
+   
+   instruction div_with_remainder {
+     mnemonic: "divrem"
+     operands: [$quot:gpr, $rem:gpr, $dividend:gpr, $divisor:gpr]
+     outputs: [$quot, $rem]
+     encoding: "0x1B /r"
+     cost: 20
+     latency: 20
+   }
+   
+   instruction mul_high_low {
+     mnemonic: "mulhl"
+     operands: [$hi:gpr, $lo:gpr, $src1:gpr, $src2:gpr]
+     outputs: [$hi, $lo]
+     encoding: "0xF7 /4"
+     cost: 3
+     latency: 3
+   }
+ }

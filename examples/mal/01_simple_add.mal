@@ -1,0 +1,6 @@
+ ; Simple addition of two integers
+ function @add_two_numbers(i32 %a, i32 %b) -> i32 {
+ entry:
+   %result = add i32 %a, %b
+   ret i32 %result
+ }

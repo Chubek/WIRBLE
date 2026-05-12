@@ -1,0 +1,23 @@
+ ; Pack and unpack operations
+ vector_extension pack_unpack {
+   vector_bits: 128
+   
+   operation pack_saturate {
+     semantic: "pack"
+     source_type: "i32"
+     dest_type: "i16"
+     source_lanes: 4
+     dest_lanes: 8
+     instruction: "vpackssdw"
+     saturate: true
+     latency: 1
+   }
+   
+   operation unpack_low {
+     semantic: "unpack_low"
+     element_type: "i32"
+     lanes: 4
+     instruction: "vpunpckldq"
+     latency: 1
+   }
+ }

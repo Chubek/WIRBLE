@@ -1,0 +1,18 @@
+ ; Simple machine description
+ machine x86_64_basic {
+   target: x86_64
+   endianness: little
+   pointer_size: 64
+   
+   register rax {
+     class: gpr
+     width: 64
+     allocatable: true
+   }
+   
+   register rbx {
+     class: gpr
+     width: 64
+     allocatable: true
+   }
+ }

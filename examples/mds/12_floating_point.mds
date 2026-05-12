@@ -1,0 +1,27 @@
+ ; Floating-point unit description
+ machine fp_unit {
+   target: generic
+   
+   register_class fp {
+     registers: [f0, f1, f2, f3, f4, f5, f6, f7]
+     width: 64
+   }
+   
+   instruction fadd_d {
+     mnemonic: "fadd.d"
+     operands: [$dst:fp, $src1:fp, $src2:fp]
+     encoding: "0x53"
+     cost: 4
+     latency: 5
+     throughput: 2
+   }
+   
+   instruction fmul_d {
+     mnemonic: "fmul.d"
+     operands: [$dst:fp, $src1:fp, $src2:fp]
+     encoding: "0x53"
+     cost: 5
+     latency: 7
+     throughput: 2
+   }
+ }

@@ -1,0 +1,15 @@
+ ; Select/ternary operator simplification
+ (rule
+   :name "select-true"
+   :match (select true ?then ?else)
+   :replace ?then)
+ 
+ (rule
+   :name "select-false"
+   :match (select false ?then ?else)
+   :replace ?else)
+ 
+ (rule
+   :name "select-same"
+   :match (select ?cond ?x ?x)
+   :replace ?x)

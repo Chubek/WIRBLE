@@ -1,0 +1,14 @@
+ prefix=@CMAKE_INSTALL_PREFIX@
+ exec_prefix=${prefix}
+ libdir=${exec_prefix}/@CMAKE_INSTALL_LIBDIR@
+ includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
+ 
+ Name: WIRBLE
+ Description: WIRBLE Intermediate Representation and Backend Language Environment
+ Version: @PROJECT_VERSION@
+ URL: https://github.com/wirble/wirble
+ 
+ Requires:
+ Libs: -L${libdir} -lwirble
+ Libs.private: -llmdb -lm
+ Cflags: -I${includedir}

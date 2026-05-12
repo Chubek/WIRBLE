@@ -1,0 +1,12 @@
+ ; Strength reduction opportunities
+ graph @strength_reduce {
+   n0 = start : control
+   n1 = param 0 : i32 "x"
+   n2 = const_int 8 : i32
+   n3 = mul : i32 <- data:n1 data:n2
+   n4 = const_int 16 : i32
+   n5 = div : i32 <- data:n3 data:n4
+   n6 = const_int 2 : i32
+   n7 = mul : i32 <- data:n5 data:n6
+   n8 = return : control <- control:n0 data:n7
+ }

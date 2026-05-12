@@ -1,0 +1,11 @@
+ ; Object field access
+ .function update_object
+   move r0, arg0
+   load_field r1, r0, "x"
+   load_field r2, r0, "y"
+   add r3, r1, r2
+   store_field r0, "sum", r3
+   mul r4, r1, r2
+   store_field r0, "product", r4
+   return r0
+ .end

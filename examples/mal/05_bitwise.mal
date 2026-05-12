@@ -1,0 +1,9 @@
+ ; Bitwise operations
+ function @bitwise_ops(i32 %a, i32 %b) -> i32 {
+ entry:
+   %and_result = and i32 %a, %b
+   %or_result = or i32 %and_result, %b
+   %xor_result = xor i32 %or_result, %a
+   %shift = shl i32 %xor_result, 2
+   ret i32 %shift
+ }

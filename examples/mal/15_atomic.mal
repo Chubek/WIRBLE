@@ -1,0 +1,9 @@
+ ; Atomic operations
+ function @atomic_increment(ptr %counter) -> i32 {
+ entry:
+   %old = atomic_load i32, ptr %counter
+   %one = load_imm i32 1
+   %new = add i32 %old, %one
+   atomic_store i32 %new, ptr %counter
+   ret i32 %new
+ }

@@ -1,0 +1,13 @@
+ ; Conditional control flow
+ graph @max_function {
+   n0 = start : control
+   n1 = param 0 : i32 "a"
+   n2 = param 1 : i32 "b"
+   n3 = gt : i1 <- data:n1 data:n2
+   n4 = if : control <- control:n0 data:n3
+   n5 = proj_true : control <- control:n4
+   n6 = proj_false : control <- control:n4
+   n7 = region : control <- control:n5 control:n6
+   n8 = phi : i32 <- control:n7 data:n1 data:n2
+   n9 = return : control <- control:n7 data:n8
+ }

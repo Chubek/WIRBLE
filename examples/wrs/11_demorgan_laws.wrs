@@ -1,0 +1,10 @@
+ ; De Morgan's laws
+ (rule
+   :name "demorgan-and"
+   :match (not (and ?x ?y))
+   :replace (or (not ?x) (not ?y)))
+ 
+ (rule
+   :name "demorgan-or"
+   :match (not (or ?x ?y))
+   :replace (and (not ?x) (not ?y)))

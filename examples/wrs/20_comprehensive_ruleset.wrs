@@ -1,0 +1,24 @@
+ ; Comprehensive ruleset combining multiple optimizations
+ (ruleset :name "comprehensive-opts"
+   
+   ; Identity rules
+   (rule :name "add-zero" :match (add ?x 0) :replace ?x)
+   (rule :name "mul-one" :match (mul ?x 1) :replace ?x)
+   (rule :name "mul-zero" :match (mul ?x 0) :replace 0)
+   
+   ; Strength reduction
+   (rule :name "mul-2" :match (mul ?x 2) :replace (add ?x ?x))
+   (rule :name "mul-pow2" :match (mul ?x ?c) :replace (shl ?x (log2 ?c))
+         :condition (is-power-of-two ?c))
+   
+   ; Algebraic
+   (rule :name "double-neg" :match (neg (neg ?x)) :replace ?x)
+   (rule :name "sub-self" :match (sub ?x ?x) :replace 0)
+   
+   ; Constant folding
+   (rule :name "fold-add" :match (add (const ?a) (const ?b)) 
+         :replace (const (+ ?a ?b)))
+   
+   ; Reassociation
+   (rule :name "reassoc" :match (add (add ?x (const ?a)) (const ?b))
+         :replace (add ?x (const (+ ?a ?b)))))

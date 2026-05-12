@@ -1,0 +1,16 @@
+ ; Shift operation simplification
+ (rule
+   :name "shift-by-zero"
+   :match (shl ?x 0)
+   :replace ?x)
+ 
+ (rule
+   :name "shift-zero"
+   :match (shl 0 ?amount)
+   :replace 0)
+ 
+ (rule
+   :name "shift-chain"
+   :match (shl (shl ?x ?a) ?b)
+   :replace (shl ?x (add ?a ?b))
+   :condition (can-add-shift-amounts ?a ?b))

@@ -1,0 +1,12 @@
+ ; Range guard for array bounds checking
+ .function safe_array_access
+   move r0, arg0
+   move r1, arg1
+   get_len r2, r0
+   guard_range r1, 0, r2, .out_of_bounds
+   get_index r3, r0, r1
+   return r3
+ .out_of_bounds:
+   load_nil r4
+   return r4
+ .end

@@ -1,0 +1,12 @@
+ ; Strength reduction rules
+ (rule
+   :name "mul-power-of-two"
+   :match (mul ?x ?c)
+   :replace (shl ?x (log2 ?c))
+   :condition (is-power-of-two ?c))
+ 
+ (rule
+   :name "div-power-of-two"
+   :match (div ?x ?c)
+   :replace (shr ?x (log2 ?c))
+   :condition (is-power-of-two ?c))

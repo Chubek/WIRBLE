@@ -1,0 +1,16 @@
+ ; Guard instructions for JIT deoptimization
+ .function guarded_access
+   move r0, arg0
+   guard_not_nil r0, .deopt1
+   load_field r1, r0, "value"
+   guard_type r1, int, .deopt2
+   load_imm r2, 10
+   add r3, r1, r2
+   return r3
+ .deopt1:
+   load_imm r4, -1
+   return r4
+ .deopt2:
+   load_imm r5, -2
+   return r5
+ .end

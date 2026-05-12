@@ -1,0 +1,13 @@
+ ; Simple linear trace
+ trace @hot_loop {
+   version: 1
+   entry: block_0
+   
+   block_0:
+     %0 = load i32, ptr %counter
+     %1 = add i32 %0, 1
+     store i32 %1, ptr %counter
+     %2 = icmp_slt i32 %1, 1000
+     guard_true %2, deopt_exit
+     ret i32 %1
+ }

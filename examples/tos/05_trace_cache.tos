@@ -1,0 +1,13 @@
+ ; Trace cache configuration
+ cache_config {
+   max_traces: 1024
+   max_versions_per_trace: 8
+   eviction_policy: lru
+   
+   trace_selection {
+     min_hotness: 100
+     max_trace_length: 256
+     allow_loops: true
+     allow_calls: false
+   }
+ }

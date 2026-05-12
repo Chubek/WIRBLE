@@ -1,0 +1,15 @@
+ ; Multiple rewrite rules
+ (rule
+   :name "add-zero-left"
+   :match (add 0 ?x)
+   :replace ?x)
+ 
+ (rule
+   :name "mul-one-right"
+   :match (mul ?x 1)
+   :replace ?x)
+ 
+ (rule
+   :name "mul-zero"
+   :match (mul ?x 0)
+   :replace 0)

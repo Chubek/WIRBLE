@@ -1,0 +1,10 @@
+ ; Associativity rules
+ (rule
+   :name "add-assoc-left"
+   :match (add (add ?x ?y) ?z)
+   :replace (add ?x (add ?y ?z)))
+ 
+ (rule
+   :name "add-assoc-right"
+   :match (add ?x (add ?y ?z))
+   :replace (add (add ?x ?y) ?z))

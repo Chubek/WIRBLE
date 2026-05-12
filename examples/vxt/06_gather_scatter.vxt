@@ -1,0 +1,16 @@
+ ; Gather/scatter operations
+ vector_extension avx2_gather {
+   vector_bits: 256
+   gather: true
+   scatter: false
+   
+   operation gather_load {
+     semantic: "gather"
+     element_type: "i32"
+     lanes: 8
+     instruction: "vpgatherdd"
+     addressing: indexed
+     scale: [1, 2, 4, 8]
+     latency: 10
+   }
+ }

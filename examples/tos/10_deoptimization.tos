@@ -1,0 +1,19 @@
+ ; Deoptimization metadata
+ trace @with_deopt {
+   version: 1
+   
+   block_0:
+     %x = load i32, ptr %x_ptr
+     guard_range %x, 0, 100, deopt_out_of_range
+     %y = mul i32 %x, 2
+     ret i32 %y
+   
+   deopt_out_of_range:
+     ; Restore interpreter state
+     restore_frame {
+       pc: @original_bytecode + 12
+       locals: [%x_ptr]
+       stack: []
+     }
+     transfer_to_interpreter
+ }

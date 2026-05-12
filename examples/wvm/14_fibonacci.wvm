@@ -1,0 +1,15 @@
+ ; Fibonacci sequence
+ .function fibonacci
+   move r0, arg0
+   load_imm r1, 2
+   lt r2, r0, r1
+   jump_if_true r2, .base
+   dec r0
+   call r3, fibonacci, r0
+   dec r0
+   call r4, fibonacci, r0
+   add r5, r3, r4
+   return r5
+ .base:
+   return r0
+ .end

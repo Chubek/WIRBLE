@@ -1,0 +1,12 @@
+ ; Commutativity rules
+ (rule
+   :name "add-commute"
+   :match (add ?x ?y)
+   :replace (add ?y ?x)
+   :condition (should-commute ?x ?y))
+ 
+ (rule
+   :name "mul-commute"
+   :match (mul ?x ?y)
+   :replace (mul ?y ?x)
+   :condition (should-commute ?x ?y))

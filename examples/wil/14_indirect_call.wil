@@ -1,0 +1,11 @@
+ ; Indirect function call
+ graph @indirect_call {
+   n0 = start : control
+   n1 = param 0 : ptr "func_ptr"
+   n2 = param 1 : i32 "arg"
+   n3 = const_int 5 : i32
+   n4 = add : i32 <- data:n2 data:n3
+   n5 = call_indirect : i32 <- control:n0 data:n1 data:n4
+   n6 = mul : i32 <- data:n5 data:n3
+   n7 = return : control <- control:n0 data:n6
+ }

@@ -1,0 +1,7 @@
+ ; Vector operations
+ function @vector_add(vec<4 x i32> %a, vec<4 x i32> %b) -> vec<4 x i32> {
+ entry:
+   %sum = vadd vec<4 x i32> %a, %b
+   %doubled = vmul vec<4 x i32> %sum, %sum
+   ret vec<4 x i32> %doubled
+ }

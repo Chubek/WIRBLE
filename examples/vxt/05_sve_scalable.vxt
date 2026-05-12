@@ -1,0 +1,18 @@
+ ; ARM SVE scalable vectors
+ vector_extension sve {
+   vector_bits: scalable
+   scalable: true
+   gather: true
+   scatter: true
+   predication: true
+   
+   predicate_registers: [p0, p1, p2, p3, p4, p5, p6, p7]
+   
+   operation scalable_add {
+     semantic: "add"
+     element_type: "i32"
+     lanes: scalable
+     instruction: "add"
+     predicated: true
+   }
+ }

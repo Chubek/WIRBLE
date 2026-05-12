@@ -1,0 +1,12 @@
+ ; Calling convention specification
+ machine x86_64_sysv {
+   target: x86_64
+   
+   calling_convention sysv_abi {
+     argument_registers: [rdi, rsi, rdx, rcx, r8, r9]
+     return_registers: [rax, rdx]
+     caller_saved: [rax, rcx, rdx, rsi, rdi, r8, r9, r10, r11]
+     callee_saved: [rbx, rbp, r12, r13, r14, r15]
+     stack_alignment: 16
+   }
+ }

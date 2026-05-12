@@ -1,0 +1,22 @@
+ ; Escape analysis for stack allocation
+ trace @stack_allocated {
+   version: 1
+   
+   block_0:
+     ; Object doesn't escape, allocate on stack
+     %obj = alloca @Object, 1
+     store i32 42, ptr %obj.field1
+     store i32 100, ptr %obj.field2
+     
+     %val1 = load i32, ptr %obj.field1
+     %val2 = load i32, ptr %obj.field2
+     %sum = add i32 %val1, %val2
+     
+     ; No need to free, stack allocated
+     ret i32 %sum
+   
+   escape_analysis {
+     %obj: no_escape
+     optimization: stack_allocation
+   }
+ }
