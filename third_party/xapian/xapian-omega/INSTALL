@@ -1,0 +1,174 @@
+Installing xapian-omega
+=======================
+
+Xapian's build system is built using GNU autoconf, automake, and libtool.
+If you've installed other Open Source projects from source, you should
+find yourself in familiar territory.  Building and installing involves
+the following 3 simple steps:
+
+ 1) Run "./configure", possibly with some extra arguments (see below)
+ 2) Run "make" to build
+ 3) Run "make install" to install
+
+Building in a separate directory
+--------------------------------
+
+If you wish to perform your build in a separate directory from the source,
+create and change to the build directory, then run the configure script (in
+the source directory) from the build directory, like so:
+
+  mkdir BUILD
+  cd BUILD
+  ../configure
+  make
+  make install
+
+Prerequisites
+=============
+
+You need the following libraries installed before building Omega:
+
+ * xapian-core: We recommend using matching versions of xapian-core and
+   xapian-omega as we don't test non-matching versions.  If you install
+   xapian-core from a package, make sure you also install the development files
+   which are often packaged separately (e.g. in libxapian-dev or
+   xapian-core-devel).
+ * zlib <https://www.zlib.net/>.  If you install from a package, make sure you
+   install any corresponding -dev or -devel package as well.  (On Debian,
+   Ubuntu, and derived distros the package is `zlib1g-dev`.)
+ * PCRE2 <https://www.pcre.org/>.  If you install from a package, make sure you
+   install any corresponding -dev or -devel package as well.
+ * libmagic (which comes with the file program
+   <https://www.darwinsys.com/file/>).  If you install from a package, make
+   sure you install any corresponding -dev or -devel package as well.  On
+   RPM-based package systems, this is often named `file-devel`.
+ * (optional) libiconv.  There is built in support for converting utf-8,
+   us-ascii, iso-8859-1, iso-8859-15, windows-1252/cp-1252, utf-16/ucs-2,
+   utf-16be/ucs-2be and utf-16le/ucs-2le.
+
+Compilers
+=========
+
+We aim to support compilation with any C++ compiler which supports ISO C++17,
+or a reasonable approximation to it.  If you still need to build Xapian with an
+older compiler then Xapian 1.4.x only requires C++11.
+
+GCC
+---
+
+If you're using GCC, we currently recommend GCC 7.0 or newer (this is the
+oldest version we regularly test with).
+
+The current hard minimum requirement is also GCC 7.0 (due to requiring good
+support for C++17, for example non-static data member initializers aren't
+supported by earlier versions).
+
+If you really still need to use an older version of GCC, Xapian 1.4.x aims
+to support GCC 4.7, while Xapian 1.2.x doesn't require C++11 support and should
+build with older versions - probably as far back as GCC 3.1.
+
+Clang
+-----
+
+Clang 6.0 is known to work.  We haven't identified the exact minimum
+requirement, but it's probably at least Clang 4.0.
+
+MSVC
+----
+
+Xapian-core can be built using MS Visual C++.  Theoretically xapian-omega
+can be too but we haven't tested this.  If you want to get this working, see
+the xapian-core installation instructions for a starting point.
+
+HP's aCC
+--------
+
+This compiler doesn't seem to have been updated to support C++17.  If you
+really still need to use it you'll have to use Xapian 1.4.x.
+
+Sun C++ Compiler
+----------------
+
+This compiler doesn't seem to have been updated to support C++17.  If you
+really still need to use it you'll have to use Xapian 1.4.x.
+
+Command-line options to pass to configure
+=========================================
+
+You can see a full list of the command-line options supported by configure
+using:
+
+./configure --help
+
+First we highlight a few of the more commonly used options, then we show
+the options to use for some particular scenarios.
+
+The following variables can be specified as environment variables, or on the
+configure command line, e.g.:
+
+export CXX=/usr/bin/g++-15
+./configure
+
+or:
+
+./configure CXX=/usr/bin/g++-15
+
+  CXX         C++ compiler command
+  CXXFLAGS    C++ compiler flags
+  LDFLAGS     linker flags, e.g. -L<lib dir> if you have libraries in a
+              nonstandard directory <lib dir>
+  LIBS        libraries to pass to the linker, e.g. -l<library>
+  CPPFLAGS    C/C++ preprocessor flags, e.g. -I<include dir> if you have
+              headers in a nonstandard directory <include dir>
+
+By default, xapian-omega will search `PATH` to find `xapian-config` for
+the xapian-core install to use.  If your xapian-core is installed in a
+prefix which isn't listed in `PATH`, or if you have multiple xapian-core
+versions installed, you can point xapian-binding's `configure` to the
+`xapian-config` to use, for example:
+
+./configure XAPIAN_CONFIG=/opt/bin/xapian-config
+
+Multi-Arch
+----------
+
+When using GCC on platforms which support multiple architectures, the simplest
+way to select a non-default architecture is to set `CXX` to include the
+appropriate `-m` option - e.g. to build for x86 on x86-64 you would configure
+with:
+
+./configure CXX='g++ -m32'
+
+_FORTIFY_SOURCE
+---------------
+
+When compiling with GCC, by default Xapian will be built with _FORTIFY_SOURCE
+set to 2 (except on mingw-w64).  This enables some compile time and runtime
+checking of values passed to library functions when building with glibc >=
+2.34.  If you wish to disable this for any reason, you can just configure like
+so:
+
+./configure CPPFLAGS=-D_FORTIFY_SOURCE=0
+
+Or you can set the "fortification level" to 1 or (with new enough glibc and
+GCC) 3 instead of 2:
+
+./configure CPPFLAGS=-D_FORTIFY_SOURCE=1
+
+./configure CPPFLAGS=-D_FORTIFY_SOURCE=3
+
+If you're disabling _FORTIFY_SOURCE because it causes problems, please also
+report this to us (via the bug tracker or mailing lists).
+
+On mingw-w64 Xapian doesn't automatically enable _FORTIFY_SOURCE as an extra
+library is needed.  You can enable it by hand and specify this library like
+so:
+
+./configure CPPFLAGS=-D_FORTIFY_SOURCE=2 LIBS=-lssp
+
+Developers
+==========
+
+There are additional scripts and configure options to help people doing
+development work on Xapian itself, and people who are building from git.
+Read HACKING to find out about them.

@@ -1,0 +1,19 @@
+Welcome to the Xapian repository!
+=================================
+
+Xapian is split into several modules, which are held in sub-directories of
+the directory containing this file.  The core code and documentation is in
+the xapian-core module.
+
+If you're new to hacking on Xapian, you should probably start by reading the
+Xapian developer guide:
+
+* Online: https://xapian-developer-guide.readthedocs.io/
+* Source on github: https://github.com/xapian/xapian-developer-guide
+
+If you're new to Xapian entirely, you should probably read our user
+guide, and then look for further information on our website at
+https://xapian.org/
+
+* User guide online: https://getting-started-with-xapian.readthedocs.io/
+* Source on github: https://github.com/xapian/xapian-docsprint

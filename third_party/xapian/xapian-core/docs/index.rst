@@ -1,0 +1,65 @@
+.. raw:: html
+
+    <div align="center">
+
+`website <https://xapian.org/>`_ \| `install <install.html>`_ \|
+`overview <overview.html>`_ \|
+`API <apidoc/html/annotated.html>`_ \|
+`IR <intro_ir.html>`_ \| `wiki <https://trac.xapian.org/wiki>`_
+
+.. raw:: html
+
+    </div>
+    <hr>
+
+Xapian - the open source search engine
+======================================
+
+Getting Started
+---------------
+
+`Getting Started with Xapian <https://getting-started-with-xapian.readthedocs.io/>`_
+is the recommended place to start, and contains updated versions of many of the
+documentation pages which used to be here.
+
+Documentation
+-------------
+
+The Omega search application has its `own documentation
+<https://xapian.org/docs/omega/>`_, and there's also separate
+documentation for the `other language bindings
+<https://xapian.org/docs/bindings/>`_.
+
+We suggest you start by reading the `Installation
+Guide <install.html>`_, which covers downloading the code, and
+unpacking, configuring, building and installing it.
+
+The `Overview <overview.html>`_ explains the API which Xapian provides
+to programmers.  A full `API Reference <apidoc/html/index.html>`_ is
+automatically collated using doxygen from documentation comments in
+the source code.
+
+The `deprecated features section of the "Getting Started" guide
+<https://getting-started-with-xapian.readthedocs.io/en/latest/deprecation/>`_
+lists features scheduled for removal and already removed, along with
+suggestions for replacements.
+
+If you want to learn more about information retrieval, there's a (reasonably
+mathematical) `introduction to the ideas behind Xapian <intro_ir.html>`_ which
+also suggests some books you might want to read.
+
+There are a number of documents which cover particular features:
+
+-  `BM25 Weighting Scheme <bm25.html>`_
+-  `Indexing <termgenerator.html>`_
+-  `Query Parser <queryparser.html>`_
+-  `Remote Backend <remote.html>`_
+-  `Stemming Algorithms <stemming.html>`_
+-  `Value Ranges <valueranges.html>`_
+
+The `Xapian Developer Guide <https://xapian-developer-guide.readthedocs.org/>`_
+contains information for those wishing to do development work on the Xapian
+library itself.
+
+We also have a `wiki <https://trac.xapian.org/wiki>`_ for documentation
+and examples contributed by the Xapian community.

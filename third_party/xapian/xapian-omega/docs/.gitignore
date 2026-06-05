@@ -1,0 +1,13 @@
+/.*.sw?
+/Makefile
+/Makefile.in
+/cgiparams.html
+/encodings.html
+/index.html
+/newformat.html
+/omegascript.html
+/overview.html
+/quickstart.html
+/scriptindex.html
+/termprefixes.html
+/inc/

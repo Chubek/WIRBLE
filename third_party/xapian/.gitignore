@@ -1,0 +1,9 @@
+*.o
+
+# .ccache is here as github actions creates it
+/.ccache
+/configure
+/Makefile
+/config.cache
+/BUILD
+/INST

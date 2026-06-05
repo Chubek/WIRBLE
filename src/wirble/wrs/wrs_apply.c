@@ -218,6 +218,11 @@ wilRewriteSystemNormalize (WILRewriteSystem *sys, WILNode *node,
   WILNode *replacement;
 
   current = node;
+  replacement = wrs_normalize_with_egraph (sys, node, maxIterations);
+  if (replacement != NULL)
+    {
+      current = replacement;
+    }
   for (iteration = 0u; iteration < maxIterations; ++iteration)
     {
       replacement = wrs_apply_recursive (sys, current);

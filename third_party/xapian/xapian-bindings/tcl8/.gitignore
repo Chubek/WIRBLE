@@ -1,0 +1,16 @@
+/.*.sw?
+/*.lo
+/Makefile.in
+/Makefile
+/.deps
+/.libs
+/docs/conf.py
+/docs/index.html
+/xapian_wrap.cc
+/xapian_wrap.d
+/xapian.la
+/pkgIndex.tcl
+/except.i
+/smoketest.tcl.log
+/smoketest.tcl.trs
+/test-suite.log

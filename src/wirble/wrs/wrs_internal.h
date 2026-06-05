@@ -100,5 +100,7 @@ WRSSExpr *wrs_sexpr_from_tree (WILContext *ctx, const WirbleSexpNode *node);
 void wrs_sexpr_destroy_internal (WRSSExpr *expr);
 char *wrs_sexpr_to_string_internal (WILContext *ctx, const WRSSExpr *expr);
 int wrs_nodes_equivalent (WILNode *a, WILNode *b);
+WILNode *wrs_normalize_with_egraph (WILRewriteSystem *sys, WILNode *node,
+                                    uint32_t maxIterations);
 
 #endif /* WIRBLE_WRS_INTERNAL_H */
